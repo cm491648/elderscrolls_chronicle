@@ -1,0 +1,59 @@
+/* Leather binding and paper pages (decisions/es-feel-spec-2), light only. Values documented in docs/design/style-guide.md. */
+:root {
+  color-scheme: light;
+
+  /* paper and leather (decisions/es-feel-spec-2): Codex-drawn textures, never gradients */
+  --page: #e2dccd;
+  --paper: #f4efe2;
+  --leather: #4a2a22;
+  --on-leather: #efe2c4;
+  --on-leather-soft: #d8c39a;
+  --gilt-on-leather: #d2aa58;
+  --tex-vellum: url('../assets/textures/vellum.webp');
+  --tex-leather: url('../assets/textures/leather.webp');
+
+  --bg: var(--page);
+  --surface: var(--paper);
+  --surface-2: #ece4d1;
+  --ink: #1e1c2c;
+  --ink-soft: #575468;
+  --line: #d3c8ad;
+  --on-accent: #f8f6ef;
+
+  /* lapis, vermilion, gilt */
+  --accent: #24508f;
+  --accent-2: #a1281e;
+  --gilt: #ad8730;
+  --wash: rgb(36 80 143 / 0.12);
+  --gilt-faint: rgb(173 135 48 / 0.45);
+
+  /* timeline band */
+  --band: var(--paper);
+
+  /* map (regions stay translucent-ready for a raster map underneath) */
+  --map-sea: #d5d8d3;
+  --map-land: #eeebe1;
+  --region-fill: var(--map-land);
+  --region-fill-hover: color-mix(in srgb, var(--map-land), var(--accent) 8%);
+  --region-fill-active: color-mix(in srgb, var(--map-land), var(--accent) 16%);
+  --region-stroke: var(--ink-soft);
+  /* raster maps (R8): how they are toned in dark mode (the plate around each takes the image's own edge colour) */
+  --map-raster-filter: none;
+  /* drawn Tamriel (SVG, map source 'drawn'): coastal band and inland water */
+  --map-shallow: #bcc8c6;
+  --map-water: #8fa8b6;
+  /* story illustrations: dimmed slightly in dark mode, like the raster map */
+  --plate-filter: none;
+
+  --shadow-c: rgb(30 28 44 / 0.14);
+  --shadow: 0 2px 10px var(--shadow-c);
+  --shadow-pop: 0 12px 28px var(--shadow-c);
+
+  /* type */
+  --font-title: 'Alegreya', 'Noto Serif TC', serif;
+  --font-body: 'Alegreya Sans', 'Noto Sans TC', sans-serif;
+
+  /* layout */
+  --radius: 2px;
+  --measure: 35em;
+}

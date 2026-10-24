@@ -1,0 +1,38 @@
+---
+// Shared by both languages, so the English half is the page's language and the Chinese half carries its own tag.
+import '../styles/tokens.css';
+import '../styles/global.css';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" />
+    <title>Not found | Elder Scrolls Chronicle</title>
+    <style>
+      .not-found {
+        max-width: 34em;
+        margin: 18vh auto 0;
+        padding: 28px 32px 30px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-top: 3px double var(--gilt);
+        box-shadow: var(--shadow);
+      }
+      .not-found h1 { margin: 0 0 0.6em; font-size: 26px; color: var(--accent); }
+      .not-found p { margin: 0.4em 0; }
+      @media (max-width: 899px) { .not-found { margin: 10vh 12px 0; padding: 22px 20px 24px; } }
+    </style>
+  </head>
+  <body>
+    <main class="not-found">
+      <h1>Page not found <span lang="zh-Hant-TW">／找不到頁面</span></h1>
+      <p><a href={`${base}/en/`}>Back to the timeline</a></p>
+      <p lang="zh-Hant-TW"><a href={`${base}/zh-tw/`}>回到時間軸</a></p>
+    </main>
+  </body>
+</html>

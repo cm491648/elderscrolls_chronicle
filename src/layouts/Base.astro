@@ -1,0 +1,70 @@
+---
+import fontsEnHref from '../styles/fonts-en.css?url';
+import fontsZhHref from '../styles/fonts-zh.css?url';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import type { Lang } from '../lib/types';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  /** The share preview's picture, a path inside the site (e.g. /illustrations/x-960.webp). */
+  image?: string;
+}
+
+/** The picture a page without its own one shares (decisions/launch-2). */
+const DEFAULT_IMAGE = '/illustrations/creation-of-mundus-960.webp';
+const { lang, title, description, image = DEFAULT_IMAGE } = Astro.props;
+const htmlLang = lang === 'zh-tw' ? 'zh-Hant-TW' : 'en';
+// The same page in each language (every page exists in both), for hreflang alternates; x-default is the root, which
+// sends the reader to their browser's language.
+const path = Astro.url.pathname;
+const inLang = (l: Lang) => path.replace(/\/(zh-tw|en)\//, `/${l}/`);
+const root = import.meta.env.BASE_URL;
+const inSite = (p: string) => root.replace(/\/$/, '') + p;
+// Absolute where the site's address is known (the deploy build sets CHRONICLE_SITE); paths otherwise.
+const absolute = (p: string) => (Astro.site ? new URL(p, Astro.site).href : p);
+const canonical = Astro.site ? new URL(path, Astro.site).href : null;
+// English pages never load the Chinese fonts.
+const fontsHref = lang === 'zh-tw' ? fontsZhHref : fontsEnHref;
+---
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" href={inSite('/favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={inSite('/apple-touch-icon.png')} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={lang === 'zh-tw' ? '上古卷軸編年史' : 'Elder Scrolls Chronicle'} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:image" content={absolute(inSite(image))} />
+    <meta property="og:locale" content={lang === 'zh-tw' ? 'zh_TW' : 'en_US'} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" hreflang="zh-Hant-TW" href={inLang('zh-tw')} />
+    <link rel="alternate" hreflang="en" href={inLang('en')} />
+    <link rel="alternate" hreflang="x-default" href={root} />
+    {/*
+      Fonts (fonts-zh.css / fonts-en.css) never block the first paint, and their slices are only requested once the page has loaded,
+      so the dozens of small font files never queue ahead of the scripts, styles and map image the page needs first.
+      Until then, and without JavaScript, text shows in the fallback fonts (font-display: swap).
+    */}
+    <link id="site-fonts" rel="stylesheet" href={fontsHref} media="print" />
+    <script is:inline>
+      addEventListener('load', function () {
+        document.getElementById('site-fonts').media = 'all';
+      });
+    </script>
+    <noscript><link rel="stylesheet" href={fontsHref} /></noscript>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

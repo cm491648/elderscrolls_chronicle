@@ -1,0 +1,10 @@
+{
+ "vellum": {
+  "mean": "#f1e4c9",
+  "dark": "#ebdbbb"
+ },
+ "leather": {
+  "mean": "#461e17",
+  "light": "#612e24"
+ }
+}

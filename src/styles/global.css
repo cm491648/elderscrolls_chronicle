@@ -1,0 +1,336 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+/* The map folding away above the story must not make the browser shift the scroll position to compensate. */
+html { overflow-anchor: none; scroll-padding-top: calc(var(--sticky-h, 0px) + 12px); }
+/* The page: darker paper (the vellum laid over --page). */
+body {
+  background: var(--page) var(--tex-vellum) 0 0 / 512px;
+  background-blend-mode: multiply;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+html[lang='zh-Hant-TW'] body { font-size: 16px; line-height: 1.85; }
+h1, h2, h3 { font-family: var(--font-title); font-weight: 700; line-height: 1.3; margin: 0 0 0.4em; text-wrap: balance; }
+a { color: var(--accent); text-underline-offset: 3px; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+kbd {
+  font-family: var(--font-body);
+  font-size: 11px;
+  padding: 0 5px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/*
+ * Ornaments (decisions/es-feel-spec-2), drawn in CSS so they follow the palette: a gilt rule that tapers to both ends
+ * with a lozenge in the middle, gilt corners on two opposite corners of a panel, and buttons framed twice (a gilt rule
+ * with a fainter one inside).
+ */
+/* Zero specificity for the position: an element that is already positioned (absolute, fixed) keeps its own. */
+:where(.orule-top, .orule-bottom) { position: relative; }
+.orule-top, .orule-bottom { --orule-c: var(--gilt); --orule-ground: var(--paper); }
+.on-leather { --orule-c: var(--gilt-on-leather); --orule-ground: var(--leather); }
+.orule-top::before, .orule-bottom::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--orule-c);
+  clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
+  pointer-events: none;
+}
+.orule-top::after, .orule-bottom::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  background: var(--orule-c);
+  box-shadow: 0 0 0 2px var(--orule-ground), 0 0 0 3px var(--orule-c);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+.orule-top::before { top: -1.5px; }
+.orule-top::after { top: -4px; }
+.orule-bottom::before { bottom: -1.5px; }
+.orule-bottom::after { bottom: -4px; }
+
+/* Gilt corners, top left and bottom right only (decisions/es-feel-spec). */
+:where(.corners) { position: relative; }
+.corners::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  z-index: 1;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cg fill='none' stroke='%23ad8730'%3E%3Cpath d='M1 21V7Q1 1 7 1H21' stroke-width='1.2'/%3E%3Cpath d='M4 21V9Q4 4 9 4H21' stroke-width='.7'/%3E%3C/g%3E%3Crect x='5.5' y='5.5' width='4' height='4' transform='rotate(45 7.5 7.5)' fill='%23ad8730'/%3E%3C/svg%3E") top left / 18px no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cg transform='rotate(180 11 11)'%3E%3Cg fill='none' stroke='%23ad8730'%3E%3Cpath d='M1 21V7Q1 1 7 1H21' stroke-width='1.2'/%3E%3Cpath d='M4 21V9Q4 4 9 4H21' stroke-width='.7'/%3E%3C/g%3E%3Crect x='5.5' y='5.5' width='4' height='4' transform='rotate(45 7.5 7.5)' fill='%23ad8730'/%3E%3C/g%3E%3C/svg%3E") bottom right / 18px no-repeat;
+  pointer-events: none;
+}
+
+/* Paper pages: the vellum texture over its own paper colour (the colour shows until the image arrives). */
+.paper { background: var(--paper) var(--tex-vellum) 0 0 / 512px; }
+/* Leather: the binding round the header and the timeline, and the footer. */
+.leather { color: var(--on-leather); background: var(--leather) var(--tex-leather) 0 0 / 512px; }
+
+/* Framed buttons: gilt rule, fainter rule inside (an inset outline, so it needs no background colour). The focus ring
+   replaces it while focused. */
+/* The two buttons on the leather header share one look (decisions/es-feel-review): the language switch is a link but
+   framed like "search and filter" beside it. */
+.search-toggle, .lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  font-size: 13px;
+  color: var(--on-leather);
+  text-decoration: none;
+  background: rgb(0 0 0 / 0.22);
+  border: 1px solid var(--gilt-on-leather);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.search-toggle, .map-toggle, .story-close, .story-retry, .search-retry, .tl-regions, .map-up, .map-path, .badge,
+.tl-expand, .lang-switch {
+  outline: 1px solid var(--gilt-faint);
+  outline-offset: -4px;
+}
+.map-toggle, .story-close, .story-retry, .search-retry, .tl-regions, .map-up, .map-path, .tl-expand { border-color: var(--gilt); }
+.badge { outline-color: rgb(161 40 30 / 0.35); border-color: var(--accent-2); }
+:is(.search-toggle, .lang-switch, .map-toggle, .story-close, .story-retry, .search-retry, .tl-regions, .map-up, .tl-expand):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+/* Round buttons: a second gilt ring outside. */
+.tl-nav { box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--gilt); }
+
+/* Narrow screens: one column, header › timeline (sticky) over the map › story. Wide screens (≥ 900px, the block at
+   the end): the map fills the window under the timeline and the story opens in its own column beside it. */
+.chronicle {
+  --top-h: 52px;
+  --tl-h: 166px;
+  --foot-h: 56px;
+  --bar-h: 36px;
+  --gutter: 24px;
+  /* Home: the map takes what is left of the screen. With a story: about 56% of the screen, but always leaving
+     --story-peek under it for the story's date and title (on short screens the title wins over map height). */
+  --story-peek: 150px;
+  --map-h-home: max(280px, calc(100dvh - var(--top-h) - var(--tl-h) - var(--bar-h) - var(--foot-h) - 8px));
+  --map-h-story: clamp(
+    var(--map-h-story-min),
+    min(56dvh, calc(100dvh - var(--top-h) - var(--tl-h) - var(--bar-h) - var(--story-peek))),
+    var(--map-h-story-max)
+  );
+  --map-h-story-min: 300px;
+  --map-h-story-max: 720px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: 0 var(--gutter);
+}
+
+/* Header: the book's leather binding (decisions/es-feel-spec-2), brand on the left, the search and language buttons on
+   the right (centred, so the two frames line up), and a tapered gilt rule where it meets the timeline below. */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 14px var(--gutter) 12px;
+  /* Above the sticky timeline, so the rule's lozenge is not cut by it. */
+  z-index: 11;
+}
+.brand { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; min-width: 0; }
+.topbar h1 { margin: 0; font-size: 1.2rem; letter-spacing: 0.04em; color: var(--on-leather); }
+.brand-sub { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-leather-soft); }
+.lang-switch:hover { background: rgb(239 226 196 / 0.14); }
+
+.stage { display: flex; flex: 1; flex-direction: column; min-height: 0; }
+
+/* Timeline, map and its toggle stick together under the top of the screen; story text scrolls underneath. */
+.sticky-head {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 0 var(--gutter);
+  background: var(--page) var(--tex-vellum) 0 0 / 512px;
+  background-blend-mode: multiply;
+}
+/* The timeline sits in the same leather as the header, edge to edge. */
+.tl-wrap {
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 0 var(--gutter) 6px;
+  box-shadow: inset 0 -1px 0 var(--gilt-on-leather);
+}
+.has-story .sticky-head { border-bottom: 1px solid var(--line); box-shadow: 0 6px 12px -10px var(--shadow-c); }
+.map-wrap {
+  height: var(--map-h-home);
+  overflow: hidden;
+  transition: height 0.3s ease, visibility 0s linear 0s;
+}
+.has-story .map-wrap { height: var(--map-h-story); }
+/* Folded while the reader is down in the story: no height, out of the tab order (inert), hidden once closed. */
+.map-wrap.is-folded { height: 0; visibility: hidden; transition: height 0.3s ease, visibility 0s linear 0.3s; }
+.map-wrap.no-anim { transition: none; }
+.map-wrap > .map-view { height: 100%; }
+.map-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: var(--bar-h);
+}
+.map-hint { margin: 0 auto 0 5px; font-size: 13px; color: var(--ink-soft); }
+html[lang='en'] .map-hint { font-style: italic; }
+.map-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  padding: 0 10px;
+  font-size: 13px;
+  color: var(--accent);
+  background: var(--paper);
+  border: 1px solid var(--gilt);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.map-toggle::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+.map-toggle[aria-expanded='true']::after { margin-top: 3px; transform: rotate(-135deg); }
+.map-toggle:hover { background: var(--wash); border-color: var(--accent); }
+
+/* The story: one reading column (--measure) centred under the map, a paper page with a close button top right. */
+.story-pane {
+  position: relative;
+  width: 100%;
+  max-width: calc(var(--measure) + 58px);
+  margin: 20px auto 28px;
+  padding: 26px 28px 32px;
+  border: 1px solid var(--gilt);
+  box-shadow: var(--shadow);
+}
+.story-pane .story-date { padding-right: 88px; }
+.story-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  background: none;
+  border: 1px solid var(--gilt);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.story-close span { font-size: 17px; line-height: 1; }
+.story-close:hover { color: var(--accent); background: var(--wash); border-color: var(--accent); }
+/* Footer: a leather strip under a tapered gilt rule (decisions/es-feel-spec-2), edge to edge. */
+.site-footer {
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 10px var(--gutter) 12px;
+  font-size: 12px;
+  color: var(--on-leather-soft);
+  text-align: center;
+}
+
+@media (max-width: 899px) {
+  .chronicle { --gutter: 12px; --map-h-story-min: 240px; --map-h-story-max: 480px; }
+  .topbar { gap: 10px; padding: 10px var(--gutter) 10px; }
+  /* Room for the title on one line beside the two framed buttons (a wrapped title would shorten the map). */
+  .topbar h1 { font-size: 1.1rem; }
+  .search-toggle, .lang-switch { padding: 0 8px; }
+  .brand-sub { display: none; }
+  .story-pane { margin: 14px 0 20px; padding: 20px 18px 26px; }
+  .story-close { top: 10px; right: 10px; }
+}
+
+/*
+ * Wide screens (at least 900px wide and 560px high; a phone held sideways, ~915×412, stacks like a narrow screen):
+ * side by side. The timeline spans the top; under it the map is exactly the rest of the window high
+ * (no page scroll needed to see it whole) and, with a story, the story column on its right scrolls on its own while
+ * the page stays put. The footer then sits at the foot of the story column. Without a story the map takes the whole
+ * width and the footer follows the page. Closing a story widens the map back over 0.3s (opening is immediate, so the
+ * map frames the new place at its final size).
+ */
+@media (min-width: 900px) and (min-height: 560px) {
+  .chronicle {
+    --map-h-wide: max(320px, calc(100dvh - var(--top-h) - var(--tl-h)));
+    --story-col-w: clamp(400px, 34vw, 560px);
+  }
+  /* Exactly the window: the map row is what the timeline leaves. Should that hit the map's 320px floor (an unusually
+     tall timeline), the page grows and scrolls rather than cutting the story column off. */
+  .chronicle.has-story { min-height: 100dvh; }
+  .stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 0px;
+    grid-template-rows: auto var(--map-h-wide);
+    /* Spare height must not stretch the timeline's row: its measured height sizes the map (--tl-h). */
+    align-content: start;
+    transition: grid-template-columns 0.3s ease;
+  }
+  .has-story .stage { grid-template-columns: minmax(0, 1fr) var(--story-col-w); transition: none; }
+  .sticky-head, .has-story .sticky-head { display: contents; }
+  .tl-wrap { grid-column: 1 / -1; grid-row: 1; }
+  .map-wrap, .has-story .map-wrap { grid-column: 1; grid-row: 2; height: auto; min-height: 0; }
+  /* Home: the hint rides on the map's top right corner instead of taking a row. */
+  .map-bar {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+    justify-self: end;
+    z-index: 3;
+    min-height: 0;
+    margin: 14px 14px 0 0;
+  }
+  .map-hint { margin: 0; padding: 3px 10px; background: var(--paper); border: 1px solid var(--gilt); border-radius: var(--radius); box-shadow: var(--shadow); }
+  /* No folding side by side. */
+  .has-story .map-bar { display: none; }
+  .story-col {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0 2px 0 18px;
+  }
+  .story-col .story-pane { max-width: none; margin: 5px 0 14px; }
+  .story-col .site-footer { margin: 0 0 16px; padding: 10px 12px; text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

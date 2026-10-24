@@ -1,0 +1,1002 @@
+{
+ "$comment": "Schematic map parameters (P3-B). Every item names its basis in docs/research/schematic-map.md. Frame 1000 x 714 (T-size). Run: python -I scripts/gen-schematic-map.py",
+ "frame": [
+  1000,
+  714
+ ],
+ "coastRoughness": 0.24,
+ "seeds": {
+  "skyrim": {
+   "at": [
+    470,
+    150
+   ],
+   "weight": 1.1,
+   "basis": "P-skyrim"
+  },
+  "high-rock": {
+   "at": [
+    215,
+    185
+   ],
+   "weight": 0.95,
+   "basis": "P-high-rock"
+  },
+  "hammerfell": {
+   "at": [
+    250,
+    345
+   ],
+   "weight": 1.0,
+   "basis": "P-hammerfell"
+  },
+  "cyrodiil": {
+   "at": [
+    505,
+    365
+   ],
+   "weight": 1.35,
+   "basis": "P-cyrodiil"
+  },
+  "morrowind": {
+   "at": [
+    790,
+    215
+   ],
+   "weight": 1.05,
+   "basis": "P-morrowind"
+  },
+  "black-marsh": {
+   "at": [
+    785,
+    470
+   ],
+   "weight": 1.0,
+   "basis": "P-black-marsh"
+  },
+  "elsweyr": {
+   "at": [
+    515,
+    545
+   ],
+   "weight": 0.95,
+   "basis": "P-elsweyr"
+  },
+  "valenwood": {
+   "at": [
+    365,
+    545
+   ],
+   "weight": 0.95,
+   "basis": "P-valenwood"
+  },
+  "summerset": {
+   "at": [
+    160,
+    600
+   ],
+   "weight": 1.0,
+   "basis": "P-summerset"
+  }
+ },
+ "extraSeeds": [
+  {
+   "province": "cyrodiil",
+   "at": [
+    620,
+    515
+   ],
+   "weight": 0.55,
+   "basis": "P-niben-valley"
+  }
+ ],
+ "land": [
+  {
+   "id": "skyrim",
+   "ellipse": [
+    470,
+    150,
+    215,
+    88,
+    0
+   ],
+   "basis": "S-ghosts"
+  },
+  {
+   "id": "broken-cape",
+   "ellipse": [
+    600,
+    95,
+    30,
+    58,
+    -20
+   ],
+   "basis": "S-broken-cape"
+  },
+  {
+   "id": "high-rock",
+   "ellipse": [
+    228,
+    178,
+    112,
+    80,
+    -10
+   ],
+   "basis": "P-high-rock"
+  },
+  {
+   "id": "glenumbra",
+   "ellipse": [
+    142,
+    252,
+    62,
+    30,
+    35
+   ],
+   "basis": "S-glenumbra"
+  },
+  {
+   "id": "hammerfell",
+   "ellipse": [
+    250,
+    345,
+    122,
+    76,
+    0
+   ],
+   "basis": "P-hammerfell"
+  },
+  {
+   "id": "cyrodiil",
+   "ellipse": [
+    510,
+    360,
+    175,
+    118,
+    0
+   ],
+   "basis": "P-cyrodiil"
+  },
+  {
+   "id": "morrowind",
+   "ellipse": [
+    760,
+    200,
+    118,
+    118,
+    0
+   ],
+   "basis": "P-morrowind"
+  },
+  {
+   "id": "morrowind-east",
+   "ellipse": [
+    845,
+    262,
+    58,
+    92,
+    0
+   ],
+   "basis": "S-morrowind-east"
+  },
+  {
+   "id": "black-marsh",
+   "ellipse": [
+    772,
+    462,
+    112,
+    108,
+    0
+   ],
+   "basis": "P-black-marsh"
+  },
+  {
+   "id": "elsweyr",
+   "ellipse": [
+    520,
+    530,
+    112,
+    80,
+    0
+   ],
+   "basis": "P-elsweyr"
+  },
+  {
+   "id": "quinrawl",
+   "ellipse": [
+    592,
+    612,
+    28,
+    58,
+    12
+   ],
+   "basis": "S-quinrawl"
+  },
+  {
+   "id": "valenwood",
+   "ellipse": [
+    370,
+    540,
+    96,
+    80,
+    0
+   ],
+   "basis": "P-valenwood"
+  },
+  {
+   "id": "cyrodiil-east",
+   "ellipse": [
+    652,
+    330,
+    92,
+    92,
+    0
+   ],
+   "basis": "P-cyrodiil"
+  },
+  {
+   "id": "jerall-foothills",
+   "ellipse": [
+    560,
+    252,
+    110,
+    45,
+    0
+   ],
+   "basis": "R-jerall"
+  },
+  {
+   "id": "reach-craglorn",
+   "ellipse": [
+    335,
+    262,
+    62,
+    42,
+    0
+   ],
+   "basis": "P-hammerfell"
+  },
+  {
+   "id": "morrowind-black-marsh",
+   "ellipse": [
+    772,
+    330,
+    62,
+    55,
+    0
+   ],
+   "basis": "P-black-marsh"
+  },
+  {
+   "id": "niben-valley",
+   "ellipse": [
+    655,
+    470,
+    60,
+    60,
+    0
+   ],
+   "basis": "P-niben-valley"
+  }
+ ],
+ "seas": [
+  {
+   "id": "iliac-bay",
+   "ellipse": [
+    188,
+    276,
+    74,
+    22,
+    -25
+   ],
+   "basis": "S-iliac"
+  },
+  {
+   "id": "abecean-sea",
+   "ellipse": [
+    262,
+    444,
+    104,
+    28,
+    0
+   ],
+   "basis": "S-abecean"
+  },
+  {
+   "id": "inner-sea",
+   "ellipse": [
+    732,
+    120,
+    48,
+    92,
+    0
+   ],
+   "basis": "S-inner-sea"
+  },
+  {
+   "id": "topal-bay",
+   "ellipse": [
+    662,
+    630,
+    40,
+    70,
+    0
+   ],
+   "basis": "S-topal"
+  }
+ ],
+ "islands": [
+  {
+   "id": "summerset-isle",
+   "province": "summerset",
+   "ellipse": [
+    160,
+    600,
+    56,
+    40,
+    -20
+   ],
+   "basis": "S-summerset-isles"
+  },
+  {
+   "id": "auridon",
+   "province": "summerset",
+   "ellipse": [
+    250,
+    560,
+    13,
+    28,
+    -10
+   ],
+   "basis": "S-summerset-isles"
+  },
+  {
+   "id": "artaeum",
+   "province": "summerset",
+   "ellipse": [
+    108,
+    652,
+    12,
+    9,
+    0
+   ],
+   "basis": "S-summerset-isles"
+  },
+  {
+   "id": "solstheim",
+   "province": "morrowind",
+   "ellipse": [
+    650,
+    46,
+    22,
+    15,
+    0
+   ],
+   "basis": "S-solstheim"
+  },
+  {
+   "id": "vvardenfell",
+   "province": "morrowind",
+   "ellipse": [
+    732,
+    158,
+    32,
+    48,
+    0
+   ],
+   "basis": "S-inner-sea"
+  }
+ ],
+ "ranges": [
+  {
+   "id": "jerall",
+   "between": [
+    "skyrim",
+    "cyrodiil"
+   ],
+   "basis": "R-jerall"
+  },
+  {
+   "id": "velothi",
+   "between": [
+    "skyrim",
+    "morrowind"
+   ],
+   "basis": "R-velothi"
+  },
+  {
+   "id": "valus",
+   "between": [
+    "cyrodiil",
+    "morrowind"
+   ],
+   "basis": "R-valus"
+  },
+  {
+   "id": "druadach",
+   "between": [
+    "skyrim",
+    "high-rock"
+   ],
+   "basis": "R-druadach"
+  }
+ ],
+ "lakes": [
+  {
+   "id": "rumare",
+   "ellipse": [
+    515,
+    335,
+    24,
+    11,
+    -35
+   ],
+   "basis": "L-rumare"
+  }
+ ],
+ "rivers": [
+  {
+   "id": "niben",
+   "line": [
+    [
+     527,
+     346
+    ],
+    [
+     548,
+     400
+    ],
+    [
+     583,
+     460
+    ],
+    [
+     612,
+     528
+    ],
+    [
+     636,
+     568
+    ]
+   ],
+   "basis": "V-niben"
+  },
+  {
+   "id": "white",
+   "line": [
+    [
+     612,
+     172
+    ],
+    [
+     622,
+     136
+    ],
+    [
+     628,
+     100
+    ]
+   ],
+   "basis": "V-white"
+  },
+  {
+   "id": "bjoulsae",
+   "line": [
+    [
+     352,
+     238
+    ],
+    [
+     322,
+     248
+    ],
+    [
+     292,
+     260
+    ]
+   ],
+   "basis": "V-bjoulsae"
+  }
+ ],
+ "volcano": {
+  "at": [
+   732,
+   146
+  ],
+  "basis": "X-red-mountain"
+ },
+ "labels": {
+  "skyrim": [
+   455,
+   165
+  ],
+  "high-rock": [
+   205,
+   182
+  ],
+  "hammerfell": [
+   240,
+   350
+  ],
+  "cyrodiil": [
+   470,
+   395
+  ],
+  "morrowind": [
+   815,
+   255
+  ],
+  "black-marsh": [
+   790,
+   480
+  ],
+  "elsweyr": [
+   505,
+   555
+  ],
+  "valenwood": [
+   365,
+   545
+  ],
+  "summerset": [
+   160,
+   608
+  ]
+ },
+ "adjacent": [
+  [
+   "skyrim",
+   "high-rock"
+  ],
+  [
+   "skyrim",
+   "hammerfell"
+  ],
+  [
+   "skyrim",
+   "cyrodiil"
+  ],
+  [
+   "skyrim",
+   "morrowind"
+  ],
+  [
+   "morrowind",
+   "cyrodiil"
+  ],
+  [
+   "morrowind",
+   "black-marsh"
+  ],
+  [
+   "cyrodiil",
+   "black-marsh"
+  ],
+  [
+   "cyrodiil",
+   "elsweyr"
+  ],
+  [
+   "cyrodiil",
+   "valenwood"
+  ],
+  [
+   "cyrodiil",
+   "hammerfell"
+  ],
+  [
+   "high-rock",
+   "hammerfell"
+  ],
+  [
+   "elsweyr",
+   "valenwood"
+  ]
+ ],
+ "notAdjacent": [
+  [
+   "summerset",
+   "valenwood"
+  ],
+  [
+   "summerset",
+   "hammerfell"
+  ],
+  [
+   "summerset",
+   "elsweyr"
+  ],
+  [
+   "skyrim",
+   "black-marsh"
+  ],
+  [
+   "high-rock",
+   "cyrodiil"
+  ]
+ ],
+ "checks": [
+  {
+   "at": [
+    188,
+    276
+   ],
+   "is": "sea",
+   "basis": "S-iliac",
+   "note": "Iliac Bay"
+  },
+  {
+   "at": [
+    200,
+    225
+   ],
+   "is": "high-rock",
+   "basis": "S-iliac",
+   "note": "north shore of the bay"
+  },
+  {
+   "at": [
+    200,
+    320
+   ],
+   "is": "hammerfell",
+   "basis": "S-iliac",
+   "note": "south shore of the bay"
+  },
+  {
+   "at": [
+    262,
+    444
+   ],
+   "is": "sea",
+   "basis": "S-abecean",
+   "note": "Abecean Sea"
+  },
+  {
+   "at": [
+    300,
+    395
+   ],
+   "is": "hammerfell",
+   "basis": "S-abecean",
+   "note": "Hammerfell, north of the Abecean"
+  },
+  {
+   "at": [
+    375,
+    425
+   ],
+   "is": "cyrodiil",
+   "basis": "S-gold-coast",
+   "note": "Gold Coast, east of the Abecean"
+  },
+  {
+   "at": [
+    330,
+    500
+   ],
+   "is": "valenwood",
+   "basis": "S-abecean",
+   "note": "Valenwood, south of the Abecean"
+  },
+  {
+   "at": [
+    732,
+    158
+   ],
+   "is": "morrowind",
+   "basis": "S-inner-sea",
+   "note": "Vvardenfell"
+  },
+  {
+   "at": [
+    765,
+    110
+   ],
+   "is": "sea",
+   "basis": "S-inner-sea",
+   "note": "Inner Sea"
+  },
+  {
+   "at": [
+    662,
+    630
+   ],
+   "is": "sea",
+   "basis": "S-topal",
+   "note": "Topal Bay"
+  },
+  {
+   "at": [
+    600,
+    600
+   ],
+   "is": "elsweyr",
+   "basis": "S-quinrawl",
+   "note": "Quin'rawl, west of Topal Bay"
+  },
+  {
+   "at": [
+    700,
+    540
+   ],
+   "is": "black-marsh",
+   "basis": "S-topal",
+   "note": "Black Marsh, east of Topal Bay"
+  },
+  {
+   "at": [
+    650,
+    45
+   ],
+   "is": "morrowind",
+   "basis": "S-solstheim",
+   "note": "Solstheim"
+  },
+  {
+   "at": [
+    255,
+    560
+   ],
+   "is": "summerset",
+   "basis": "S-summerset-isles",
+   "note": "Auridon"
+  },
+  {
+   "at": [
+    600,
+    95
+   ],
+   "is": "skyrim",
+   "basis": "S-broken-cape",
+   "note": "Broken Cape"
+  }
+ ],
+ "nirn": {
+  "$comment": "Nirn layer, frame 1000 x 600 (the cosmos map links to it as before). Tamriel is the schematic land above, scaled by tamriel.k and shifted.",
+  "frame": [
+   1000,
+   600
+  ],
+  "tamriel": {
+   "k": 0.42,
+   "x": 290,
+   "y": 150,
+   "basis": "N-tamriel"
+  },
+  "lands": [
+   {
+    "id": "atmora",
+    "ellipses": [
+     [
+      505,
+      52,
+      190,
+      42,
+      0
+     ],
+     [
+      380,
+      78,
+      70,
+      26,
+      -10
+     ],
+     [
+      640,
+      74,
+      80,
+      28,
+      8
+     ]
+    ],
+    "basis": "N-atmora"
+   },
+   {
+    "id": "akavir",
+    "ellipses": [
+     [
+      880,
+      300,
+      95,
+      215,
+      0
+     ],
+     [
+      815,
+      190,
+      40,
+      70,
+      0
+     ],
+     [
+      830,
+      430,
+      45,
+      75,
+      0
+     ]
+    ],
+    "basis": "N-akavir"
+   },
+   {
+    "id": "yokuda",
+    "ellipses": [
+     [
+      120,
+      200,
+      48,
+      70,
+      10
+     ],
+     [
+      78,
+      320,
+      30,
+      40,
+      0
+     ],
+     [
+      165,
+      330,
+      34,
+      30,
+      0
+     ],
+     [
+      110,
+      420,
+      26,
+      22,
+      0
+     ],
+     [
+      200,
+      240,
+      22,
+      18,
+      0
+     ]
+    ],
+    "basis": "N-yokuda"
+   },
+   {
+    "id": "pyandonea",
+    "ellipses": [
+     [
+      300,
+      540,
+      60,
+      26,
+      0
+     ],
+     [
+      395,
+      560,
+      36,
+      18,
+      0
+     ],
+     [
+      225,
+      555,
+      26,
+      16,
+      0
+     ]
+    ],
+    "basis": "N-pyandonea"
+   }
+  ],
+  "checks": [
+   {
+    "continent": "atmora",
+    "direction": "north",
+    "basis": "N-atmora"
+   },
+   {
+    "continent": "akavir",
+    "direction": "east",
+    "basis": "N-akavir"
+   },
+   {
+    "continent": "yokuda",
+    "direction": "west",
+    "basis": "N-yokuda"
+   },
+   {
+    "continent": "pyandonea",
+    "direction": "south",
+    "basis": "N-pyandonea"
+   }
+  ]
+ },
+ "holds": {
+  "$comment": "Skyrim's nine holds. Centres are fractions of Skyrim's extent (0..1, x east, y south) read from the game map (basis H-map; decisions/p3-map-help); neighbours come from the texts. Drawn inside the schematic Skyrim, borders and names only.",
+  "centres": {
+   "haafingar": [
+    0.22,
+    0.2
+   ],
+   "hjaalmarch": [
+    0.4,
+    0.29
+   ],
+   "the-pale": [
+    0.58,
+    0.3
+   ],
+   "winterhold": [
+    0.74,
+    0.18
+   ],
+   "eastmarch": [
+    0.84,
+    0.55
+   ],
+   "the-rift": [
+    0.84,
+    0.8
+   ],
+   "whiterun": [
+    0.47,
+    0.53
+   ],
+   "falkreath": [
+    0.38,
+    0.82
+   ],
+   "the-reach": [
+    0.13,
+    0.5
+   ]
+  },
+  "weights": {
+   "haafingar": 1.05,
+   "hjaalmarch": 0.85,
+   "the-pale": 1.0,
+   "winterhold": 0.95,
+   "eastmarch": 0.95,
+   "the-rift": 1.0,
+   "whiterun": 1.1,
+   "falkreath": 1.0,
+   "the-reach": 1.0
+  },
+  "basis": "H-map",
+  "adjacent": [
+   [
+    "haafingar",
+    "the-reach"
+   ],
+   [
+    "haafingar",
+    "hjaalmarch"
+   ],
+   [
+    "the-rift",
+    "eastmarch"
+   ],
+   [
+    "the-rift",
+    "falkreath"
+   ],
+   [
+    "the-rift",
+    "whiterun"
+   ],
+   [
+    "winterhold",
+    "the-pale"
+   ],
+   [
+    "winterhold",
+    "eastmarch"
+   ],
+   [
+    "the-reach",
+    "whiterun"
+   ]
+  ],
+  "adjacentBasis": "H-text"
+ }
+}

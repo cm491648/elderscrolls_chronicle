@@ -1,0 +1,5 @@
+TASK: Generate exactly ONE image with your built-in image generation tool, then save it in the current directory as {FILE} (PNG). Do not draw it with code (no PIL, SVG, canvas or procedural drawing), do not add a border, do not post-process except saving. If the image tool refuses or fails, do not substitute anything: reply with the exact error text. Otherwise reply with the file name and its pixel size only.
+
+IMAGE SIZE: {SIZE}
+
+IMAGE PROMPT:

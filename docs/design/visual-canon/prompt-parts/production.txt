@@ -1,0 +1,4 @@
+PRODUCTION RULES (series of 20 plates, keep them consistent):
+- Figures are simplified and readable at 600 px wide, not hyper-detailed; faces calm, gestures clear.
+- Only the people and things the SCENE names appear; the DESIGN REFERENCE only says how they look and adds nothing to the picture. Count matters: when a number is given, draw exactly that number.
+- Violence is shown through stance and gesture, never through gore, wounds or blood.

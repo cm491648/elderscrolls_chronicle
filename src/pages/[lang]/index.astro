@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import ChronicleApp from '../../components/ChronicleApp';
+import { LANGS, type Lang } from '../../lib/types';
+import { CHRONICLE_DATA_ID, scriptJson, provideChronicleData } from '../../lib/page-data';
+import { loadChronicle } from '../../lib/data';
+import { t } from '../../i18n';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const data = await loadChronicle(lang);
+const shared = { events: data.summaries, locations: data.locations, people: data.personNames };
+provideChronicleData(lang, shared);
+---
+<Base lang={lang} title={t(lang, 'siteTitle')} description={t(lang, 'siteDescription')}>
+  <script is:inline type="application/json" id={CHRONICLE_DATA_ID} set:html={scriptJson(shared)} />
+  <ChronicleApp client:load lang={lang} initialId={null} />
+</Base>

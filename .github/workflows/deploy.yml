@@ -1,0 +1,56 @@
+# Publishes the site to GitHub Pages. MANUAL ONLY (docs/deploy.md): run it only once the user has decided on a
+# decision page that the site goes public (decisions/launch-2: prepared, not public yet). The address and the base
+# path come from this repository's owner and name, so it works in the public repository it is exported to.
+# Pages on a private repository needs a paid plan.
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      map_source:
+        description: 'Map source: official (UESP-sourced official maps, the site''s own) or drawn (the takedown fallback)'
+        required: true
+        default: official
+        type: choice
+        options: [drawn, official]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Build for https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+        run: npm run build
+        env:
+          CHRONICLE_STRICT: '1'
+          CHRONICLE_SITE: https://${{ github.repository_owner }}.github.io
+          CHRONICLE_BASE: /${{ github.event.repository.name }}/
+          PUBLIC_MAP_SOURCE: ${{ inputs.map_source }}
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

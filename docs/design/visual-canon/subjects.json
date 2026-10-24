@@ -1,0 +1,1124 @@
+{
+  "aldmer-arrive-summerset": {
+    "era": "merethic",
+    "year": null,
+    "region": "summerset",
+    "phase": 1,
+    "entries": [
+      "altmer",
+      "auridon",
+      "elven-ships"
+    ],
+    "overrides": {
+      "auridon": "lore"
+    }
+  },
+  "alessian-slave-rebellion": {
+    "era": "1E",
+    "year": 242,
+    "region": "cyrodiil",
+    "phase": 1,
+    "entries": [
+      "imperial-city",
+      "pelinal-whitestrake",
+      "imperials",
+      "nords",
+      "white-gold-tower",
+      "ayleid-ruins"
+    ],
+    "overrides": {
+      "imperial-city": "lore",
+      "white-gold-tower": "lore",
+      "ayleid-ruins": "lore"
+    }
+  },
+  "atmoran-migration": {
+    "era": "merethic",
+    "year": null,
+    "region": "atmora",
+    "phase": 1,
+    "entries": [
+      "nords",
+      "nordic-longship",
+      "skyrim-landscape"
+    ],
+    "overrides": {}
+  },
+  "battle-of-red-mountain": {
+    "era": "1E",
+    "year": 700,
+    "region": "morrowind",
+    "phase": 1,
+    "entries": [
+      "chimer",
+      "chitin-armor",
+      "dwemer",
+      "dwarven-armor",
+      "red-mountain"
+    ],
+    "overrides": {
+      "red-mountain": "lore"
+    }
+  },
+  "creation-of-mundus": {
+    "era": "dawn",
+    "year": null,
+    "region": "mundus",
+    "phase": 1,
+    "entries": [
+      "magnus",
+      "auriel"
+    ],
+    "overrides": {
+      "magnus": "eso",
+      "auriel": "lore"
+    }
+  },
+  "first-council-expels-nords": {
+    "era": "1E",
+    "year": 416,
+    "region": "morrowind",
+    "phase": 1,
+    "entries": [
+      "nerevar",
+      "dumac",
+      "chimer",
+      "chitin-armor",
+      "dwemer",
+      "dwarven-armor",
+      "red-mountain"
+    ],
+    "overrides": {
+      "red-mountain": "lore"
+    }
+  },
+  "great-war": {
+    "era": "4E",
+    "year": 171,
+    "region": "cyrodiil",
+    "phase": 1,
+    "entries": [
+      "titus-mede-ii",
+      "thalmor",
+      "altmer",
+      "imperial-legion",
+      "imperials"
+    ],
+    "overrides": {
+      "titus-mede-ii": "lore"
+    }
+  },
+  "harald-crowned-high-king": {
+    "era": "1E",
+    "year": 143,
+    "region": "skyrim",
+    "phase": 1,
+    "entries": [
+      "harald",
+      "nordic-hall",
+      "iron-armor",
+      "nords"
+    ],
+    "overrides": {}
+  },
+  "middle-dawn": {
+    "era": "1E",
+    "year": 1200,
+    "region": "cyrodiil",
+    "phase": 1,
+    "entries": [
+      "imperial-city",
+      "imperials",
+      "alessian-order"
+    ],
+    "overrides": {}
+  },
+  "nerevarine-defeats-dagoth-ur": {
+    "era": "3E",
+    "year": 427,
+    "region": "morrowind",
+    "phase": 1,
+    "entries": [
+      "nerevarine",
+      "dagoth-ur",
+      "akulakhan",
+      "heart-of-lorkhan",
+      "kagrenacs-tools"
+    ],
+    "overrides": {}
+  },
+  "night-of-tears": {
+    "era": "merethic",
+    "year": null,
+    "region": "skyrim",
+    "phase": 1,
+    "entries": [
+      "ysgramor",
+      "nordic-longship",
+      "nords",
+      "nordic-ruins"
+    ],
+    "overrides": {
+      "nordic-ruins": "lore"
+    }
+  },
+  "oblivion-crisis": {
+    "era": "3E",
+    "year": 433,
+    "region": "cyrodiil",
+    "phase": 1,
+    "entries": [
+      "martin-septim",
+      "kvatch",
+      "oblivion-gate",
+      "imperials"
+    ],
+    "overrides": {
+      "martin-septim": "lore"
+    }
+  },
+  "reman-repels-akaviri": {
+    "era": "1E",
+    "year": 2703,
+    "region": "skyrim",
+    "phase": 1,
+    "entries": [
+      "reman",
+      "blades",
+      "akaviri-katana",
+      "imperials",
+      "skyrim-landscape"
+    ],
+    "overrides": {
+      "blades": "tes4"
+    }
+  },
+  "return-of-alduin": {
+    "era": "4E",
+    "year": 201,
+    "region": "skyrim",
+    "phase": 1,
+    "entries": [
+      "alduin",
+      "skyrim-town",
+      "imperial-legion",
+      "stormcloaks"
+    ],
+    "overrides": {}
+  },
+  "three-banners-war": {
+    "era": "2E",
+    "year": 580,
+    "region": "cyrodiil",
+    "phase": 1,
+    "entries": [
+      "dark-anchor",
+      "coldharbour",
+      "aldmeri-dominion",
+      "daggerfall-covenant",
+      "ebonheart-pact",
+      "white-gold-tower",
+      "imperial-city"
+    ],
+    "overrides": {}
+  },
+  "tiber-septim-crowned": {
+    "era": "2E",
+    "year": 854,
+    "region": "cyrodiil",
+    "phase": 1,
+    "entries": [
+      "tiber-septim",
+      "white-gold-tower",
+      "imperial-legion",
+      "imperial-city",
+      "imperials"
+    ],
+    "overrides": {
+      "tiber-septim": "tes4",
+      "white-gold-tower": "tes4",
+      "imperial-legion": "tes4",
+      "imperial-city": "tes4"
+    }
+  },
+  "war-of-the-ehlnofey": {
+    "era": "dawn",
+    "year": null,
+    "region": "tamriel",
+    "phase": 1,
+    "entries": [
+      "altmer",
+      "summerset-architecture"
+    ],
+    "overrides": {}
+  },
+  "warp-in-the-west": {
+    "era": "3E",
+    "year": 417,
+    "region": "high-rock",
+    "phase": 1,
+    "entries": [
+      "numidium",
+      "high-rock-architecture"
+    ],
+    "overrides": {}
+  },
+  "white-gold-concordat": {
+    "era": "4E",
+    "year": 175,
+    "region": "cyrodiil",
+    "phase": 1,
+    "entries": [
+      "titus-mede-ii",
+      "thalmor",
+      "altmer",
+      "imperial-legion"
+    ],
+    "overrides": {
+      "titus-mede-ii": "lore"
+    }
+  },
+  "ysgramor-return": {
+    "era": "merethic",
+    "year": null,
+    "region": "skyrim",
+    "phase": 1,
+    "entries": [
+      "ysgramor",
+      "wuuthrad",
+      "falmer",
+      "ancient-nord-heroes",
+      "nords",
+      "nordic-ruins"
+    ],
+    "overrides": {}
+  },
+  "adamantine-tower-convention": {
+    "era": "dawn",
+    "year": null,
+    "region": "high-rock",
+    "phase": 2,
+    "entries": [
+      "adamantine-tower"
+    ],
+    "overrides": {}
+  },
+  "shattering-of-lorkhan": {
+    "era": "dawn",
+    "year": null,
+    "region": "nirn",
+    "phase": 2,
+    "entries": [
+      "heart-of-lorkhan",
+      "red-mountain"
+    ],
+    "overrides": {
+      "heart-of-lorkhan": "lore",
+      "red-mountain": "lore"
+    }
+  },
+  "velothi-exodus": {
+    "era": "merethic",
+    "year": null,
+    "region": "morrowind",
+    "phase": 2,
+    "entries": [
+      "chimer"
+    ],
+    "overrides": {}
+  },
+  "dragon-war": {
+    "era": "merethic",
+    "year": null,
+    "region": "skyrim",
+    "phase": 2,
+    "entries": [
+      "alduin",
+      "ancient-nord-heroes",
+      "elder-scroll",
+      "throat-of-the-world"
+    ],
+    "overrides": {}
+  },
+  "battle-of-glenumbra-moors": {
+    "era": "1E",
+    "year": 482,
+    "region": "high-rock",
+    "phase": 2,
+    "entries": [
+      "direnni",
+      "alessian-order"
+    ],
+    "overrides": {}
+  },
+  "ra-gada-conquer-hammerfell": {
+    "era": "1E",
+    "year": 808,
+    "region": "hammerfell",
+    "phase": 2,
+    "entries": [
+      "sword-singers",
+      "redguards"
+    ],
+    "overrides": {}
+  },
+  "thrassian-plague": {
+    "era": "1E",
+    "year": 2200,
+    "region": "summerset",
+    "phase": 2,
+    "entries": [
+      "sload",
+      "elven-ships"
+    ],
+    "overrides": {}
+  },
+  "war-of-righteousness": {
+    "era": "1E",
+    "year": 2321,
+    "region": "cyrodiil",
+    "phase": 2,
+    "entries": [
+      "alessian-order",
+      "imperials"
+    ],
+    "overrides": {}
+  },
+  "assassination-of-reman-iii": {
+    "era": "1E",
+    "year": 2920,
+    "region": "cyrodiil",
+    "phase": 2,
+    "entries": [
+      "morag-tong",
+      "imperials"
+    ],
+    "overrides": {}
+  },
+  "end-of-akaviri-potentate": {
+    "era": "2E",
+    "year": 430,
+    "region": "cyrodiil",
+    "phase": 2,
+    "entries": [
+      "akaviri",
+      "imperial-city"
+    ],
+    "overrides": {
+      "imperial-city": "tes4"
+    }
+  },
+  "knahaten-flu": {
+    "era": "2E",
+    "year": 560,
+    "region": "black-marsh",
+    "phase": 2,
+    "entries": [
+      "redguards"
+    ],
+    "overrides": {}
+  },
+  "second-akaviri-invasion": {
+    "era": "2E",
+    "year": 572,
+    "region": "skyrim",
+    "phase": 2,
+    "entries": [
+      "dunmer",
+      "nords",
+      "argonians"
+    ],
+    "overrides": {}
+  },
+  "soulburst": {
+    "era": "2E",
+    "year": 578,
+    "region": "cyrodiil",
+    "phase": 2,
+    "entries": [
+      "mannimarco",
+      "amulet-of-kings"
+    ],
+    "overrides": {}
+  },
+  "planemeld": {
+    "era": "2E",
+    "year": 582,
+    "region": "oblivion",
+    "phase": 2,
+    "entries": [
+      "dark-anchor",
+      "white-gold-tower"
+    ],
+    "overrides": {}
+  },
+  "tamriel-unified-by-numidium": {
+    "era": "2E",
+    "year": 896,
+    "region": "summerset",
+    "phase": 2,
+    "entries": [
+      "numidium",
+      "summerset-architecture",
+      "altmer",
+      "elven-armor"
+    ],
+    "overrides": {
+      "altmer": "tes5"
+    }
+  },
+  "war-of-the-red-diamond": {
+    "era": "3E",
+    "year": 121,
+    "region": "cyrodiil",
+    "phase": 2,
+    "entries": [
+      "solitude"
+    ],
+    "overrides": {}
+  },
+  "camoran-usurper": {
+    "era": "3E",
+    "year": 249,
+    "region": "valenwood",
+    "phase": 2,
+    "entries": [
+      "dremora",
+      "high-rock-architecture",
+      "bretons"
+    ],
+    "overrides": {
+      "high-rock-architecture": "lore"
+    }
+  },
+  "imperial-simulacrum": {
+    "era": "3E",
+    "year": 389,
+    "region": "cyrodiil",
+    "phase": 2,
+    "entries": [
+      "jagar-tharn",
+      "staff-of-chaos"
+    ],
+    "overrides": {}
+  },
+  "red-year": {
+    "era": "4E",
+    "year": 5,
+    "region": "morrowind",
+    "phase": 2,
+    "entries": [
+      "red-mountain",
+      "vivec-city"
+    ],
+    "overrides": {
+      "vivec-city": "lore",
+      "red-mountain": "eso"
+    }
+  },
+  "thalmor-seize-summerset": {
+    "era": "4E",
+    "year": 22,
+    "region": "summerset",
+    "phase": 2,
+    "entries": [
+      "thalmor",
+      "altmer",
+      "summerset-architecture"
+    ],
+    "overrides": {}
+  },
+  "void-nights": {
+    "era": "4E",
+    "year": 98,
+    "region": "mundus",
+    "phase": 2,
+    "entries": [
+      "moons",
+      "khajiit"
+    ],
+    "overrides": {
+      "moons": "lore"
+    }
+  },
+  "death-of-torygg": {
+    "era": "4E",
+    "year": 201,
+    "region": "skyrim",
+    "phase": 2,
+    "entries": [
+      "ulfric-stormcloak",
+      "torygg"
+    ],
+    "overrides": {}
+  },
+  "magnus-flees-creation": {
+    "era": "dawn",
+    "year": null,
+    "region": "aetherius",
+    "phase": 2,
+    "entries": [
+      "magnus"
+    ],
+    "overrides": {
+      "magnus": "lore"
+    }
+  },
+  "war-of-the-singers": {
+    "era": "1E",
+    "year": 780,
+    "region": "yokuda",
+    "phase": 2,
+    "entries": [
+      "sword-singers",
+      "redguards"
+    ],
+    "overrides": {}
+  },
+  "sinking-of-yokuda": {
+    "era": "1E",
+    "year": 792,
+    "region": "yokuda",
+    "phase": 2,
+    "entries": [
+      "redguards"
+    ],
+    "overrides": {}
+  },
+  "talos-ascends": {
+    "era": "3E",
+    "year": 38,
+    "region": "aetherius",
+    "phase": 2,
+    "entries": [
+      "tiber-septim"
+    ],
+    "overrides": {
+      "tiber-septim": "tes4"
+    }
+  },
+  "accession-war": {
+    "era": "4E",
+    "year": 5,
+    "region": "morrowind",
+    "phase": 2,
+    "entries": [
+      "argonians",
+      "dunmer"
+    ],
+    "overrides": {}
+  },
+  "markarth-incident": {
+    "era": "4E",
+    "year": 176,
+    "region": "skyrim",
+    "phase": 2,
+    "entries": [
+      "ulfric-stormcloak",
+      "forsworn",
+      "nords",
+      "markarth"
+    ],
+    "overrides": {}
+  },
+  "tribunal-apotheosis": {
+    "era": "1E",
+    "year": 700,
+    "region": "morrowind",
+    "phase": 2,
+    "entries": [
+      "sotha-sil",
+      "almalexia",
+      "vivec",
+      "dunmer",
+      "red-mountain"
+    ],
+    "overrides": {
+      "red-mountain": "lore"
+    }
+  },
+  "founding-of-mages-guild": {
+    "era": "2E",
+    "year": 230,
+    "region": "summerset",
+    "phase": 2,
+    "entries": [
+      "vanus-galerion",
+      "altmer",
+      "summerset-architecture"
+    ],
+    "overrides": {}
+  },
+  "founding-of-fighters-guild": {
+    "era": "2E",
+    "year": 320,
+    "region": "cyrodiil",
+    "phase": 2,
+    "entries": [
+      "akaviri",
+      "fighters-guild"
+    ],
+    "overrides": {}
+  },
+  "failed-invasion-of-akavir": {
+    "era": "3E",
+    "year": 288,
+    "region": "akavir",
+    "phase": 2,
+    "entries": [
+      "imperial-legion"
+    ],
+    "overrides": {
+      "imperial-legion": "tes4"
+    }
+  },
+  "founding-of-mede-dynasty": {
+    "era": "4E",
+    "year": 22,
+    "region": "cyrodiil",
+    "phase": 2,
+    "entries": [
+      "imperial-city",
+      "white-gold-tower"
+    ],
+    "overrides": {}
+  },
+  "battle-of-sancre-tor": {
+    "era": "2E",
+    "year": 852,
+    "region": "cyrodiil",
+    "phase": 2,
+    "entries": [
+      "tiber-septim",
+      "sancre-tor"
+    ],
+    "overrides": {
+      "tiber-septim": "lore",
+      "sancre-tor": "tes4"
+    }
+  },
+  "greymarch": {
+    "era": "3E",
+    "year": 433,
+    "region": "oblivion",
+    "phase": 2,
+    "entries": [
+      "jyggalag",
+      "shivering-isles"
+    ],
+    "overrides": {}
+  },
+  "founding-of-camoran-dynasty": {
+    "era": "1E",
+    "year": 0,
+    "region": "valenwood",
+    "phase": 2,
+    "entries": [
+      "bosmer",
+      "valenwood-forest"
+    ],
+    "overrides": {}
+  },
+  "great-collapse": {
+    "era": "4E",
+    "year": 122,
+    "region": "skyrim",
+    "phase": 2,
+    "entries": [
+      "college-of-winterhold"
+    ],
+    "overrides": {
+      "college-of-winterhold": "lore"
+    }
+  },
+  "last-dragonborn-defeats-alduin": {
+    "era": "4E",
+    "year": 201,
+    "region": "skyrim",
+    "phase": 2,
+    "entries": [
+      "last-dragonborn",
+      "alduin",
+      "sovngarde",
+      "ancient-nord-heroes"
+    ],
+    "overrides": {}
+  },
+  "sample-dragonborn-alduin": {
+    "era": "4E",
+    "year": 201,
+    "region": "skyrim",
+    "phase": 0,
+    "entries": [
+      "last-dragonborn",
+      "alduin",
+      "throat-of-the-world"
+    ],
+    "overrides": {}
+  },
+  "sample-nerevarine-dagoth": {
+    "era": "3E",
+    "year": 427,
+    "region": "morrowind",
+    "phase": 0,
+    "entries": [
+      "nerevarine",
+      "dagoth-ur",
+      "akulakhan",
+      "heart-of-lorkhan",
+      "kagrenacs-tools"
+    ],
+    "overrides": {}
+  },
+  "sample-legion-thalmor": {
+    "era": "4E",
+    "year": 175,
+    "region": "cyrodiil",
+    "phase": 0,
+    "entries": [
+      "imperial-legion",
+      "thalmor",
+      "altmer",
+      "imperial-city",
+      "white-gold-tower"
+    ],
+    "overrides": {}
+  },
+  "solstheim-ceded": {
+    "era": "4E",
+    "year": 16,
+    "region": "morrowind",
+    "phase": 2,
+    "entries": [
+      "raven-rock",
+      "dunmer"
+    ],
+    "overrides": {}
+  },
+  "forsworn-uprising": {
+    "era": "4E",
+    "year": 174,
+    "region": "skyrim",
+    "phase": 2,
+    "entries": [
+      "forsworn",
+      "markarth",
+      "nords"
+    ],
+    "overrides": {}
+  },
+  "tyranny-of-the-sun": {
+    "era": "4E",
+    "year": 201,
+    "region": "skyrim",
+    "phase": 2,
+    "entries": [
+      "last-dragonborn",
+      "serana"
+    ],
+    "overrides": {}
+  },
+  "miraak-returns": {
+    "era": "4E",
+    "year": 201,
+    "region": "morrowind",
+    "phase": 2,
+    "entries": [
+      "last-dragonborn",
+      "miraak"
+    ],
+    "overrides": {}
+  },
+  "siege-of-orsinium": {
+    "era": "1E",
+    "year": 950,
+    "region": "high-rock",
+    "phase": 3,
+    "entries": [
+      "old-orsinium",
+      "orcs",
+      "bretons",
+      "redguards"
+    ],
+    "overrides": {
+      "orcs": "eso",
+      "bretons": "eso"
+    }
+  },
+  "kurog-betrays-orsinium": {
+    "era": "2E",
+    "year": 582,
+    "region": "high-rock",
+    "phase": 3,
+    "entries": [
+      "kurog",
+      "orcs",
+      "orsinium"
+    ],
+    "overrides": {}
+  },
+  "gortwog-founds-nova-orsinium": {
+    "era": "3E",
+    "year": 399,
+    "region": "high-rock",
+    "phase": 3,
+    "entries": [
+      "gortwog",
+      "orcs",
+      "orsinium"
+    ],
+    "overrides": {
+      "orsinium": "lore"
+    }
+  },
+  "ascendant-order-at-high-isle": {
+    "era": "2E",
+    "year": 582,
+    "region": "high-rock",
+    "phase": 3,
+    "entries": [
+      "ascendant-order",
+      "high-isle",
+      "bretons"
+    ],
+    "overrides": {}
+  },
+  "battle-of-hunding-bay": {
+    "era": "2E",
+    "year": 862,
+    "region": "hammerfell",
+    "phase": 3,
+    "entries": [
+      "nahfahlaar",
+      "redguards"
+    ],
+    "overrides": {
+      "nahfahlaar": "lore"
+    }
+  },
+  "stros-mkai-uprising": {
+    "era": "2E",
+    "year": 864,
+    "region": "hammerfell",
+    "phase": 3,
+    "entries": [
+      "cyrus",
+      "restless-league",
+      "stros-mkai"
+    ],
+    "overrides": {}
+  },
+  "war-of-betony": {
+    "era": "3E",
+    "year": 402,
+    "region": "high-rock",
+    "phase": 3,
+    "entries": [
+      "lysandus",
+      "high-rock-architecture",
+      "bretons"
+    ],
+    "overrides": {
+      "bretons": "eso"
+    }
+  },
+  "dragons-return-to-elsweyr": {
+    "era": "2E",
+    "year": 582,
+    "region": "elsweyr",
+    "phase": 3,
+    "entries": [
+      "kaalgrontiid",
+      "dragons",
+      "elsweyr",
+      "abnur-tharn",
+      "khamira"
+    ],
+    "overrides": {}
+  },
+  "kaalgrontiid-falls-at-dragonhold": {
+    "era": "2E",
+    "year": 582,
+    "region": "elsweyr",
+    "phase": 3,
+    "entries": [
+      "kaalgrontiid",
+      "nahfahlaar",
+      "aeonstone",
+      "sai-sahan",
+      "khamira",
+      "abnur-tharn"
+    ],
+    "overrides": {
+      "kaalgrontiid": "lore"
+    }
+  },
+  "veiled-heritance-strikes-auridon": {
+    "era": "2E",
+    "year": 582,
+    "region": "summerset",
+    "phase": 3,
+    "entries": [
+      "summerset-architecture",
+      "oblivion-gate",
+      "dremora",
+      "aldmeri-dominion",
+      "altmer"
+    ],
+    "overrides": {}
+  },
+  "shade-of-naemon-and-the-shadow-wood": {
+    "era": "2E",
+    "year": 582,
+    "region": "valenwood",
+    "phase": 3,
+    "entries": [
+      "naemon",
+      "valenwood-forest",
+      "ayleid-ruins",
+      "bosmer"
+    ],
+    "overrides": {}
+  },
+  "dark-mane-of-reapers-march": {
+    "era": "2E",
+    "year": 582,
+    "region": "valenwood",
+    "phase": 3,
+    "entries": [
+      "dro-mathra",
+      "khajiit"
+    ],
+    "overrides": {}
+  },
+  "crystal-tower-and-the-daedric-triad": {
+    "era": "2E",
+    "year": 582,
+    "region": "summerset",
+    "phase": 3,
+    "entries": [
+      "crystal-tower",
+      "summerset-architecture"
+    ],
+    "overrides": {}
+  },
+  "war-of-the-isle": {
+    "era": "3E",
+    "year": 110,
+    "region": "summerset",
+    "phase": 3,
+    "entries": [
+      "maormer-ships",
+      "maormer",
+      "elven-ships"
+    ],
+    "overrides": {}
+  },
+  "dominion-strikes-at-the-hist": {
+    "era": "2E",
+    "year": 582,
+    "region": "black-marsh",
+    "phase": 3,
+    "entries": [
+      "hist-tree",
+      "black-marsh",
+      "argonians"
+    ],
+    "overrides": {}
+  },
+  "waking-flame-and-the-four-ambitions": {
+    "era": "2E",
+    "year": 582,
+    "region": "black-marsh",
+    "phase": 3,
+    "entries": [
+      "mehrunes-dagon",
+      "dremora",
+      "argonians",
+      "black-marsh"
+    ],
+    "overrides": {}
+  },
+  "arnesian-war": {
+    "era": "3E",
+    "year": 396,
+    "region": "black-marsh",
+    "phase": 3,
+    "entries": [
+      "dunmer",
+      "chitin-armor",
+      "argonians",
+      "black-marsh"
+    ],
+    "overrides": {}
+  },
+  "almalexia-murders-sotha-sil": {
+    "era": "3E",
+    "year": 427,
+    "region": "morrowind",
+    "phase": 3,
+    "entries": [
+      "almalexia",
+      "nerevarine",
+      "clockwork-city"
+    ],
+    "overrides": {}
+  },
+  "bloodmoon-prophecy": {
+    "era": "3E",
+    "year": 427,
+    "region": "morrowind",
+    "phase": 3,
+    "entries": [
+      "werewolves",
+      "solstheim",
+      "moons"
+    ],
+    "overrides": {}
+  },
+  "umaril-the-unfeathered-returns": {
+    "era": "3E",
+    "year": 433,
+    "region": "cyrodiil",
+    "phase": 3,
+    "entries": [
+      "umaril",
+      "pelinal-whitestrake"
+    ],
+    "overrides": {}
+  },
+  "mannimarco-falls-in-the-mages-guild-war": {
+    "era": "3E",
+    "year": 433,
+    "region": "cyrodiil",
+    "phase": 3,
+    "entries": [
+      "mannimarco"
+    ],
+    "overrides": {
+      "mannimarco": "eso"
+    }
+  },
+  "gray-fox-steals-an-elder-scroll": {
+    "era": "3E",
+    "year": 433,
+    "region": "cyrodiil",
+    "phase": 3,
+    "entries": [
+      "gray-fox",
+      "elder-scroll"
+    ],
+    "overrides": {}
+  },
+  "eye-of-magnus-at-winterhold": {
+    "era": "4E",
+    "year": 201,
+    "region": "skyrim",
+    "phase": 3,
+    "entries": [
+      "eye-of-magnus",
+      "thalmor"
+    ],
+    "overrides": {}
+  }
+}

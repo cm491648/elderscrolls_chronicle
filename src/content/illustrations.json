@@ -1,0 +1,767 @@
+[
+  {
+    "id": "accession-war",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Argonian warriors storm Mournhold as the Redoran Guard holds a bridge.",
+      "zh-tw": "阿爾貢蜥人戰士衝進哀傷之城，瑞多然衛兵守在橋頭。"
+    }
+  },
+  {
+    "id": "adamantine-tower-convention",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The gods gather in council around the Adamantine Tower at the dawn of time.",
+      "zh-tw": "時間之初，眾神圍繞著精金塔聚會議事。"
+    }
+  },
+  {
+    "id": "aldmer-arrive-summerset",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Lord Torinaan steps ashore on Auridon as the nine ships of the Aldmer ride at anchor.",
+      "zh-tw": "九艘船泊在外海，高等領主托瑞南率先踏上奧瑞頓的沙灘。"
+    }
+  },
+  {
+    "id": "alessian-slave-rebellion",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "While the allied army waits behind its palisade, Pelinal Whitestrake walks alone across the bridge toward the White-Gold Tower.",
+      "zh-tw": "聯軍在木柵後按兵不動，裴倫納爾·威斯奇獨自走過長橋，前往白金塔。"
+    }
+  },
+  {
+    "id": "almalexia-murders-sotha-sil",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "In the dome at the heart of the Clockwork City, Almalexia, masked for battle, turns Trueflame on the Nerevarine.",
+      "zh-tw": "在發條城中央的圓頂廳裡，戴上殺戮面具的阿瑪萊西亞舉起真焰，向尼瑞瓦因出手。"
+    }
+  },
+  {
+    "id": "arnesian-war",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Dunmer soldiers in chitin wade south through the marsh, driving stakes for a new border as the Argonians fall back into the trees.",
+      "zh-tw": "身穿甲殼甲的丹莫士兵涉水往南推進，打下木樁劃出新的邊界，阿爾貢蜥人退入樹林。"
+    }
+  },
+  {
+    "id": "ascendant-order-at-high-isle",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "At dusk the Ascendant Order's boats close on All Flags Islet while Breton defenders hold the walls.",
+      "zh-tw": "黃昏時分，飛昇教團的小船逼近全旗小島，布萊頓守軍守在城牆上。"
+    }
+  },
+  {
+    "id": "assassination-of-reman-iii",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "A Morag Tong assassin, come in disguised as a palace servant, springs at Reman III on his throne.",
+      "zh-tw": "扮成宮中僕役混進來的莫拉格幫刺客，撲向王座上的雷曼三世。"
+    }
+  },
+  {
+    "id": "atmoran-migration",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Atmoran settlers come ashore on the northern coast of Skyrim.",
+      "zh-tw": "阿特摩拉移民在天際北岸登陸。"
+    }
+  },
+  {
+    "id": "battle-of-glenumbra-moors",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Raven Direnni's magic breaks the ground beneath the Alessian army on the moors of Glenumbra.",
+      "zh-tw": "瑞雯·迪仁尼的魔法讓格倫布拉荒原上艾萊西亞大軍腳下的土地崩裂。"
+    }
+  },
+  {
+    "id": "battle-of-hunding-bay",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The two fleets grapple at sea as the Imperial dragon sets the Crown flagship ablaze.",
+      "zh-tw": "兩支艦隊在海上接舷廝殺，帝國的巨龍噴火燒向皇冠派的旗艦。"
+    }
+  },
+  {
+    "id": "battle-of-red-mountain",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "On the ash plain below Red Mountain, the Chimer army faces the Dwemer army, drawn out of its mountain citadel.",
+      "zh-tw": "紅山下的灰原上，奇莫大軍與被引出山中要塞的鍛莫大軍對陣。"
+    }
+  },
+  {
+    "id": "battle-of-sancre-tor",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Talos leads his men down the hidden trail behind Sancre Tor while his army fights below.",
+      "zh-tw": "塔洛斯帶著部下沿隱密小徑從桑卡托背後下山，他的軍隊在山下苦戰。"
+    }
+  },
+  {
+    "id": "bloodmoon-prophecy",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Under a blood-red Secunda, werewolves close in on an outlander on the snows of Solstheim.",
+      "zh-tw": "血紅的塞庫達下，狼人在索瑟海姆的雪坡上逼近一名外來者。"
+    }
+  },
+  {
+    "id": "camoran-usurper",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Outside Dwynnen, the knights of High Rock break the Usurper's Daedra and undead in the storm, while their fleet closes on his ships.",
+      "zh-tw": "德維尼城外，高岩的騎士在暴風雨中擊潰篡位者的魔族與不死者，他們的艦隊也在海上逼近他的船隻。"
+    }
+  },
+  {
+    "id": "creation-of-mundus",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Before the world exists, Lorkhan shows the gathered spirits the design that Magnus has drawn up.",
+      "zh-tw": "世界出現以前，洛克汗向聚集的眾靈展示瑪格努斯畫出的設計。"
+    }
+  },
+  {
+    "id": "crystal-tower-and-the-daedric-triad",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Half dragged into Nocturnal's realm, the Crystal Tower sends light from its crown into the vortex.",
+      "zh-tw": "水晶塔上半截已被拖進娜克圖諾的國度，塔頂射出的光開始撕開漩渦。"
+    }
+  },
+  {
+    "id": "dark-mane-of-reapers-march",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "On a night of twin moons, the Dark Mane stands over the temple steps of Moonmont among the Dro-m'Athra, facing two Khajiit sisters.",
+      "zh-tw": "雙月之夜，黑暗鬃首與卓瑪斯拉站在月山神殿的階梯上，與兩名凱季特姊妹對峙。"
+    }
+  },
+  {
+    "id": "death-of-torygg",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "In Solitude, Ulfric raises his sword over the fallen High King Torygg as Elisif weeps beside him.",
+      "zh-tw": "獨孤城裡，烏弗瑞克高舉長劍，站在倒下的至高王托依格身旁，艾莉希芙伏在他身邊痛哭。"
+    }
+  },
+  {
+    "id": "dominion-strikes-at-the-hist",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "At the Hatching Pools, an Argonian elder kneels at the Hist while the egg-tenders look on beside overturned cauldrons of sap.",
+      "zh-tw": "孵化池邊，一名阿爾貢蜥人長老跪在希思特前傾聽，護卵者圍在一旁，熬樹液的鐵鍋翻倒在泥裡。"
+    }
+  },
+  {
+    "id": "dragon-war",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "On the summit of the Throat of the World, Felldir uses the Elder Scroll and Alduin is torn out of time.",
+      "zh-tw": "世界之喉山頂，費迪爾使用上古卷軸，奧杜因被拋出時間。"
+    }
+  },
+  {
+    "id": "dragons-return-to-elsweyr",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Kaalgrontiid and his dragons burst from the Halls of Colossus as Abnur Tharn and Khamira stand on the bridge.",
+      "zh-tw": "卡爾格隆提德率領巨龍衝出巨像殿堂，阿布努爾·薩恩與卡米拉就在橋上。"
+    }
+  },
+  {
+    "id": "end-of-akaviri-potentate",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Akaviri mourners carry Savirien-Chorak's bier toward the Imperial City as a flute plays at their head.",
+      "zh-tw": "阿卡維爾送葬隊伍抬著賽爾瓦因·朱拉克的靈柩走向帝都，隊伍前頭有人吹著長笛。"
+    }
+  },
+  {
+    "id": "eye-of-magnus-at-winterhold",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "In the Hall of the Elements, Ancano draws on the Eye of Magnus, its green glyphs ablaze, behind a wall of light.",
+      "zh-tw": "元素大廳裡，瑪格努斯之眼的綠色符文閃耀，安卡諾在光罩之內汲取它的力量。"
+    }
+  },
+  {
+    "id": "failed-invasion-of-akavir",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Uriel V rallies the shield wall of his last legion as arrows fall from the ridges of Akavir.",
+      "zh-tw": "尤利爾五世重整最後一個軍團的盾牆，阿卡維爾山脊上的箭雨落下。"
+    }
+  },
+  {
+    "id": "first-council-expels-nords",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Nerevar and Dumac seal the alliance between the Chimer and the Dwemer.",
+      "zh-tw": "尼瑞瓦與杜馬克握臂結盟，奇莫與鍛莫從此並肩作戰。"
+    }
+  },
+  {
+    "id": "forsworn-uprising",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The Reachmen climb the stairs of Markarth, and the Nord jarl is led away.",
+      "zh-tw": "邊峪人登上馬卡斯城的石階，諾德領主被帶走。"
+    }
+  },
+  {
+    "id": "founding-of-camoran-dynasty",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The Bosmer clans acclaim Eplear as their king among the great trees of Valenwood.",
+      "zh-tw": "威木的巨樹之間，木精靈各氏族擁立埃普利爾為王。"
+    }
+  },
+  {
+    "id": "founding-of-fighters-guild",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "An Akaviri officer leads the first hired warriors of every race after they drive off a band of bandits.",
+      "zh-tw": "阿卡維爾軍官帶著各族的第一批傭兵戰士，擊退了盜匪。"
+    }
+  },
+  {
+    "id": "founding-of-mages-guild",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Vanus Galerion presents his charter to the king of Firsthold and the Psijics.",
+      "zh-tw": "瓦努斯·加列昂向第一要塞的國王與賽伊克教團呈上章程。"
+    }
+  },
+  {
+    "id": "founding-of-mede-dynasty",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Titus Mede leads his small army across the bridge towards the Imperial City, under the storm over the White-Gold Tower.",
+      "zh-tw": "提圖斯·邁德率領他的小部隊過橋前往帝都，白金塔上空風暴盤旋。"
+    }
+  },
+  {
+    "id": "gortwog-founds-nova-orsinium",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Gortwog points up at the iron city of Nova Orsinium, its road lined with statues of Orc heroes, as Orc workers haul stone.",
+      "zh-tw": "高特沃格指向山坡上正在興建的鐵城新奧辛紐姆，路旁立著獸人英雄的雕像，獸人工匠正在搬運石料。"
+    }
+  },
+  {
+    "id": "gray-fox-steals-an-elder-scroll",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "By candlelight in a cellar, the thief hands the stolen Elder Scroll to the Gray Fox.",
+      "zh-tw": "地窖的燭光下，盜賊把偷來的上古卷軸交給灰狐。"
+    }
+  },
+  {
+    "id": "great-collapse",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Winterhold slides into the Sea of Ghosts while the College stands untouched on its pillar of rock.",
+      "zh-tw": "冬堡滑進幽靈海，學院卻在石柱上安然無恙。"
+    }
+  },
+  {
+    "id": "great-war",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "In the throne hall, a Thalmor envoy stands beside his covered cart as Titus Mede II refuses the demands.",
+      "zh-tw": "梭默使節帶著蒙布的馬車來到殿上，提圖斯·邁德二世舉手拒絕了他的要求。"
+    }
+  },
+  {
+    "id": "greymarch",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Jyggalag and his Knights of Order march across the Shivering Isles, and one mortal stands in their way.",
+      "zh-tw": "傑蓋拉格與秩序騎士橫越戰慄孤島，一名凡人擋在他們面前。"
+    }
+  },
+  {
+    "id": "harald-crowned-high-king",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Harald sits crowned as High King of Skyrim, the warriors of his new army lining both sides of the hall.",
+      "zh-tw": "哈拉爾德加冕為天際的至高王，他新編的軍隊在大廳兩側列隊。"
+    }
+  },
+  {
+    "id": "imperial-simulacrum",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The freed prisoner turns the rebuilt Staff of Chaos on Jagar Tharn before the throne.",
+      "zh-tw": "逃出的囚犯在王座前舉起重新拼好的混沌之杖，對準賈加·薩恩。"
+    }
+  },
+  {
+    "id": "kaalgrontiid-falls-at-dragonhold",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "On the risen island of Dragonhold, Nahfahlaar faces Kaalgrontiid while Sai Sahan, Khamira and Abnur Tharn fight below.",
+      "zh-tw": "在升上天空的龍之要塞島上，納法拉爾與卡爾格隆提德對峙，賽·薩汗、卡米拉與阿布努爾·薩恩在下方作戰。"
+    }
+  },
+  {
+    "id": "knahaten-flu",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Harbour guards in Hammerfell turn away the Crimson Ship and its Kothringi refugees.",
+      "zh-tw": "落錘的港口守衛把載著考斯林難民的猩紅之船擋在港外。"
+    }
+  },
+  {
+    "id": "kurog-betrays-orsinium",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "At the gathering of chiefs, Kurog gives the order, and Vosh Rakh assassins pour in from the side halls.",
+      "zh-tw": "族長大會上，庫洛格下令動手，沃什拉克的刺客從兩側廊道湧入。"
+    }
+  },
+  {
+    "id": "last-dragonborn-defeats-alduin",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Below the Hall of Valor, Alduin burns away before the Last Dragonborn and the three heroes of old.",
+      "zh-tw": "英靈殿下方，奧杜因在最後的龍裔與三位古代英雄面前燃燒消散。"
+    }
+  },
+  {
+    "id": "magnus-flees-creation",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Magnus tears his way out of the half-made world; the spirits who follow him become the stars.",
+      "zh-tw": "瑪格努斯撕開天空離開未完成的世界，跟隨他的神靈化為星辰。"
+    }
+  },
+  {
+    "id": "mannimarco-falls-in-the-mages-guild-war",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "In Echo Cave, Mannimarco's magic breaks against the black soul gem in the Arch-Mage's hand.",
+      "zh-tw": "在回聲洞穴裡，曼尼馬克的法術撞上首席法師手中的黑色靈魂石。"
+    }
+  },
+  {
+    "id": "markarth-incident",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Ulfric Stormcloak's militia breaks through the gates of Markarth, and the Reachmen fall back.",
+      "zh-tw": "烏弗瑞克·風暴斗篷的民兵攻破馬卡斯城的城門，邊峪人節節後退。"
+    }
+  },
+  {
+    "id": "middle-dawn",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Townsfolk watch eight stars fall one after another during the Dragon Break.",
+      "zh-tw": "龍破期間，城外的人們看著八顆星辰接連墜落。"
+    }
+  },
+  {
+    "id": "miraak-returns",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "On the summit of Apocrypha the First Dragonborn, wrapped in Dragon Aspect, faces the Last.",
+      "zh-tw": "在晦明識界的山頂，披著龍之形態的第一位龍裔與最後的龍裔對峙。"
+    }
+  },
+  {
+    "id": "nerevarine-defeats-dagoth-ur",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Deep inside Red Mountain, the Nerevarine faces Dagoth Ur before the Heart of Lorkhan and the unfinished giant.",
+      "zh-tw": "紅山深處，尼瑞瓦因在洛克汗之心與未完工的巨像前，與達格斯·烏爾對峙。"
+    }
+  },
+  {
+    "id": "night-of-tears",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Ysgramor weeps at the stern as he and his two sons sail away from burning Saarthal.",
+      "zh-tw": "伊斯格拉謨站在船尾落淚，和兩個兒子乘船離開燃燒的薩瑟爾城。"
+    }
+  },
+  {
+    "id": "oblivion-crisis",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The prisoner leads Martin Septim out of burning Kvatch, past the wreck of an Oblivion Gate.",
+      "zh-tw": "囚犯帶著馬丁·賽普汀走出燃燒的科瓦奇，路旁是一座湮滅之門的殘骸。"
+    }
+  },
+  {
+    "id": "planemeld",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "A Dark Anchor hangs over the Imperial City, its chains clawing at the White-Gold Tower as Daedra climb down.",
+      "zh-tw": "暗錨懸在帝都上空，鎖鏈抓向白金塔，魔族順著鎖鏈爬下。"
+    }
+  },
+  {
+    "id": "ra-gada-conquer-hammerfell",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The Ra Gada come ashore on the desert coast of Hammerfell.",
+      "zh-tw": "拉伽達戰士登上落錘的沙漠海岸。"
+    }
+  },
+  {
+    "id": "red-year",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Baar Dau crashes into Vivec City as Red Mountain erupts, filling the sky with ash.",
+      "zh-tw": "巴爾道砸進維威克城，紅山同時噴發，火山灰遮滿天空。"
+    }
+  },
+  {
+    "id": "reman-repels-akaviri",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "At Pale Pass, the Akaviri host lays its swords in the snow and kneels before Reman.",
+      "zh-tw": "在蒼白小徑，阿卡維爾大軍把刀放在雪地上，向雷曼跪拜。"
+    }
+  },
+  {
+    "id": "return-of-alduin",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "A black dragon descends on Helgen and sets the village ablaze.",
+      "zh-tw": "一頭黑龍從天而降，海爾根村陷入火海。"
+    }
+  },
+  {
+    "id": "second-akaviri-invasion",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Dunmer, Nords and Argonians close in on the snow demons of Kamal at Vivec's Antlers.",
+      "zh-tw": "丹莫、諾德人與阿爾貢蜥人在維威克之角圍住卡瑪律的雪魔。"
+    }
+  },
+  {
+    "id": "shade-of-naemon-and-the-shadow-wood",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Among the ruins of Hectahame, the Shade of Naemon floats before the darkened Heart of Valenwood and faces a Bosmer priest.",
+      "zh-tw": "赫克塔哈姆的廢墟中，納埃蒙之影浮在變暗的威木之心前，與一名木精靈祭司對峙。"
+    }
+  },
+  {
+    "id": "shattering-of-lorkhan",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The Heart of Lorkhan, bound to Auriel's arrow, plunges into the sea, and a volcano rises where it falls.",
+      "zh-tw": "綁在奧瑞爾箭上的洛克汗之心墜入大海，落處升起一座火山。"
+    }
+  },
+  {
+    "id": "siege-of-orsinium",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Breton knights and the Redguard warriors of the Order of Diagna camp below Orsinium, while Golkarr's horn calls bears down the mountainside.",
+      "zh-tw": "布萊頓騎士與迪亞格納騎士團的紅衛人戰士在奧辛紐姆城下紮營，戈爾卡爾的號角把熊群喚下山坡。"
+    }
+  },
+  {
+    "id": "sinking-of-yokuda",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The Yokudan fleet sails east as the continent behind it slides into the sea.",
+      "zh-tw": "尤庫達的船隊向東航行，身後的大陸正沉入海中。"
+    }
+  },
+  {
+    "id": "solstheim-ceded",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Dunmer refugees come ashore at Raven Rock, behind its great wall against the ash.",
+      "zh-tw": "丹莫難民在鴉石鎮上岸，鎮後是擋住火山灰的巨牆。"
+    }
+  },
+  {
+    "id": "soulburst",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Mannimarco turns the coronation rite against Varen Aquilarios as the Amulet of Kings blazes.",
+      "zh-tw": "曼尼馬克讓加冕儀式反噬瓦倫·阿基拉里奧斯，帝王護符爆出強光。"
+    }
+  },
+  {
+    "id": "stros-mkai-uprising",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "In the temple Cyrus raises the sword that now holds Prince A'tor's soul, and the Restless League raise theirs with him.",
+      "zh-tw": "神殿裡，賽勒斯高舉附著阿托爾王子靈魂的劍，不眠聯盟的成員跟著舉起刀劍。"
+    }
+  },
+  {
+    "id": "talos-ascends",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "On his deathbed, the aged Tiber Septim passes his ring to his heir, Pelagius.",
+      "zh-tw": "臨終的泰伯·賽普汀把戒指交給繼承人佩拉吉烏斯。"
+    }
+  },
+  {
+    "id": "tamriel-unified-by-numidium",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Numidium strides out of the sea toward the elven city as the Dominion's soldiers fall back.",
+      "zh-tw": "努米迪安從海中走向精靈的城市，先祖神洲的士兵節節敗退。"
+    }
+  },
+  {
+    "id": "thalmor-seize-summerset",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Thalmor Justiciars take the palace of Alinor as the royal guards lay down their arms.",
+      "zh-tw": "梭默審判官接管艾琳諾的王宮，王室衛兵放下武器。"
+    }
+  },
+  {
+    "id": "thrassian-plague",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The coral kingdom of Thras sinks into a whirlpool as the All Flags Navy pulls away.",
+      "zh-tw": "聯合海軍駛離時，色雷司珊瑚王國沉入漩渦。"
+    }
+  },
+  {
+    "id": "three-banners-war",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Three alliances march on the Imperial City from the northwest, the northeast and the south, while great chains hang from the sky above it.",
+      "zh-tw": "三個聯盟的大軍分別從西北、東北與南方逼近帝都，城的上空垂下巨大的鎖鏈。"
+    }
+  },
+  {
+    "id": "tiber-septim-crowned",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Newly crowned, his throat bandaged, Tiber Septim stands on the steps of the still-smoking palace.",
+      "zh-tw": "剛加冕的泰伯·賽普汀喉嚨纏著繃帶，站在還冒著煙的宮殿台階上。"
+    }
+  },
+  {
+    "id": "tribunal-apotheosis",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Almalexia, Sotha Sil and Vivec, now gods, stand before their frightened, ash-grey people.",
+      "zh-tw": "成神的阿瑪萊西亞、索薩·希爾與維威克，面對膚色轉灰、驚恐不安的族人。"
+    }
+  },
+  {
+    "id": "tyranny-of-the-sun",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The Last Dragonborn and Serana face Vyrthur in his frozen chapel.",
+      "zh-tw": "最後的龍裔與瑟拉娜在冰封的禮拜堂裡迎戰維爾勒。"
+    }
+  },
+  {
+    "id": "umaril-the-unfeathered-returns",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Deep in Garlas Malatar, the new Crusader faces Umaril the Unfeathered.",
+      "zh-tw": "在加拉斯·馬拉塔深處，新的聖戰士與無羽者烏瑪瑞爾對峙。"
+    }
+  },
+  {
+    "id": "veiled-heritance-strikes-auridon",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "In the square of Firsthold, Dremora pour from an Oblivion gate while Dominion soldiers hold the line and three mages raise a golden ward.",
+      "zh-tw": "第一要塞的廣場上，魔人從湮滅之門湧出，先祖神洲的士兵列陣守住，三名法師張起金色結界。"
+    }
+  },
+  {
+    "id": "velothi-exodus",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "At a snowbound pass, Veloth lays down his warhammer before the woman who will open the way to Resdayn.",
+      "zh-tw": "雪中的山口前，維洛斯在那位將為他們開路的女子面前放下戰錘。"
+    }
+  },
+  {
+    "id": "void-nights",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Khajiit with lanterns look up at a sky without moons.",
+      "zh-tw": "提著燈的凱季特人仰望沒有月亮的夜空。"
+    }
+  },
+  {
+    "id": "waking-flame-and-the-four-ambitions",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Mehrunes Dagon rises out of the torn sky over Fort Redmane, gripping its walls with his four arms, as Dremora march from the gates and Argonian soldiers hold the fort below him.",
+      "zh-tw": "梅魯涅斯·大袞從撕裂的天空中現身，四隻手臂壓在紅鬃堡的城牆上，魔人從傳送門走出，阿爾貢蜥人士兵在他腳下守住要塞。"
+    }
+  },
+  {
+    "id": "war-of-betony",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The ghost of King Lysandus leads his host of ghosts through the streets of Daggerfall by night.",
+      "zh-tw": "利桑杜斯國王的亡魂在夜裡率領鬼魂大軍走過匕落城街頭。"
+    }
+  },
+  {
+    "id": "war-of-righteousness",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Nibenese rebels watch the Alessian Order's cathedral at Lake Canulus burn.",
+      "zh-tw": "尼貝內的起事者看著艾萊西亞教會在卡努勒斯湖畔的大教堂燃燒。"
+    }
+  },
+  {
+    "id": "war-of-the-ehlnofey",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "The wanderers reach the walls of Old Ehlnofey.",
+      "zh-tw": "流浪者來到古艾爾諾菲的城牆下。"
+    }
+  },
+  {
+    "id": "war-of-the-isle",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "A storm tears apart the Maormer fleet, while the allied ships wait unharmed in the distance.",
+      "zh-tw": "風暴撕裂了海精靈的艦隊，遠處的盟軍船隻安然無恙。"
+    }
+  },
+  {
+    "id": "war-of-the-red-diamond",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Potema, the Wolf Queen, raises the dead in the snow above Solitude.",
+      "zh-tw": "狼心女王波特瑪在獨孤城外的雪地上喚起亡者。"
+    }
+  },
+  {
+    "id": "war-of-the-singers",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "At the foot of Mount Hattu, Frandar Hunding's sword-singers hold against the emperor's vast army.",
+      "zh-tw": "哈圖山腳下，弗蘭達·亨丁率領的劍歌者擋住皇帝的大軍。"
+    }
+  },
+  {
+    "id": "warp-in-the-west",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Seen from a small boat, the woken Numidium stands in the shallows of the Iliac Bay beside a cliff city of High Rock.",
+      "zh-tw": "從一艘小船望去，甦醒的努米迪安站在伊利亞克灣的淺水中，岸邊崖上是高岩的一座城。"
+    }
+  },
+  {
+    "id": "white-gold-concordat",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Titus Mede II puts his seal to the White-Gold Concordat, his generals behind him and Thalmor envoys looking on.",
+      "zh-tw": "提圖斯·邁德二世為白金協約蓋上印章，兩名將軍站在他身後，梭默使節在一旁看著。"
+    }
+  },
+  {
+    "id": "ysgramor-return",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "Ysgramor, swinging Wuuthrad, leads the Companions up the slope against the Falmer holding Saarthal.",
+      "zh-tw": "伊斯格拉謨揮舞精靈屠戮者，率領勇士團衝向法莫據守的薩瑟爾城。"
+    }
+  }
+]

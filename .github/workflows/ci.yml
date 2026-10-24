@@ -1,0 +1,44 @@
+# The five checks (README, Development), on every push and pull request of the public repository, where Actions are
+# free. In the private working repository they run only when started by hand: its minutes are limited, and every push
+# there has already passed the same checks locally (decisions/actions-minutes).
+# CHRONICLE_BASE stays unset here: the tests expect the site at the root.
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    # A skipped job takes no runner minutes.
+    if: ${{ !github.event.repository.private || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run check
+      - run: npm run build
+      - name: Strict build (every event agreed in review)
+        run: npm run build
+        env:
+          CHRONICLE_STRICT: '1'
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+        env:
+          CI: 'true'
+      - name: Keep the Playwright report when the browser tests fail
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

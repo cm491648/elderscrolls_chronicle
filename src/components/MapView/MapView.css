@@ -1,0 +1,280 @@
+/* Direction A: the map is a plate bound into the book — ink rule, gilt rule 4px outside, caption below. */
+/* A paper page round the plate (decisions/es-feel-spec-2): vellum, gilt rule, gilt corners. */
+.map-view {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  min-height: 0;
+  padding: 8px;
+  border: 1px solid var(--gilt);
+}
+.map-plate {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin: 5px;
+  overflow: hidden;
+  background: var(--map-sea);
+  border: 1px solid var(--ink);
+  outline: 1px solid var(--gilt);
+  outline-offset: 4px;
+}
+.map-cap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1em;
+  margin: 0;
+  padding-left: 5px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.map-cap b { font-family: var(--font-title); font-weight: 700; color: var(--ink); }
+/* The one-line short credit is the narrow screens' (see the max-width: 899px block); wide screens show the whole one. */
+.cap-short { display: none; }
+
+.map-svg { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; --mk: 1; }
+.map-svg:active { cursor: grabbing; }
+
+/* Regions are outlines over a translucent fill, so a raster map can sit underneath later. */
+.region {
+  fill: var(--region-fill);
+  stroke: var(--region-stroke);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+  cursor: pointer;
+  transition: fill 0.15s ease;
+}
+.region:hover { fill: var(--region-fill-hover); }
+.region.is-active { fill: var(--region-fill-active); stroke: var(--accent); stroke-width: 2; }
+.region:focus { outline: none; }
+/* Keyboard focus on a region is drawn as an overlay (MapView `.region-focus`): a 3px ink line inside a 7px paper
+   halo. One of the two is >= 3:1 against any colour underneath (ink and paper sit at opposite ends of the scale in
+   both themes), so the ring holds on the raster map as well as on the schematic. */
+.region-focus { pointer-events: none; }
+.region-focus .focus-halo, .region-focus .focus-ink { fill: none; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.region-focus .focus-halo { stroke: var(--surface); stroke-width: 7; }
+.region-focus .focus-ink { stroke: var(--ink); stroke-width: 3; }
+/* Official raster underneath (R8): regions are invisible hit areas until hovered or active, so the map's own
+   borders show through; the active province gets a lapis wash and outline. */
+.map-basemap, .map-preview, .map-pad, .ghost-basemap, .ghost-preview, .ghost-pad { filter: var(--map-raster-filter); pointer-events: none; }
+.has-basemap .region { fill: transparent; stroke: transparent; }
+.has-basemap .region:hover { fill: var(--wash); stroke: color-mix(in srgb, var(--accent), transparent 40%); stroke-width: 1.5; }
+.has-basemap .region.is-active { fill: color-mix(in srgb, var(--accent), transparent 84%); stroke: var(--accent); stroke-width: 2; }
+/* Loose hit areas (Nirn: grown over the sea, simplified): tint only; their coarse outline would not follow the coast. */
+.regions-loose .region:hover, .regions-loose .region.is-active { stroke: transparent; }
+/* A whole region an event covers, carried up from a finer layer (Skyrim on Nirn): lapis wash and outline. */
+.event-region, .ghost-event-region {
+  fill: color-mix(in srgb, var(--accent), transparent 78%);
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+/* On Nirn the drawn coast differs from the province outlines: a soft wash only, kept to the land it lies in. */
+.event-region.is-soft, .ghost-event-region.is-soft {
+  fill: color-mix(in srgb, var(--accent), transparent 66%);
+  stroke: none;
+}
+
+/* Chinese province names on the raster: a paper tag under the map's own lettering, drawn in screen px. */
+:is(.region-tag, .ghost-tag) { transform: scale(var(--mk)); pointer-events: none; }
+:is(.region-tag, .ghost-tag) rect { fill: color-mix(in srgb, var(--surface), transparent 12%); stroke: var(--line); stroke-width: 1; }
+:is(.region-tag, .ghost-tag) text {
+  font-family: var(--font-title);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  fill: var(--ink);
+  text-anchor: middle;
+}
+.map-cap a { color: inherit; }
+.map-cap a:hover { color: var(--accent); }
+
+:is(.region-label, .ghost-label) {
+  font-family: var(--font-title);
+  /* Screen-constant size (like the markers), so names stay legible at any zoom. */
+  font-size: calc(17px * var(--mk));
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  fill: var(--ink-soft);
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+/* Markers: lapis dot inside a paper ring and an ink ring, legible on any map; drawn in screen px. */
+.map-marker { cursor: pointer; outline: none; }
+/* Every event here is left out by a filter: faint, still clickable. */
+.map-marker.is-dimmed:not(.is-active) .mk { opacity: 0.4; }
+/* Markers from a game-map province glide between its picture and the parent map's glyphs while layers change. */
+.map-marker, .mk-tag-anchor { transition: transform 0.48s ease; }
+:is(.map-marker, .ghost-marker, .mk-tags) .mk { transform: scale(var(--mk)); }
+/* The selected places' tags sit in their own layer above every marker; placeTags moves each clear of the others. */
+.mk-tags { pointer-events: none; }
+.mk-tags .mk-tag { opacity: 1; }
+.mk-hit { fill: transparent; pointer-events: all; }
+.mk-ring { fill: var(--ink); pointer-events: none; }
+.mk-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; pointer-events: none; }
+/* A group of places too close to tap apart (P3-A5): the count on the dot. */
+.mk-count { font-family: var(--font-body); font-size: 11px; font-weight: 700; fill: var(--surface); text-anchor: middle; pointer-events: none; }
+:is(.map-marker, .ghost-marker).is-active .mk-dot { fill: var(--accent-2); }
+/* Marker focus: the same two-tone ring (paper halo, ink line) at the edge of the 28px hit circle. */
+.mk-focus { fill: none; stroke: none; pointer-events: none; }
+.map-marker:focus-visible .mk-hit { stroke: var(--surface); stroke-width: 6; }
+.map-marker:focus-visible .mk-focus { stroke: var(--ink); stroke-width: 2.5; }
+.mk-tag { pointer-events: none; opacity: 0; transition: opacity 0.15s ease; }
+:is(.map-marker, .ghost-marker).is-active .mk-tag,
+.map-marker:hover .mk-tag,
+.map-marker:focus-visible .mk-tag { opacity: 1; }
+.mk-tag rect { fill: var(--surface); stroke: var(--gilt); stroke-width: 1; }
+.mk-tag text { font-family: var(--font-title); font-size: 13px; font-weight: 700; fill: var(--ink); }
+
+.map-ghost { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; }
+.map-ghost svg { display: block; width: 100%; height: 100%; }
+.ghost-region { fill: transparent; stroke: none; }
+.ghost-region.is-active { fill: color-mix(in srgb, var(--accent), transparent 84%); }
+
+/* Level path (top left): "up one level", then the levels from the cosmos down; the current one is plain text. */
+.map-nav {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 6px;
+  pointer-events: none;
+  font-size: 12px;
+}
+.map-nav > * { pointer-events: auto; }
+.map-up, .map-path {
+  min-height: 28px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--gilt);
+}
+.map-up { padding: 2px 10px; cursor: pointer; font: inherit; }
+.map-up:hover { background: var(--surface-2); }
+.map-path { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0 4px; list-style: none; }
+.map-path li { display: flex; align-items: center; }
+.map-path li + li::before { content: '›'; padding: 0 2px; color: var(--ink-soft); }
+.map-path button {
+  min-height: 26px;
+  padding: 2px 6px;
+  font: inherit;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent), transparent 55%);
+  text-underline-offset: 3px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.map-path button:hover { text-decoration-color: currentColor; }
+.map-path [aria-current] { padding: 2px 6px; font-family: var(--font-title); font-weight: 700; outline-offset: 2px; }
+
+.map-popup {
+  position: absolute;
+  left: 10px;
+  top: 48px;
+  z-index: 3;
+  width: max-content;
+  max-width: min(300px, calc(100% - 20px));
+  max-height: calc(100% - 96px);
+  overflow-y: auto;
+  padding: 10px 16px 12px;
+  color: var(--ink);
+  border: 1px solid var(--gilt);
+  box-shadow: var(--shadow-pop);
+}
+.map-popup h3:focus { outline: none; }
+.map-popup h3:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.map-popup h3 { margin: 0 0 4px; padding-right: 24px; font-size: 17px; color: var(--accent); }
+.map-popup p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+.map-popup ul { margin: 0; padding: 0; list-style: none; }
+.map-popup li button {
+  min-height: 28px;
+  padding: 2px 0;
+  font-size: 14px;
+  text-align: left;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent), transparent 55%);
+  text-underline-offset: 4px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.map-popup li button:hover { text-decoration-color: currentColor; }
+.map-popup-year {
+  margin-left: 0.6em;
+  font-size: 12px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+.map-popup .close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--ink-soft);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.map-popup .close:hover { color: var(--ink); }
+
+.map-up-short { display: none; }
+
+/* Wide screens: the map fills the window under the timeline, so the caption rides on the plate's bottom left as a
+   small paper strip instead of taking a row (framing keeps the selection clear of it: MapView insets()). */
+@media (min-width: 900px) {
+  .map-view { position: relative; }
+  .map-cap {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    z-index: 2;
+    max-width: calc(100% - 24px);
+    padding: 2px 8px;
+    line-height: 1.5;
+    background: var(--paper);
+    border: 1px solid var(--gilt);
+    border-radius: var(--radius);
+    /* Drags and clicks pass through to the map; only the source link takes the pointer. */
+    pointer-events: none;
+  }
+  .map-cap a { pointer-events: auto; }
+}
+
+@media (max-width: 899px) {
+  /* One line under the plate: the short credit shows, the whole one stays for screen readers (and the footer). */
+  .map-cap { flex-wrap: nowrap; min-width: 0; white-space: nowrap; }
+  .cap-credit { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .cap-short { display: inline; }
+  .cap-long {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  /* Phone: the gilt rule hugs the ink rule to save room. */
+  .map-plate { margin: 3px; outline-offset: 2px; }
+  /* Phone level path (round 3): one "↑ Up" button and the current level's name, on a single short row. */
+  .map-up-long { display: none; }
+  .map-up-short { display: inline; }
+  .map-path li:not(:last-child) { display: none; }
+  .map-path li + li::before { content: none; }
+}
+.map-popup li.is-dimmed button { opacity: 0.55; }

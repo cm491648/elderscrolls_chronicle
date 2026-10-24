@@ -1,0 +1,20 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Elder Scrolls Chronicle</title>
+    <script is:inline define:vars={{ base }}>
+      var pref = (navigator.languages && navigator.languages[0]) || navigator.language || 'en';
+      location.replace(base + (/^zh/i.test(pref) ? '/zh-tw/' : '/en/'));
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <a href={`${base}/en/`}>English</a> · <a href={`${base}/zh-tw/`}>繁體中文</a>
+    </noscript>
+  </body>
+</html>

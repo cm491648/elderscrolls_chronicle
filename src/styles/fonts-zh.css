@@ -1,0 +1,16 @@
+/*
+ * Fonts for Chinese pages (SIL OFL 1.1, docs/design/assets-log.md), only the weights the CSS uses: Chinese text uses
+ * Noto Sans TC 400 / 700 and Noto Serif TC 700 (every Chinese title, tag and rubric is bold; decisions/round3).
+ * On a production build scripts/font-subset.mjs replaces the Noto TC rules below with one subset per face, holding
+ * exactly the characters used in src/; the dev server keeps fontsource's unicode-range slices. The Latin faces stay
+ * fontsource slices. Base.astro applies this file once the page has loaded; font-display: swap.
+ */
+@import '@fontsource/alegreya/500.css';
+@import '@fontsource/alegreya/700.css';
+@import '@fontsource/alegreya/500-italic.css';
+@import '@fontsource/alegreya-sans/400.css';
+@import '@fontsource/alegreya-sans/500.css';
+@import '@fontsource/alegreya-sans/700.css';
+@import '@fontsource/noto-sans-tc/400.css';
+@import '@fontsource/noto-sans-tc/700.css';
+@import '@fontsource/noto-serif-tc/700.css';

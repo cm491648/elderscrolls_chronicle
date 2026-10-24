@@ -1,0 +1,11 @@
+/*
+ * Fonts for English pages (SIL OFL 1.1, docs/design/assets-log.md): the Latin faces only. The few Chinese words an
+ * English page can show (the language link, a term tooltip's Chinese name) use the system's Chinese font. See
+ * fonts-zh.css for how the files load.
+ */
+@import '@fontsource/alegreya/500.css';
+@import '@fontsource/alegreya/700.css';
+@import '@fontsource/alegreya/500-italic.css';
+@import '@fontsource/alegreya-sans/400.css';
+@import '@fontsource/alegreya-sans/500.css';
+@import '@fontsource/alegreya-sans/700.css';
