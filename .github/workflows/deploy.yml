@@ -1,10 +1,12 @@
-# Publishes the site to GitHub Pages. MANUAL ONLY (docs/deploy.md): run it only once the user has decided on a
-# decision page that the site goes public (decisions/launch-2: prepared, not public yet). The address and the base
-# path come from this repository's owner and name, so it works in the public repository it is exported to.
-# Pages on a private repository needs a paid plan.
+# Publishes the site to GitHub Pages (docs/deploy.md). In the public repository every push to master deploys: a push
+# there is a release synced from the private repository (decisions/public-sync). In the private repository it never
+# runs on a push (no Pages there, and its Actions minutes are limited); either one can still be run by hand.
+# The address and the base path come from the repository's owner and name.
 name: Deploy to GitHub Pages
 
 on:
+  push:
+    branches: [master]
   workflow_dispatch:
     inputs:
       map_source:
@@ -25,6 +27,8 @@ concurrency:
 
 jobs:
   build:
+    # A skipped job takes no runner minutes.
+    if: ${{ github.event_name == 'workflow_dispatch' || !github.event.repository.private }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -40,7 +44,8 @@ jobs:
           CHRONICLE_STRICT: '1'
           CHRONICLE_SITE: https://${{ github.repository_owner }}.github.io
           CHRONICLE_BASE: /${{ github.event.repository.name }}/
-          PUBLIC_MAP_SOURCE: ${{ inputs.map_source }}
+          # A push has no inputs: the official maps, as the site uses.
+          PUBLIC_MAP_SOURCE: ${{ inputs.map_source || 'official' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

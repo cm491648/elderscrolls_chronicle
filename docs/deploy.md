@@ -1,6 +1,6 @@
 # 上線設定
 
-> 狀態（2026-10-24）：**準備完成，尚未公開**（維護者的決定 `decisions/launch-2`：先把準備做完、暫不公開；公開時另開一個新的公開 repo，只放目前的內容）。網站、README、授權檔、部署設定都已備好；建立公開 repo、推送與部署要等維護者決定公開時才做。
+> 狀態（2026-10-25）：**已公開上線**。網站 https://cm491648.github.io/elderscrolls_chronicle/ ，公開 repo https://github.com/cm491648/elderscrolls_chronicle （一個 commit，作者為 GitHub 匿名信箱）。私人工作 repo 已改名為 `cm491648/elderscrolls_chronicle-dev`。上線步驟照下面第 1 節做完；之後的更新照第 1.1 節發布。
 
 ## 1. 公開 repo 的做法
 
@@ -54,7 +54,18 @@
 
 7. **上線後檢查**：開 `https://cm491648.github.io/elderscrolls_chronicle/`，點幾則事件、打開搜尋、切換語言；到 Google Search Console 提交 `https://cm491648.github.io/elderscrolls_chronicle/sitemap.xml`。
 
-之後的更新怎麼同步到公開 repo（每次重新匯出覆蓋，或改在公開 repo 直接開發），公開時再決定。
+### 1.1 發布更新（維護者決定 `decisions/public-sync`）
+
+- **照舊在私人 repo 開發**（分支、確認頁、合併回 master）。
+- **合併回 master 就發布**，發布完再告訴維護者：在私人 repo 的主資料夾（master、沒有未提交的修改）執行
+
+  ```bash
+  node scripts/export-public-repo.mjs --sync ../elderscrolls-public --email 17330019+cm491648@users.noreply.github.com --push
+  ```
+
+  它把 HEAD 的公開檔案同步到公開 repo 的 clone（`C:/Users/user/Desktop/claude project/elderscrolls-public`），新增、修改、刪除都照 HEAD，內部筆記照樣不帶出去；在公開 repo 做**一個 commit**，訊息列出上次發布以來動到公開檔案的私人 commit 標題（拿掉 `[skip ci]` 等標記），最後一行 `Private-Source: <私人 commit>` 標出下一次從哪裡開始算；沒有任何公開檔案改變時不 commit。
+- **公開 repo 的 master 一有推送就自動部署**（`deploy.yml` 的推送觸發只在公開 repo 生效），所以 `--push` 就等於發布。部署大約 2 分鐘，完成後開正式網址確認一次。
+- 上線後的第一次發布，公開 repo 的起始 commit 沒有 `Private-Source`，要加 `--since 75dbdd0`（上線那份匯出來自的私人 commit）。
 
 ## 2. 自動測試（`.github/workflows/ci.yml`）
 
@@ -65,7 +76,8 @@
 
 ## 3. 部署（`.github/workflows/deploy.yml`）
 
-- **只能手動執行**，沒有掛在 push 上。執行時選地圖來源：`official`（預設，網站現在用的官方地圖）或 `drawn`（本站自繪，被要求下架官方圖時的備用）。
+- **公開 repo**：master 一有推送就自動部署（官方地圖）；也可以在 Actions 頁面手動執行，選地圖來源 `official`（預設）或 `drawn`（本站自繪，被要求下架官方圖時的備用）。
+- **私人 repo**：推送時不部署（沒有開 Pages，Actions 分鐘數也有限），工作直接跳過、不佔分鐘。
 - 建置時設定：
   - `CHRONICLE_SITE=https://<擁有者>.github.io`、`CHRONICLE_BASE=/<repo 名稱>/`：由執行它的 repo 自動帶入。`astro.config.mjs` 讀這兩個變數；沒設時網站在根目錄，本機建置、測試照舊。
   - `CHRONICLE_STRICT=1`：所有事件都要校對完成才建置得過。
