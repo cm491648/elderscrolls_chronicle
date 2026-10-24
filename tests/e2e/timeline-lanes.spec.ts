@@ -172,3 +172,18 @@ test.describe('the ends of time and zooming', () => {
     expect(Math.abs(after[key] - (cx + 2 * (x0 - cx)))).toBeLessThan(4);
   });
 });
+
+// A small window (624 × 384, like a side pane): the hint and the tools share the timeline's foot row.
+test.describe('a 624 × 384 window', () => {
+  test.use({ viewport: { width: 624, height: 384 } });
+  test('the regions button keeps its name on one line', async ({ page }) => {
+    await openApp(page, '/zh-tw/events/battle-of-red-mountain/');
+    // The rows its text takes: one per distinct line box.
+    const rows = await page.locator('.tl-regions').evaluate((el) => {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      return new Set([...range.getClientRects()].map((r) => Math.round(r.top))).size;
+    });
+    expect(rows).toBe(1);
+  });
+});

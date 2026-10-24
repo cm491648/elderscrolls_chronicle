@@ -39,9 +39,6 @@
   --region-stroke: var(--ink-soft);
   /* raster maps (R8): how they are toned in dark mode (the plate around each takes the image's own edge colour) */
   --map-raster-filter: none;
-  /* drawn Tamriel (SVG, map source 'drawn'): coastal band and inland water */
-  --map-shallow: #bcc8c6;
-  --map-water: #8fa8b6;
   /* story illustrations: dimmed slightly in dark mode, like the raster map */
   --plate-filter: none;
 

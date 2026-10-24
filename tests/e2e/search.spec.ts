@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { expect, test, type Page } from '@playwright/test';
 import { eventTitle, openApp, storyTitle } from './helpers';
 
@@ -192,12 +192,15 @@ test('the panel offers the seven categories and nothing else; nothing is dimmed 
   await expect(page.locator('.is-dimmed')).toHaveCount(0);
 });
 
-/** The categories of an event, from its content file. */
-function categoriesOf(id: string) {
+/** A list field of an event, from its content file. */
+function listOf(id: string, key: string) {
   const fm = readFileSync(`src/content/events/en/${id}.md`, 'utf-8').split('---')[1];
-  const list = (key: string) => /^\w+:\s*\[(.*)\]$/m.exec(fm.split('\n').find((l) => l.startsWith(`${key}:`)) ?? '')?.[1].split(',').map((x) => x.trim()) ?? [];
-  return list('categories');
+  return /^\w+:\s*\[(.*)\]$/m.exec(fm.split('\n').find((l) => l.startsWith(`${key}:`)) ?? '')?.[1].split(',').map((x) => x.trim()) ?? [];
 }
+const categoriesOf = (id: string) => listOf(id, 'categories');
+const eventIds = readdirSync('src/content/events/en').map((f) => f.replace(/\.md$/, ''));
+/** The events at a place, as the map's popup lists them. */
+const eventsAt = (place: string) => eventIds.filter((id) => listOf(id, 'locations').includes(place));
 /** The filter in the test below: war or religion. */
 const keeps = (id: string) => categoriesOf(id).some((c) => c === 'war' || c === 'religion');
 
@@ -212,6 +215,16 @@ test('any ticked category matches: the rest dims, the arrows skip it, search mar
   await expect(page.locator('.tl-dot.is-dimmed, .tl-cluster.is-dimmed').first()).toBeAttached();
   const dimmedIds = await page.locator('.tl-dot.is-dimmed').evaluateAll((els) => els.flatMap((e) => (e.getAttribute('data-ids') ?? '').split(' ')));
   for (const id of dimmedIds.filter(Boolean)) expect(keeps(id), id).toBe(false);
+  // And on the map (Skyrim, around Torygg's death): a place dims when the filter leaves out every event there.
+  const places = page.locator('.map-marker[data-place]');
+  await expect(places.first()).toBeAttached();
+  const marks = await places.evaluateAll((els) => els.map((e) => [e.getAttribute('data-place')!, e.classList.contains('is-dimmed')] as const));
+  for (const [place, dim] of marks) {
+    const here = eventsAt(place);
+    expect(dim, place).toBe(here.length > 0 && !here.some(keeps));
+  }
+  expect(marks.map(([, dim]) => dim), 'both kinds of place').toContain(true);
+  expect(marks.map(([, dim]) => dim), 'both kinds of place').toContain(false);
   // Search still lists every hit; the ones the filter leaves out say so.
   await field(page).fill('諾德');
   const rows = panel(page).locator('.search-results li');

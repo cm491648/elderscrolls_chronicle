@@ -6,9 +6,10 @@ import paintedLayers from '../content/drawn-basemaps.json';
 /**
  * Which base maps the site draws under the SVG regions and markers.
  * - `official`: the Anthology map of Tamriel (© Bethesda Softworks, obtained via UESP; see docs/design/assets-log.md).
- * - `drawn`: our own maps only. Tamriel becomes an SVG map drawn from the site's province outlines (DrawnTamriel).
- * Nirn and the cosmos have no official map, so both sources use the same drawn rasters there. The province layers use
- * the Anthology province crops (official) or the drawn Tamriel SVG enlarged (drawn).
+ * - `drawn`: our own maps only: Codex's paintings over the schematic shapes for Nirn, Tamriel and the provinces
+ *   (src/content/drawn-basemaps.json), and the drawn cosmos.
+ * Nirn and the cosmos have no official map, so the official source uses the drawn rasters there too. The province
+ * layers use the Anthology province crops or the games' own maps (official) or the paintings (drawn).
  * If the official map ever has to come down, set DEFAULT_MAP_SOURCE in map-source-default.mjs to 'drawn' (or build
  * with PUBLIC_MAP_SOURCE=drawn, as the e2e suite does for its second copy): the caption and footer drop the UESP
  * credit, and the build leaves public/maps/official/ out of the output (astro.config.mjs).

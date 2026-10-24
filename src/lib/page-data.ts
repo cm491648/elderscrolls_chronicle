@@ -1,4 +1,5 @@
 import type { EventStory, EventSummary, Lang, Location, PersonName } from './types';
+import type { MapSource } from './map-source';
 
 /**
  * The chronicle's shared data (every event's summary, the places, the people's names): the same on every page of a
@@ -13,6 +14,14 @@ export interface ChronicleData {
 }
 
 export const CHRONICLE_DATA_ID = 'chronicle-data';
+
+/**
+ * The places as a page carries them. Only a drawn-map build reads the drawn positions (src/lib/map-set.ts), so an
+ * official-map page leaves them out (about 1.8 KB a page).
+ */
+export function pagePlaces(locations: Location[], source: MapSource): Location[] {
+  return source === 'drawn' ? locations : locations.map(({ drawn: _drawn, ...place }) => place);
+}
 
 const byLang = new Map<Lang, ChronicleData>();
 

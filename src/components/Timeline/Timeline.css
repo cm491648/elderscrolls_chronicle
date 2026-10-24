@@ -104,7 +104,8 @@
 /* Disabled: the paper stays opaque on the leather; only the arrow fades. */
 .tl-nav:disabled { color: rgb(87 84 104 / 0.4); cursor: default; }
 .tl-nav-sm { width: 30px; height: 30px; font-family: var(--font-body); font-size: 18px; }
-.tl-tools { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+/* The tools keep their size; in a tight foot row the hint wraps instead (a squeezed 「地區」 broke onto two lines). */
+.tl-tools { display: flex; flex: none; align-items: center; gap: 10px; margin-left: auto; }
 .tl-zoom { display: flex; gap: 6px; }
 .tl-regions-wrap { position: relative; }
 .tl-regions {
@@ -112,6 +113,7 @@
   padding: 0 12px;
   font: inherit;
   font-size: 13px;
+  white-space: nowrap;
   color: var(--accent);
   background: var(--surface);
   border: 1px solid var(--gilt);

@@ -142,7 +142,7 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
   const stack = rasters[layer] ?? [];
   // The official rasters already name the provinces in English: English pages hide our labels, Chinese pages add a
   // paper tag with the Chinese name under the map's own lettering. Drawn rasters carry no lettering and are busy, so
-  // both languages get paper tags; SVG maps (drawn Tamriel, schematic) get plain text labels.
+  // both languages get paper tags; a layer with no raster gets plain text labels.
   const labelMode: 'text' | 'tag' | 'none' = !basemap
     ? 'text'
     : basemap.credit === 'mapCreditDrawn' || basemap.credit === 'mapCreditSchematic' || lang !== 'en'
@@ -656,7 +656,6 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
 
   const path = pathTo(layer);
   const parent = parentOf(layer);
-  // Tamriel drawn onto a province's frame: the inverse of the province's link to Tamriel.
 
   return (
     <section class="map-view paper corners" aria-label={t(lang, 'mapLabel')}>

@@ -2,8 +2,9 @@
 import Base from '../../../layouts/Base.astro';
 import ChronicleApp from '../../../components/ChronicleApp';
 import { LANGS, type Lang } from '../../../lib/types';
-import { CHRONICLE_DATA_ID, CHRONICLE_STORY_ID, provideChronicleData, providePageStory, scriptJson } from '../../../lib/page-data';
+import { CHRONICLE_DATA_ID, CHRONICLE_STORY_ID, pagePlaces, provideChronicleData, providePageStory, scriptJson } from '../../../lib/page-data';
 import { loadChronicle } from '../../../lib/data';
+import { MAP_SOURCE } from '../../../lib/map-source';
 import { t } from '../../../i18n';
 import { excerpt } from '../../../lib/excerpt';
 
@@ -19,7 +20,7 @@ export async function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const id = Astro.params.id!;
 const data = await loadChronicle(lang);
-const shared = { events: data.summaries, locations: data.locations, people: data.personNames };
+const shared = { events: data.summaries, locations: pagePlaces(data.locations, MAP_SOURCE), people: data.personNames };
 provideChronicleData(lang, shared);
 providePageStory(lang, data.stories[id]);
 const event = data.summaries.find((e) => e.id === id)!;

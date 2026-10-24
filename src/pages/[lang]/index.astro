@@ -2,8 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import ChronicleApp from '../../components/ChronicleApp';
 import { LANGS, type Lang } from '../../lib/types';
-import { CHRONICLE_DATA_ID, scriptJson, provideChronicleData } from '../../lib/page-data';
+import { CHRONICLE_DATA_ID, scriptJson, provideChronicleData, pagePlaces } from '../../lib/page-data';
 import { loadChronicle } from '../../lib/data';
+import { MAP_SOURCE } from '../../lib/map-source';
 import { t } from '../../i18n';
 
 export function getStaticPaths() {
@@ -12,7 +13,7 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const data = await loadChronicle(lang);
-const shared = { events: data.summaries, locations: data.locations, people: data.personNames };
+const shared = { events: data.summaries, locations: pagePlaces(data.locations, MAP_SOURCE), people: data.personNames };
 provideChronicleData(lang, shared);
 ---
 <Base lang={lang} title={t(lang, 'siteTitle')} description={t(lang, 'siteDescription')}>
