@@ -4,6 +4,7 @@ import fontsZhHref from '../styles/fonts-zh.css?url';
 import '../styles/tokens.css';
 import '../styles/global.css';
 import type { Lang } from '../lib/types';
+import { BEACON_TOKEN, SEARCH_CONSOLE_CODE, beaconConfig } from '../lib/analytics';
 
 interface Props {
   lang: Lang;
@@ -51,6 +52,11 @@ const fontsHref = lang === 'zh-tw' ? fontsZhHref : fontsEnHref;
     <link rel="alternate" hreflang="zh-Hant-TW" href={inLang('zh-tw')} />
     <link rel="alternate" hreflang="en" href={inLang('en')} />
     <link rel="alternate" hreflang="x-default" href={root} />
+    {SEARCH_CONSOLE_CODE && <meta name="google-site-verification" content={SEARCH_CONSOLE_CODE} />}
+    {/* Visit counting (decisions/analytics): deferred, so it never holds up the page. */}
+    {BEACON_TOKEN && (
+      <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={beaconConfig(BEACON_TOKEN)}></script>
+    )}
     {/*
       Fonts (fonts-zh.css / fonts-en.css) never block the first paint, and their slices are only requested once the page has loaded,
       so the dozens of small font files never queue ahead of the scripts, styles and map image the page needs first.

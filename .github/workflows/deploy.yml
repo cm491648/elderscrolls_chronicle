@@ -46,6 +46,10 @@ jobs:
           CHRONICLE_BASE: /${{ github.event.repository.name }}/
           # A push has no inputs: the official maps, as the site uses.
           PUBLIC_MAP_SOURCE: ${{ inputs.map_source || 'official' }}
+          # Visit counting and Search Console verification (decisions/analytics, src/lib/analytics.ts). Both are public:
+          # they appear in every page. Empty leaves the beacon, the footer note or the tag out.
+          PUBLIC_CF_BEACON_TOKEN: a60d3790b7fa482396cee33fc29a43fe
+          PUBLIC_GSC_VERIFICATION: ''
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist

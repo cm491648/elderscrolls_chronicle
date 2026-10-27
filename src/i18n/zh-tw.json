@@ -50,6 +50,7 @@
   "mapCreditSchematic": "本站自繪地圖：依文字資料畫成的示意圖（天際領地參考遊戲地圖）",
   "plateLabel": "圖一",
   "disclaimerOfficialMap": "官方地圖經 UESP 取得。",
+  "disclaimerAnalytics": "本站以 Cloudflare Web Analytics 統計瀏覽次數，不使用 cookie。",
   "showMap": "顯示地圖",
   "hideMap": "收合地圖",
   "closeStory": "關閉故事",

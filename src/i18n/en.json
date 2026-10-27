@@ -50,6 +50,7 @@
   "mapCreditSchematic": "Drawn for this site: a schematic map from written sources (Skyrim's holds after the game map)",
   "plateLabel": "Plate I",
   "disclaimerOfficialMap": "The official maps were obtained via UESP.",
+  "disclaimerAnalytics": "Visits are counted with Cloudflare Web Analytics, without cookies.",
   "showMap": "Show map",
   "hideMap": "Hide map",
   "closeStory": "Close story",

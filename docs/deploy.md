@@ -82,6 +82,7 @@
   - `CHRONICLE_SITE=https://<擁有者>.github.io`、`CHRONICLE_BASE=/<repo 名稱>/`：由執行它的 repo 自動帶入。`astro.config.mjs` 讀這兩個變數；沒設時網站在根目錄，本機建置、測試照舊。
   - `CHRONICLE_STRICT=1`：所有事件都要校對完成才建置得過。
   - `PUBLIC_MAP_SOURCE`：官方版建置會拿掉自繪地圖的上色圖層；自繪版建置會拿掉 `maps/official/`。
+  - `PUBLIC_CF_BEACON_TOKEN`、`PUBLIC_GSC_VERIFICATION`：瀏覽統計（Cloudflare Web Analytics）的網站代碼與 Search Console 的驗證碼（`decisions/analytics`，`src/lib/analytics.ts`），直接寫在 `deploy.yml`。只有部署建置會設，本機建置、預覽、e2e 都不帶，所以不會灌水。空字串就不載入統計、頁尾不寫說明、不放驗證標籤。
 - 私人 repo 要用 Pages 需要付費方案；公開 repo 免費。
 
 ## 4. 地圖授權
@@ -95,6 +96,13 @@
 - 允許收錄。建置時產生 `sitemap.xml`（兩種語言、每頁附另一語言的對照）；只有部署建置（有設 `CHRONICLE_SITE`）才有網址，其他建置是空清單。
 - GitHub Pages 的專案網站放在 `/<repo 名稱>/` 底下，無法在網域根目錄放 `robots.txt`，所以改到 Search Console 提交 sitemap。
 - 每頁有標準網址（canonical）與分享預覽（標題、說明、事件插圖）。
+- Search Console：資源類型用「網址前置字元」`https://cm491648.github.io/elderscrolls_chronicle/`，用 HTML 檔案驗證：`public/googlea133abe8661672dd.html`（網址 `/elderscrolls_chronicle/googlea133abe8661672dd.html`，要一直留著，刪掉會失去驗證）；驗證後提交 `sitemap.xml`。第 3 節的 `PUBLIC_GSC_VERIFICATION` 是改用 HTML 標記時的備用，目前空著。
+
+## 5.1 瀏覽統計
+
+- Cloudflare Web Analytics，不用 cookie；網站在 https://dash.cloudflare.com/?to=/:account/web-analytics ，主機名稱 `cm491648.github.io`。
+- 換故事時網站用 `history.pushState` 改網址，beacon 會自己跟著計次，每則故事各算一頁。
+- 頁尾與 README 都寫明有統計（`disclaimerAnalytics`）。
 
 ## 6. 本機試 base 路徑
 

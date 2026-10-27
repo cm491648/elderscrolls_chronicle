@@ -108,7 +108,9 @@ describe('font-subset', () => {
         if (cp >= 0xa0) expect(title.has(cp), `${name.slice(0, 20)}: ${ch}`).toBe(true);
       }
     }
-    expect(title.size).toBeLessThan(body.length * 0.4);
+    // The title face takes every UI string (zh-tw.json), so it grows with the footer too: 826 of 2,062 after the
+    // analytics note (decisions/analytics). The bound only catches a title face that has become the body's.
+    expect(title.size).toBeLessThan(body.length * 0.45);
   });
 
   test('bold sans holds every term and note heading the stories set in bold, and far fewer characters than the body', () => {

@@ -145,6 +145,8 @@ test('the result count is read out once the typing pauses, also when it repeats'
   await openSearch(page);
   const live = panel(page).locator('[aria-live="polite"]');
   await field(page).fill('塔洛斯');
+  // count() does not wait: before the index has loaded it would read 0 while the page goes on to find 8.
+  await expect(results(page).first()).toBeVisible();
   const n = await results(page).count();
   await expect(live).toHaveText(`找到 ${n} 則`);
   await field(page).fill('塔洛斯 ');

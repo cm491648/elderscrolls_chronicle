@@ -12,6 +12,7 @@
 - **文字**：由 Claude（Anthropic）撰寫，Codex（OpenAI）校對，中英文各一版；中文專有名詞依 `src/content/glossary.json` 的對照表。
 - **插圖**：**插圖由 AI 生成**——Codex 依本 repo 的視覺設定集（`docs/design/visual-canon/`）繪製，每張都經人工審閱。
 - **地圖**：泰姆瑞爾與各省用 *The Elder Scrolls Anthology* 附贈地圖與遊戲地圖（經 UESP 取得，© Bethesda Softworks／ZeniMax Media，圖說逐張標示出處）；奈恩與宇宙是本站自繪。
+- **瀏覽統計**：網站用 [Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics/) 統計瀏覽次數，不使用 cookie、不記錄個人資料；只有正式部署的版本會載入。
 
 ## 開發
 
@@ -48,6 +49,7 @@ An unofficial fan site: a chronicle of the Elder Scrolls world, from the Dawn Er
 - **Text**: written by Claude (Anthropic) and proofread by Codex (OpenAI), in both languages.
 - **Illustrations are AI-generated**: drawn by Codex from this repository's visual canon (`docs/design/visual-canon/`), each one reviewed by a person.
 - **Maps**: Tamriel and its provinces use the map bundled with *The Elder Scrolls Anthology* and in-game maps (via UESP, © Bethesda Softworks / ZeniMax Media, credited under each map); Nirn and the cosmos are the site's own drawings.
+- **Visit counting**: the site counts visits with [Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics/), without cookies or personal data; only the deployed site loads it.
 
 **Development**: Node.js 24, then `npm ci`, `npm run dev`, `npm test`, `npm run check`, `npm run build`, `npm run test:e2e`. Deployment: [`docs/deploy.md`](docs/deploy.md).
 

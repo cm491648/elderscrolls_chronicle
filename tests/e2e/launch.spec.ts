@@ -21,6 +21,16 @@ test('the footer says the illustrations are AI-generated', async ({ page }) => {
   await expect(page.locator('.site-footer')).toContainText('插圖由 AI 生成');
 });
 
+// decisions/analytics: only the deploy build sets the token and the verification code, so test runs count no visits.
+test('a build without the deploy settings loads no visit counter and says nothing about one', async ({ page }) => {
+  const counted: string[] = [];
+  page.on('request', (r) => r.url().includes('cloudflareinsights') && counted.push(r.url()));
+  await openApp(page, '/zh-tw/');
+  await expect(page.locator('head script[data-cf-beacon], head meta[name="google-site-verification"]')).toHaveCount(0);
+  await expect(page.locator('.site-footer')).not.toContainText('Cloudflare');
+  expect(counted).toEqual([]);
+});
+
 test('a sitemap is published', async ({ request }) => {
   const res = await request.get('/sitemap.xml');
   expect(res.status()).toBe(200);

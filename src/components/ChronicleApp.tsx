@@ -10,6 +10,7 @@ import type { EventStory, Lang } from '../lib/types';
 import { loadStory, prefetchStory, seedStory } from '../lib/story-cache';
 import { chronicleData, pageStory } from '../lib/page-data';
 import { MAP_SOURCE } from '../lib/map-source';
+import { BEACON_TOKEN } from '../lib/analytics';
 import { t } from '../i18n';
 import { Timeline } from './Timeline/Timeline';
 import { MapView } from './MapView/MapView';
@@ -352,6 +353,12 @@ export default function ChronicleApp({ lang, initialId }: Props) {
         <>
           {lang === 'en' ? ' ' : ''}
           {t(lang, 'disclaimerOfficialMap')}
+        </>
+      )}
+      {BEACON_TOKEN && (
+        <>
+          {lang === 'en' ? ' ' : ''}
+          {t(lang, 'disclaimerAnalytics')}
         </>
       )}
     </footer>

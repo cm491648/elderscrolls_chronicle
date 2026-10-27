@@ -7,6 +7,10 @@ interface ImportMetaEnv {
   readonly PUBLIC_PLATE_WIDTHS?: string;
   /** '1': one /stories/<id>.json per event with both languages, for the artifact export (src/lib/story-cache.ts). */
   readonly PUBLIC_STORIES_BILINGUAL?: string;
+  /** Cloudflare Web Analytics site token, set only by the deploy workflow (src/lib/analytics.ts). */
+  readonly PUBLIC_CF_BEACON_TOKEN?: string;
+  /** Google Search Console HTML-tag verification code, set only by the deploy workflow (src/lib/analytics.ts). */
+  readonly PUBLIC_GSC_VERIFICATION?: string;
 }
 
 interface ImportMeta {
