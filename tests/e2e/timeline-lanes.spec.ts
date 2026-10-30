@@ -174,6 +174,67 @@ test.describe('the ends of time and zooming', () => {
 });
 
 // A small window (624 × 384, like a side pane): the hint and the tools share the timeline's foot row.
+type Rgba = [number, number, number, number];
+/** An element's text and background colours as 0-255 RGBA, read through a canvas (getComputedStyle may give color-mix()
+ *  results as `color(srgb …)`). */
+const colours = (el: Element) => {
+  const ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true })!;
+  const rgba = (c: string) => {
+    ctx.clearRect(0, 0, 1, 1);
+    ctx.fillStyle = c;
+    ctx.fillRect(0, 0, 1, 1);
+    return [...ctx.getImageData(0, 0, 1, 1).data] as Rgba;
+  };
+  const style = getComputedStyle(el);
+  return { fg: rgba(style.color), bg: rgba(style.backgroundColor) };
+};
+/** WCAG contrast of two opaque colours. */
+function contrast(a: Rgba, b: Rgba) {
+  const lum = (c: Rgba) => {
+    const [r, g, bl] = c.slice(0, 3).map((v) => {
+      const x = v / 255;
+      return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * bl;
+  };
+  const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+test('the open regions menu reads on its paper, and its button stays light on the leather', async ({ page }) => {
+  await openApp(page, '/zh-tw/');
+  const button = page.locator('.tl-regions');
+  await button.click();
+  await expect(button).toHaveAttribute('aria-expanded', 'true');
+  const menu = page.locator('.tl-region-menu');
+  const paper = (await menu.evaluate(colours)).bg;
+  for (const label of await menu.locator('label').all()) {
+    const ink = (await label.evaluate(colours)).fg;
+    expect(contrast(ink, paper), (await label.textContent())!).toBeGreaterThanOrEqual(4.5);
+  }
+  const look = await button.evaluate(colours);
+  expect(look.bg[3], 'an opaque ground, not a wash over the leather').toBe(255);
+  expect(contrast(look.fg, look.bg)).toBeGreaterThanOrEqual(4.5);
+  await page.keyboard.press('Escape');
+});
+
+test("Tamriel's name is the button that opens its provinces, whole and framed", async ({ page }) => {
+  for (const [lang, name] of [['zh-tw', '泰姆瑞爾'], ['en', 'Tamriel']] as const) {
+    await openApp(page, `/${lang}/`);
+    const toggle = page.locator('.tl-name[data-lane="tamriel"] .tl-expand');
+    await expect(toggle).toHaveText(new RegExp(name));
+    // The name is not cut short in the narrow column.
+    const cut = await toggle.locator('.tl-name-text').evaluate((el) => el.scrollWidth > el.clientWidth);
+    expect(cut, lang).toBe(false);
+    const frame = await toggle.evaluate((el) => getComputedStyle(el).borderTopStyle);
+    expect(frame).toBe('solid');
+    await page.locator('.tl-name[data-lane="tamriel"] .tl-name-text').click();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  }
+});
+
 test.describe('a 624 × 384 window', () => {
   test.use({ viewport: { width: 624, height: 384 } });
   test('the regions button keeps its name on one line', async ({ page }) => {

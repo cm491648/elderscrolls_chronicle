@@ -59,22 +59,25 @@
 .tl-name-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tl-name.depth-1 { padding-left: 22px; font-size: 12px; color: var(--ink-soft); }
 .tl-name small { font-size: 10px; color: var(--accent-2); white-space: nowrap; }
+/* Tamriel's name is itself a framed button, the arrow first like a tree's: readers saw the small round arrow at the
+   column's edge as decoration and never opened the provinces. */
 .tl-expand {
-  display: grid;
-  place-items: center;
-  flex: none;
-  width: 24px;
-  height: 24px;
-  margin-left: auto;
-  padding: 0;
-  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  height: 26px;
+  margin-left: -5px;
+  padding: 0 7px 0 5px;
+  font: inherit;
   color: var(--accent);
   background: var(--surface);
   border: 1px solid var(--gilt);
-  border-radius: 50%;
+  border-radius: var(--radius);
   cursor: pointer;
 }
-.tl-expand:hover { background: var(--wash); }
+.tl-expand-mark { flex: none; font-size: 12px; }
+.tl-expand:hover, .tl-expand[aria-expanded='true'] { background: color-mix(in srgb, var(--surface), var(--accent) 12%); }
 .tl-expand:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .tl-foot {
   grid-area: foot;
@@ -120,7 +123,8 @@
   border-radius: var(--radius);
   cursor: pointer;
 }
-.tl-regions:hover, .tl-regions[aria-expanded='true'] { background: var(--wash); }
+/* Opaque: the button sits on the leather, where the see-through wash would turn it dark. */
+.tl-regions:hover, .tl-regions[aria-expanded='true'] { background: color-mix(in srgb, var(--surface), var(--accent) 12%); }
 .tl-region-menu {
   position: absolute;
   top: calc(100% + 6px);
@@ -132,6 +136,7 @@
   max-height: 300px;
   overflow-y: auto;
   padding: 8px 12px;
+  color: var(--ink); /* not the leather's light text around it */
   background: var(--paper) var(--tex-vellum) 0 0 / 512px;
   border: 1px solid var(--gilt);
   border-radius: var(--radius);
@@ -282,7 +287,8 @@
   .tl-foot { justify-content: center; }
   .tl-tools { margin-left: 0; }
   .tl-band { --tl-names-w: 84px; max-height: 200px; }
-  .tl-expand { width: 20px; height: 20px; font-size: 10px; }
+  .tl-expand { height: 24px; gap: 3px; margin-left: -3px; padding: 0 4px 0 3px; }
+  .tl-expand-mark { font-size: 11px; }
   .tl-name { gap: 2px; padding-right: 2px; }
   .tl-name { padding-left: 6px; font-size: 12px; }
   .tl-name.depth-1 { padding-left: 12px; font-size: 11px; }

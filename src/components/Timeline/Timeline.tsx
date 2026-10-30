@@ -474,19 +474,22 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
                 data-lane={l.id}
                 style={{ top: `${laneY(i) - 15}px` }}
               >
-                <span class="tl-name-text">{laneName(l.id, lang)}</span>
-                {l.temporary && <small>{t(lang, 'laneTemporary')}</small>}
-                {l.expandable && (
+                {l.expandable ? (
                   <button
                     type="button"
                     class="tl-expand"
                     aria-expanded={expanded}
                     aria-label={t(lang, expanded ? 'laneCollapse' : 'laneExpand', { name: laneName('tamriel', lang) })}
+                    title={t(lang, expanded ? 'laneCollapse' : 'laneExpand', { name: laneName('tamriel', lang) })}
                     onClick={toggleExpanded}
                   >
-                    {expanded ? '▾' : '▸'}
+                    <span class="tl-expand-mark" aria-hidden="true">{expanded ? '▾' : '▸'}</span>
+                    <span class="tl-name-text">{laneName(l.id, lang)}</span>
                   </button>
+                ) : (
+                  <span class="tl-name-text">{laneName(l.id, lang)}</span>
                 )}
+                {l.temporary && <small>{t(lang, 'laneTemporary')}</small>}
               </div>
             ))}
           </div>
