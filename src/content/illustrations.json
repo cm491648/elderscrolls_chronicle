@@ -342,6 +342,15 @@
     }
   },
   {
+    "id": "jurgen-windcaller-founds-the-way-of-the-voice",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "In High Hrothgar, Jurgen Windcaller kneels alone in silent meditation, his eyes closed.",
+      "zh-tw": "在高吼修道院裡，喚風者約根獨自跪坐，閉目冥想。"
+    }
+  },
+  {
     "id": "kaalgrontiid-falls-at-dragonhold",
     "width": 1200,
     "height": 800,
@@ -450,6 +459,15 @@
     }
   },
   {
+    "id": "olaf-one-eye-becomes-high-king",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "On the summit of Mount Anthor, Olaf One-Eye stands over the beaten dragon Numinex as four of his warriors close in around it.",
+      "zh-tw": "在安索爾山頂，獨眼奧拉夫站在被擊倒的怒米奈科斯面前，四名部下從四周圍上前去。"
+    }
+  },
+  {
     "id": "planemeld",
     "width": 1200,
     "height": 800,
@@ -465,6 +483,15 @@
     "caption": {
       "en": "The Ra Gada come ashore on the desert coast of Hammerfell.",
       "zh-tw": "拉伽達戰士登上落錘的沙漠海岸。"
+    }
+  },
+  {
+    "id": "red-eagle-rebellion",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "At dusk Red Eagle steps out of his stronghold alone and unarmoured to meet the legions of Hestra, a briar heart in his chest and his sword aflame.",
+      "zh-tw": "黃昏時，紅鷹獨自走出要塞迎戰海斯特拉的軍團。他不穿鎧甲，胸口嵌著荊棘之心，手中的劍燃著火焰。"
     }
   },
   {
@@ -753,6 +780,15 @@
     "caption": {
       "en": "Titus Mede II puts his seal to the White-Gold Concordat, his generals behind him and Thalmor envoys looking on.",
       "zh-tw": "提圖斯·邁德二世為白金協約蓋上印章，兩名將軍站在他身後，梭默使節在一旁看著。"
+    }
+  },
+  {
+    "id": "wulfharth-restores-the-old-gods",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "High King Wulfharth watches an Alessian chapel burn in the snow as his men stand by with torches.",
+      "zh-tw": "至高王武夫哈斯站在雪地裡，看著艾萊西亞教會的禮拜堂燃燒，部下舉著火把站在一旁。"
     }
   },
   {

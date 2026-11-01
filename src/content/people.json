@@ -164,5 +164,12 @@
   { "id": "ancano", "name": { "en": "Ancano", "zh-tw": "安卡諾" }, "summary": { "en": "Thalmor advisor at the College of Winterhold who tried to seize the Eye of Magnus.", "zh-tw": "派駐冬堡學院的梭默顧問，企圖奪取瑪格努斯之眼。" } },
   { "id": "augur-of-dunlain", "name": { "en": "Augur of Dunlain", "zh-tw": "占卜師杜蘭" }, "summary": { "en": "Former College mage turned pure magic, dwelling beneath the College of Winterhold.", "zh-tw": "化為純粹魔法的前學院法師，住在冬堡學院底下。" } },
   { "id": "savos-aren", "name": { "en": "Savos Aren", "zh-tw": "薩沃斯·阿冉" }, "summary": { "en": "Arch-Mage of the College of Winterhold, killed by Ancano in 4E 201.", "zh-tw": "冬堡學院的首席法師，第四紀元 201 年被安卡諾殺害。" } },
-  { "id": "tolfdir", "name": { "en": "Tolfdir", "zh-tw": "托夫迪爾" }, "summary": { "en": "Elderly Alteration teacher at the College of Winterhold.", "zh-tw": "冬堡學院年長的變化系教師。" } }
+  { "id": "tolfdir", "name": { "en": "Tolfdir", "zh-tw": "托夫迪爾" }, "summary": { "en": "Elderly Alteration teacher at the College of Winterhold.", "zh-tw": "冬堡學院年長的變化系教師。" } },
+  { "id": "olaf-one-eye", "name": { "en": "Olaf One-Eye", "zh-tw": "獨眼奧拉夫" }, "summary": { "en": "Jarl of Whiterun who captured the dragon Numinex and became High King of Skyrim in 1E 420.", "zh-tw": "捉住巨龍怒米奈科斯的白漫城領主，第一紀元 420 年成為天際至高王。" } },
+  { "id": "numinex", "name": { "en": "Numinex", "zh-tw": "怒米奈科斯" }, "summary": { "en": "Dragon captured by Olaf One-Eye and kept prisoner in Dragonsreach until its death.", "zh-tw": "被獨眼奧拉夫捉住、囚禁在龍臨堡直到死去的巨龍。" } },
+  { "id": "svaknir", "name": { "en": "Svaknir", "zh-tw": "斯瓦科尼爾" }, "summary": { "en": "Bard who wrote a verse mocking Olaf One-Eye as a fraud and a tyrant.", "zh-tw": "寫詩譏諷獨眼奧拉夫是騙子與暴君的吟遊詩人。" } },
+  { "id": "wulfharth", "name": { "en": "Wulfharth", "zh-tw": "武夫哈斯" }, "summary": { "en": "Atmora-born High King of Skyrim called Shor's Tongue, who restored the old Nordic gods.", "zh-tw": "生於阿特摩拉的天際至高王，人稱朔爾之舌，恢復了諾德古神的信仰。" } },
+  { "id": "jurgen-windcaller", "name": { "en": "Jurgen Windcaller", "zh-tw": "喚風者約根" }, "summary": { "en": "Mighty Tongue of the First Era who founded the Way of the Voice and the Greybeards.", "zh-tw": "第一紀元強大的發聲者，開創吼聲之道並創立灰鬍子。" } },
+  { "id": "red-eagle", "name": { "en": "Red Eagle", "zh-tw": "紅鷹" }, "summary": { "en": "Faolan, king of the Reachmen who rose against the Empress Hestra around 1E 1030.", "zh-tw": "邊峪人的王弗蘭，約第一紀元 1030 年起兵反抗女皇海斯特拉。" } },
+  { "id": "hestra", "name": { "en": "Hestra", "zh-tw": "海斯特拉" }, "summary": { "en": "Empress of the South whose legions conquered the Reach around 1E 1030.", "zh-tw": "南方的女皇，她的軍團約在第一紀元 1030 年征服邊峪領。" } }
 ]

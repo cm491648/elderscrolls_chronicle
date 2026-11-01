@@ -7,7 +7,7 @@ locations: [red-mountain, volenfell]
 regions: [morrowind, hammerfell]
 categories: [war, founding, heroes]
 people: [nerevar, dumac]
-related: [harald-crowned-high-king, battle-of-red-mountain, velothi-exodus]
+related: [harald-crowned-high-king, battle-of-red-mountain, velothi-exodus, jurgen-windcaller-founds-the-way-of-the-voice, olaf-one-eye-becomes-high-king]
 games: [morrowind]
 sources:
   - title: "Lore: First Council"
@@ -22,6 +22,15 @@ sources:
   - title: "Lore: First Era"
     kind: web
     url: https://en.uesp.net/wiki/Lore:First_Era
+  - title: "Pocket Guide to the Empire, 1st Edition: Skyrim"
+    kind: book
+    url: https://en.uesp.net/wiki/Lore:Pocket_Guide_to_the_Empire,_1st_Edition/Skyrim
+  - title: "Skyrim: High Hrothgar (Etched Tablets)"
+    kind: web
+    url: https://en.uesp.net/wiki/Skyrim:High_Hrothgar
+  - title: "Skyrim: The Horn of Jurgen Windcaller (quest; Arngeir's account)"
+    kind: web
+    url: https://en.uesp.net/wiki/Skyrim:The_Horn_of_Jurgen_Windcaller
 certainty: disputed
 review: agreed
 ---
@@ -41,5 +50,5 @@ In {{resdayn}}, the two peoples lived in peace for centuries, and both prospered
 
 - **Dates.** Some sources stretch the {{nords|Nordic}} conquest from 240 to 415. One account of the {{nords|Nordic}} civil war says {{skyrim}} had already lost its eastern lands by 401, while the main chronicles place the expulsion in 416. The exile of the {{rourken}} clan is likewise dated to either 416 or 420.
 - **The High King's death.** He was killed while planning a war against {{valenwood}} together with the {{alessian-order}}; the elves of {{valenwood}} called up the Wild Hunt against him.
-- **The north.** The defeat in the east led a master of the Voice to decide that the {{nords}} had lost the gods' favor and that the Voice must be used only in worship. His followers became the {{greybeards}}.
-- **The name.** The land was later called {{morrowind}}.
+- **The north.** The defeat in the east led {{jurgen-windcaller}}, a master of the Voice, to decide that the {{nords}} had lost the gods' favor and that the Voice must be used only in worship; his followers became the {{greybeards}}. Some place his turning after the later {{battle-of-red-mountain}} instead.
+- **The name.** {{resdayn}}, the name the victors chose, belongs to the {{era-first}}; the land was later called {{morrowind}} and became the homeland of the {{dunmer}}.

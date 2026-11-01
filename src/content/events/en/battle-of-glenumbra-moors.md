@@ -8,7 +8,7 @@ locations: []
 regions: [high-rock]
 categories: [war, religion]
 people: [aiden-direnni, raven-direnni]
-related: [alessian-slave-rebellion, middle-dawn, harald-crowned-high-king]
+related: [alessian-slave-rebellion, middle-dawn, harald-crowned-high-king, wulfharth-restores-the-old-gods]
 games: [daggerfall, eso]
 sources:
   - title: "Lore: Battle of Glenumbra Moors"
@@ -20,6 +20,9 @@ sources:
   - title: "Lore: First Era"
     kind: web
     url: https://en.uesp.net/wiki/Lore:First_Era
+  - title: Five Songs of King Wulfharth
+    kind: book
+    url: https://en.uesp.net/wiki/Lore:Five_Songs_of_King_Wulfharth
 certainty: disputed
 review: agreed
 ---
@@ -35,7 +38,7 @@ The {{direnni}} won, at great cost. The {{alessian-order}} was driven out of {{h
 
 - **Afterward.** The Order never tried to take {{high-rock}} again. The clan had lost so much that within twenty years the {{bretons}} had taken most of the province from it.
 - **The Order.** The defeat was long counted among the Order's worst follies, and a cause of its decline.
-- **The High King.** He was {{hoag-merkiller}}; not every account agrees that he died in the battle. His successor brought back the old {{nords|Nordic}} gods and burned the priests of the new faith.
+- **The High King.** He was {{hoag-merkiller}}; not every account agrees that he died in the battle. His successor, {{wulfharth}}, brought back the old {{nords|Nordic}} gods and burned the priests of the new faith.
 - **Memory.** {{bretons}} sang of the battle for centuries and kept a holiday for it, the Day of Release. Travelers on the moors long afterward told of hearing the sound of fighting.
 - **Sources.** Few details of the fighting were kept. Some records spell the name Glenumbria.
 - **Date.** The memoir of the last {{ayleid}} king gives {{era-first|1E}} 482; a Nordic record puts the start of the next High King's reign in 480, which would set the battle two years earlier.

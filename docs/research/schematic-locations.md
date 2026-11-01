@@ -75,3 +75,7 @@
 | garlas-malatar | cyrodiil | | 官方地圖換算 | 《遺忘之都》資料片《九聖騎士》：安維爾西北方海岸的亞歷德遺跡 | 賽洛迪爾西岸、安維爾西北 |
 | priory-of-the-nine | cyrodiil | | 官方地圖換算 | 《遺忘之都》資料片《九聖騎士》：西域林地南部、黃金大道以南，斯金格拉德東南 | 賽洛迪爾西南部內陸 |
 | mortrag-glacier | morrowind | | 官方地圖換算 | Lore:Bloodmoon Prophecy／《血月》：索瑟海姆西北部的冰川 | 索瑟海姆西北角 |
+| whiterun | skyrim | whiterun | 官方地圖換算 | 天際官方地圖上的白漫城圖示（天際中央） | 白漫領中央 |
+| mount-anthor | skyrim | the-pale | 官方地圖換算 | 《奧拉夫與龍》；遊戲裡在晨星東南、冬堡領交界的山區（位置約略） | 蒼白領東北、靠冬堡領 |
+| ustengrav | skyrim | hjaalmarch | 官方地圖換算 | 〈尤根·喚風者的號角〉任務：赫加馬奇的沼澤裡、莫索北方 | 赫加馬奇沼澤 |
+| rebels-cairn | skyrim | the-reach | 官方地圖換算 | 〈叛逆者石塚〉任務：邊峪領的山中（位置約略） | 邊峪領中部 |

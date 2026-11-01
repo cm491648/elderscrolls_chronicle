@@ -8,7 +8,7 @@ mapLayer: skyrim
 locations: [markarth]
 categories: [war, founding]
 people: [madanach, hrolfdir]
-related: [great-war, markarth-incident]
+related: [great-war, markarth-incident, red-eagle-rebellion]
 games: [skyrim]
 sources:
   - title: "Lore: Forsworn"

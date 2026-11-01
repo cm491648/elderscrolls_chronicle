@@ -7,7 +7,7 @@ mapLayer: morrowind
 locations: [red-mountain]
 categories: [divine, war, heroes]
 people: [nerevar, dumac, dagoth-ur, kagrenac, vivec, almalexia, sotha-sil]
-related: [creation-of-mundus, first-council-expels-nords, nerevarine-defeats-dagoth-ur, shattering-of-lorkhan, tribunal-apotheosis, tamriel-unified-by-numidium]
+related: [creation-of-mundus, first-council-expels-nords, nerevarine-defeats-dagoth-ur, shattering-of-lorkhan, tribunal-apotheosis, tamriel-unified-by-numidium, wulfharth-restores-the-old-gods]
 games: [morrowind]
 sources:
   - title: The Battle of Red Mountain
@@ -22,6 +22,12 @@ sources:
   - title: "Lore: First Era"
     kind: web
     url: https://en.uesp.net/wiki/Lore:First_Era
+  - title: Five Songs of King Wulfharth
+    kind: book
+    url: https://en.uesp.net/wiki/Lore:Five_Songs_of_King_Wulfharth
+  - title: "36 Lessons of Vivec, Sermon 36"
+    kind: book
+    url: https://en.uesp.net/wiki/Lore:36_Lessons_of_Vivec,_Sermon_36
 certainty: disputed
 review: agreed
 ---
@@ -33,9 +39,9 @@ Then {{dagoth-ur}}, a {{chimer}} lord, brought word that the {{dwemer}} had foun
 
 {{dagoth-ur}} wanted the tools destroyed. {{nerevar}} left them in his keeping and was carried out to his counselors, {{almalexia}}, {{sotha-sil}} and {{vivec}}, who advised keeping them. {{nerevar}} agreed, on condition that they swear by {{azura}} never to use them as the {{dwemer}} had meant to. Back in the chamber, {{dagoth-ur}} refused to give them up. They fought him; he vanished and was taken for dead. {{nerevar}} died soon after.
 
-For some years the three kept their oath. Then they used {{kagrenacs-tools}} on the {{heart-of-lorkhan|Heart}} and became living gods, the {{tribunal}}. {{azura}} appeared, cursed them as oathbreakers, and foretold that {{nerevar}} would return. In that moment the three saw their skin turn gray and their eyes red.
+For some years the three kept their oath. Then they used {{kagrenacs-tools}} on the {{heart-of-lorkhan|Heart}} and became living gods, the {{tribunal}}. {{azura}} appeared, cursed them as oathbreakers, and foretold that {{nerevar}} would return. Her curse fell on the whole {{chimer}} people and turned them into the {{dunmer}}.
 
-Only later was it known that the {{dwemer|Dwemer}} had vanished throughout the world when {{kagrenac}} used the tools, and that the {{chimer}} people had become the {{dunmer}}.
+Only later was it known that the {{dwemer|Dwemer}} had vanished throughout the world when {{kagrenac}} used the tools.
 
 ## Notes
 
@@ -44,4 +50,6 @@ Only later was it known that the {{dwemer|Dwemer}} had vanished throughout the w
 - **Temple doctrine.** The Temple's public teaching credits {{nerevar}} and {{azura}} with destroying the {{dwemer}} and says the {{tribunal}} rose through virtue alone, with no mention of the tools.
 - **The other side.** {{dagoth-ur}} later said that {{nerevar}} struck him down while he guarded what he had sworn to protect.
 - **The date.** Most accounts place the battle around {{era-first|1E}} 700, perhaps earlier; the chronicle of the {{era-first}} puts the eruption and the disappearance of the {{dwemer}} in 668.
-- **Other armies.** {{nords}} and {{orcs}} also fought at the mountain, usually as allies of the {{dwemer}}.
+- **Other armies.** {{nords}} and {{orcs}} also fought at the mountain. Nordic songs set them against both the {{dwemer}} and the {{chimer}}; {{vivec}}'s sermons make the {{dwemer}} king their ally.
+- **The Ash-King.** The *Five Songs of King Wulfharth* say {{shor}} raised the dead High King {{wulfharth}} from his ashes as the Ash-King to lead the {{nords}} here. In the fifth song he killed {{dumac}} before {{vivec}} blasted him into Hell.
+- **The secret song.** A secret song kept with the others tells it otherwise: {{dagoth-ur}} killed {{dumac}}, and the Ash-King fell to {{nerevar}}'s shield-companion after shouting him blind.

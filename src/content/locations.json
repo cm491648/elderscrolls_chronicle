@@ -61,5 +61,9 @@
   { "id": "echo-cave", "layer": "cyrodiil", "region": "cyrodiil", "x": 1015, "y": 160, "drawn": { "x": 513.6, "y": 241.9 }, "name": { "en": "Echo Cave", "zh-tw": "回聲洞穴" } },
   { "id": "garlas-malatar", "layer": "cyrodiil", "region": "cyrodiil", "x": 125, "y": 865, "drawn": { "x": 350.8, "y": 407.1 }, "name": { "en": "Garlas Malatar", "zh-tw": "加拉斯·馬拉塔" } },
   { "id": "priory-of-the-nine", "layer": "cyrodiil", "region": "cyrodiil", "x": 850, "y": 865, "drawn": { "x": 468.6, "y": 399.5 }, "name": { "en": "Priory of the Nine", "zh-tw": "九聖靈修道院" } },
-  { "id": "mortrag-glacier", "layer": "morrowind", "region": "morrowind", "x": 118, "y": 32, "drawn": { "x": 650.1, "y": 31.8 }, "name": { "en": "Mortrag Glacier", "zh-tw": "盟泰格冰川" } }
+  { "id": "mortrag-glacier", "layer": "morrowind", "region": "morrowind", "x": 118, "y": 32, "drawn": { "x": 650.1, "y": 31.8 }, "name": { "en": "Mortrag Glacier", "zh-tw": "盟泰格冰川" } },
+  { "id": "whiterun", "layer": "skyrim", "region": "skyrim", "x": 1110, "y": 790, "drawn": { "x": 501.2, "y": 144.5 }, "name": { "en": "Whiterun", "zh-tw": "白漫城" } },
+  { "id": "mount-anthor", "layer": "skyrim", "region": "skyrim", "x": 1250, "y": 430, "drawn": { "x": 526, "y": 84 }, "name": { "en": "Mount Anthor", "zh-tw": "安索爾山" } },
+  { "id": "ustengrav", "layer": "skyrim", "region": "skyrim", "x": 790, "y": 470, "drawn": { "x": 448.2, "y": 94.8 }, "name": { "en": "Ustengrav", "zh-tw": "炙燃墓" } },
+  { "id": "rebels-cairn", "layer": "skyrim", "region": "skyrim", "x": 440, "y": 740, "drawn": { "x": 375.5, "y": 147.7 }, "name": { "en": "Rebel's Cairn", "zh-tw": "叛亂石塚" } }
 ]

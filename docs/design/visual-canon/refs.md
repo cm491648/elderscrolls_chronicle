@@ -383,3 +383,14 @@
 | almalexia-tes3-2 | almalexia | https://images.uesp.net/3/3c/TR-npc-Almalexia.jpg | 晨風《審判席》遊戲裡的阿瑪萊西亞（使用者在第 3 批審閱時於對話中提供，網址依推算）：金色皮膚與身上紋身，戴綠色的殺戮面具與角狀頭飾、紅髮，肩後彎角狀飾物，黑色胸衣、黃褐色長垂布，赤腳 |
 | clockwork-city-tes3-3 | clockwork-city | https://images.uesp.net/a/a3/TR-place-Sotha_Sil_Dome.jpg | 晨風《審判席》索薩·希爾圓頂廳的牆與地面（同一張使用者提供的截圖）：暗金褐色金屬牆板刻滿流動的迴路狀花紋，以灰色框條分格；深灰色地面刻著幾何線條 |
 | umaril-tes4-4 | umaril | https://images.uesp.net/4/4b/OB-creature-Umaril_the_Unfeathered_02.jpg | 遺忘之都《九聖騎士》遊戲裡的烏瑪瑞爾正面全身（使用者在修正確認時於對話中提供，網址依推算）：頭部是金色臉型頭盔（鑄成怒眉與尖下巴的金屬面孔，不是真臉），頭頂尖冠，頭盔與雙肩豎起細長的尖角，鱗紋胸甲、利爪護手、鳥爪般的腳，右手持劍 |
+| olaf-one-eye-tes5-1 | olaf-one-eye | https://images.uesp.net/6/61/SR-npc-Hakon_One-Eye.jpg | 天際的獨眼哈肯（不是奧拉夫本人）：古諾德甲（螺旋紋胸甲、層疊肩甲、毛皮與皮裙），給活著的奧拉夫當鎧甲參考（與 ancient-nord-heroes-tes5-2 同一張圖，本地已有） |
+| olaf-one-eye-tes5-2 | olaf-one-eye | https://images.uesp.net/6/6e/SR-npc-Ysgramor.jpg | 天際沉睡淨土的伊斯格拉謨（不是奧拉夫本人）：同一套古諾德甲、不戴頭盔、長髮長鬍（與 ysgramor-tes5-1 同一張圖，本地已有） |
+| wulfharth-lore-1 | wulfharth | https://images.uesp.net/4/42/ON-prerelease-Ancestral_Nord_Style.png | ESO 古代諾德風格裝備（不是武夫哈斯本人）：早期諾德王族與戰士的皮革、毛皮、鎖子甲與圓肩甲（與 harald-eso-1 同一張圖，本地已有） |
+| wulfharth-lore-2 | wulfharth | https://images.uesp.net/6/6e/SR-npc-Ysgramor.jpg | 天際沉睡淨土的伊斯格拉謨（不是武夫哈斯本人）：同為亞特莫拉出身的國王，古諾德甲、長髮長鬍（與 ysgramor-tes5-1 同一張圖，本地已有） |
+| jurgen-windcaller-lore-1 | jurgen-windcaller | https://images.uesp.net/0/02/SR-npc-Felldir_the_Old.jpg | 天際的老費爾迪（不是約根本人）：灰髮灰鬍的古諾德長者，穿灰色長袍；只參考長袍，不參考手上的劍（與 ancient-nord-heroes-tes5-3 同一張圖，本地已有） |
+| tongues-tes5-1 | tongues | https://images.uesp.net/6/61/SR-npc-Hakon_One-Eye.jpg | 天際的獨眼哈肯：龍戰時的古代發聲者，古諾德甲加毛皮皮裙、臉上綠色戰紋（與 ancient-nord-heroes-tes5-2 同一張圖，本地已有） |
+| tongues-tes5-2 | tongues | https://images.uesp.net/a/a2/SR-npc-Gormlaith_Golden-Hilt.jpg | 天際的戈姆萊絲·金柄：龍戰時的古代發聲者，金髮女戰士、鋼製板甲（與 ancient-nord-heroes-tes5-1 同一張圖，本地已有） |
+| red-eagle-lore-1 | red-eagle | https://images.uesp.net/4/41/SR-npc-Forsworn_Briarheart.jpg | 天際背誓者荊棘之心（不是紅鷹本人）：赤裸上身、胸口嵌著荊棘之心、毛皮短裙與綁腿；紅鷹不戴這種鹿頭骨面具（與 forsworn-tes5-2 同一張圖，本地已有） |
+| red-eagle-lore-2 | red-eagle | https://images.uesp.net/c/cd/SR-npc-Forsworn.jpg | 天際背誓者：獸骨、羽毛與毛皮的邊峪人裝束（與 forsworn-tes5-1 同一張圖，本地已有） |
+| imperial-legion-lore-1 | imperial-legion | https://images.uesp.net/f/fb/ON-item-armor-Alessian_Rebel.jpg | ESO 艾萊西亞叛軍鎧甲（正、側、背）：金銅色鱗甲外衣、暗紅布衣與長褲、有稜頂盔與長護頰；給第一紀元帝國軍團的 lore 版（與 alessian-order-eso-3 同一張圖，本地已有） |
+| throat-of-the-world-lore-1 | throat-of-the-world | https://images.uesp.net/5/55/SR-place-Throat_of_the_World.jpg | 天際的世界之喉：從山腳仰望雲中的雪峰，給半山雪坡的 lore 版（與 throat-of-the-world-tes5-1 同一張圖，本地已有） |

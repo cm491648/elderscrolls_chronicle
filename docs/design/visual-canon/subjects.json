@@ -1120,5 +1120,52 @@
       "thalmor"
     ],
     "overrides": {}
+  },
+  "olaf-one-eye-becomes-high-king": {
+    "era": "1E",
+    "year": 420,
+    "region": "skyrim",
+    "phase": 3,
+    "entries": [
+      "olaf-one-eye",
+      "dragons",
+      "nords",
+      "skyrim-landscape"
+    ],
+    "overrides": {}
+  },
+  "wulfharth-restores-the-old-gods": {
+    "era": "1E",
+    "year": 482,
+    "region": "skyrim",
+    "phase": 3,
+    "entries": [
+      "wulfharth",
+      "nords",
+      "skyrim-landscape"
+    ],
+    "overrides": {}
+  },
+  "jurgen-windcaller-founds-the-way-of-the-voice": {
+    "era": "1E",
+    "year": 423,
+    "region": "skyrim",
+    "phase": 3,
+    "entries": [
+      "jurgen-windcaller",
+      "high-hrothgar"
+    ],
+    "overrides": {}
+  },
+  "red-eagle-rebellion": {
+    "era": "1E",
+    "year": 1030,
+    "region": "skyrim",
+    "phase": 3,
+    "entries": [
+      "red-eagle",
+      "skyrim-landscape"
+    ],
+    "overrides": {}
   }
 }

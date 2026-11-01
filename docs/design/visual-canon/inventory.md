@@ -1,14 +1,14 @@
 | objects | 15 | 7 || creatures | 16 | 1 || places | 41 | 15 || gear | 7 | 5 || factions | 20 | 8 || races | 15 | 11 || people | 38 | 15 |# 視覺設定集條目清單
 
-從 85 則事件（第 1 期 20 則、第 2 期 42 則、第 3 期第 1 批 9 則、第 2 批 8 則與第 3 批 6 則）整理出要建的條目。事件與條目的對應見 `subjects.json`，各條目的參考圖見 `refs.md`。
+從 89 則事件（第 1 期 20 則、第 2 期 42 則、第 3 期第 1 批 9 則、第 2 批 8 則、第 3 批 6 則與天際人物 4 則）整理出要建的條目。事件與條目的對應見 `subjects.json`，各條目的參考圖見 `refs.md`。
 
 - 「事件數」是用到這個條目的事件數，括號內分第 1 期／第 2 期／第 3 期。
 - 「核心」：第 1 期用到，或第 2 期、第 3 期各自有 3 則以上用到。最後的龍裔雖然只有 1 則事件，依使用者決定列為核心。
-- 事件數與核心依目前的 `subjects.json` 重算（2026-10-24；`tests/unit/visual-canon-inventory.test.ts` 會檢查這份清單與 `subjects.json`、條目、`refs.md` 是否一致）。第 1 期 20 則的 `entries` 已縮成「畫面裡畫得到的條目」（規格 4.4），所以很多條目的第 1 期次數變少，目前有 22 個條目沒有任何事件使用：akatosh、alessia、apocrypha、ashlanders、auriels-bow、ayleids、azura、dragon-cult、draugr、dwemer-ruins、kagrenac、mages-guild、molag-bal、mythic-dawn、paarthurnax、sheogorath、shrine-of-talos、steel-armor、umbriel、uriel-septim-vii、velothi-architecture、windhelm。條目都保留，供日後重畫使用。第 3 期第 1 批（2026-10-23）新增 17 個條目（kurog、gortwog、lysandus、cyrus、abnur-tharn、khamira、sai-sahan、ascendant-order、restless-league、orsinium、old-orsinium、high-isle、stros-mkai、elsweyr、kaalgrontiid、nahfahlaar、aeonstone），dragons 加了 eso 版本；第 3 期的 `entries` 一開始就只列畫面裡畫得到的條目。第 3 期第 2 批（2026-10-23）新增 6 個條目（naemon、dro-mathra、crystal-tower、maormer、maormer-ships、black-marsh），hist-tree 加 1 張參考圖。UESP 回 403，這批的參考圖由使用者另外上傳補齊；水晶塔起初沒有可用的圖，第 2 批審閱後使用者另外上傳 3 張（decisions/p3-refs-crystal，2026-10-24），條目依圖改寫。第 3 期第 3 批（2026-10-24）新增 6 個條目（umaril、gray-fox、clockwork-city、solstheim、werewolves、eye-of-magnus），nerevarine 加 lore 版（《審判庭》戴遮臉頭盔、持真焰，不寫性別）與 2 張參考圖，moons 加 tes3 版（血月）；烏瑪瑞爾的 2 張與尼瑞瓦因骨模鎧甲的 1 張參考圖沿用本地已有的圖，其餘 12 張由使用者另外上傳補齊（網址依 UESP 檔名推算，未連線確認）。第 2 期 39 則仍列著正文提到的所有條目，寫場景時會照同樣規則縮減，次數與核心屆時再重算。
+- 事件數與核心依目前的 `subjects.json` 重算（2026-11-01；`tests/unit/visual-canon-inventory.test.ts` 會檢查這份清單與 `subjects.json`、條目、`refs.md` 是否一致）。第 1 期 20 則的 `entries` 已縮成「畫面裡畫得到的條目」（規格 4.4），所以很多條目的第 1 期次數變少，目前有 23 個條目沒有任何事件使用：akatosh、alessia、apocrypha、ashlanders、auriels-bow、ayleids、azura、dragon-cult、draugr、dwemer-ruins、kagrenac、mages-guild、molag-bal、mythic-dawn、paarthurnax、sheogorath、shrine-of-talos、steel-armor、tongues、umbriel、uriel-septim-vii、velothi-architecture、windhelm。條目都保留，供日後重畫使用。第 3 期第 1 批（2026-10-23）新增 17 個條目（kurog、gortwog、lysandus、cyrus、abnur-tharn、khamira、sai-sahan、ascendant-order、restless-league、orsinium、old-orsinium、high-isle、stros-mkai、elsweyr、kaalgrontiid、nahfahlaar、aeonstone），dragons 加了 eso 版本；第 3 期的 `entries` 一開始就只列畫面裡畫得到的條目。第 3 期第 2 批（2026-10-23）新增 6 個條目（naemon、dro-mathra、crystal-tower、maormer、maormer-ships、black-marsh），hist-tree 加 1 張參考圖。UESP 回 403，這批的參考圖由使用者另外上傳補齊；水晶塔起初沒有可用的圖，第 2 批審閱後使用者另外上傳 3 張（decisions/p3-refs-crystal，2026-10-24），條目依圖改寫。第 3 期第 3 批（2026-10-24）新增 6 個條目（umaril、gray-fox、clockwork-city、solstheim、werewolves、eye-of-magnus），nerevarine 加 lore 版（《審判庭》戴遮臉頭盔、持真焰，不寫性別）與 2 張參考圖，moons 加 tes3 版（血月）；烏瑪瑞爾的 2 張與尼瑞瓦因骨模鎧甲的 1 張參考圖沿用本地已有的圖，其餘 12 張由使用者另外上傳補齊（網址依 UESP 檔名推算，未連線確認）。第 3 期天際人物（2026-11-01，4 則：獨眼奧拉夫、武夫哈斯、喚風者約根、紅鷹）新增 5 個條目（olaf-one-eye、wulfharth、jurgen-windcaller、red-eagle、tongues），imperial-legion 加 lore 版（第一紀元軍團）、throat-of-the-world 加 lore 版（沒有修道院的半山雪坡）；UESP 回 403，11 張參考圖都沿用本地已有的圖（同一網址登記在新條目下），奧拉夫與紅鷹的遊戲截圖沒有下載；審閱後（decisions/skyrim-figures）約根的插圖改畫他在高吼修道院跪坐冥想，新增 high-hrothgar 條目（沒有參考圖），發聲者因此暫時沒有事件使用；複審後（decisions/skyrim-figures-2）約根照使用者提供的天際模型圖加 tes5 版，紅鷹的插圖改成只畫他一人、以荊棘之心為重點，帝國軍團的 lore 版因此暫時沒有事件使用；使用者提供的兩張參考圖（約根模型圖、荊棘之心 cosplay 照）不是 UESP 的圖，不登記在 refs.md，只在條目的版本差異記下來源。第 2 期 39 則仍列著正文提到的所有條目，寫場景時會照同樣規則縮減，次數與核心屆時再重算。
 - Task 5 建條目時的核心是依舊的對應表（正文提到即算），所有核心條目當時都已建好。
 - 中文名照 `src/content/glossary.json`；詞彙表沒有的詞是暫譯。
 
-## 具名人物（`people`，38 個）
+## 具名人物（`people`，42 個）
 
 | id | 中文名 | 英文名 | 事件數（第 1 期／第 2 期／第 3 期） | 核心 | 參考圖 |
 |---|---|---|---|---|---|
@@ -50,6 +50,10 @@
 | naemon | 納埃蒙之影 | Shade of Naemon | 1（0／0／1） | 否 | 1 |
 | umaril | 烏瑪瑞爾 | Umaril the Unfeathered | 1（0／0／1） | 否 | 4 |
 | gray-fox | 灰狐 | Gray Fox | 1（0／0／1） | 否 | 2 |
+| olaf-one-eye | 獨眼奧拉夫 | Olaf One-Eye | 1（0／0／1） | 否 | 2 |
+| wulfharth | 武夫哈斯 | Wulfharth | 1（0／0／1） | 否 | 2 |
+| jurgen-windcaller | 喚風者約根 | Jurgen Windcaller | 1（0／0／1） | 否 | 1 |
+| red-eagle | 紅鷹 | Red Eagle (Faolan) | 1（0／0／1） | 否 | 2 |
 
 ## 種族（`races`，15 個）
 
@@ -57,7 +61,7 @@
 |---|---|---|---|---|---|
 | imperials | 帝國人 | Imperials | 8（6／2／0） | 是 | 2 |
 | altmer | 高精靈 | Altmer | 8（4／3／1） | 是 | 3 |
-| nords | 諾德人 | Nords | 8（5／3／0） | 是 | 3 |
+| nords | 諾德人 | Nords | 10（5／3／2） | 是 | 3 |
 | argonians | 阿爾貢蜥人 | Argonians | 5（0／2／3） | 是 | 3 |
 | chimer | 奇莫 | Chimer | 3（2／1／0） | 是 | 2 |
 | dunmer | 丹莫 | Dunmer | 5（0／4／1） | 是 | 3 |
@@ -71,11 +75,11 @@
 | orcs | 獸人 | Orcs | 3（0／0／3） | 是 | 6 |
 | maormer | 海精靈（茂默） | Maormer (Sea Elves) | 1（0／0／1） | 否 | 2 |
 
-## 陣營與服裝（`factions`，20 個）
+## 陣營與服裝（`factions`，21 個）
 
 | id | 中文名 | 英文名 | 事件數（第 1 期／第 2 期／第 3 期） | 核心 | 參考圖 |
 |---|---|---|---|---|---|
-| imperial-legion | 帝國軍團 | Imperial Legion | 5（4／1／0） | 是 | 3 |
+| imperial-legion | 帝國軍團 | Imperial Legion | 5（4／1／0） | 是 | 4 |
 | thalmor | 梭默 | Thalmor | 4（2／1／1） | 是 | 3 |
 | akaviri | 阿卡維爾人 | Akaviri | 2（0／2／0） | 否 | 3 |
 | alessian-order | 艾萊西亞教會 | Alessian Order | 3（1／2／0） | 是 | 6 |
@@ -95,6 +99,7 @@
 | mythic-dawn | 破曉神教 | Mythic Dawn | 0（0／0／0） | 否 | 2 |
 | ascendant-order | 飛昇教團 | Ascendant Order | 1（0／0／1） | 否 | 2 |
 | restless-league | 不安聯盟 | Restless League | 1（0／0／1） | 否 | 2 |
+| tongues | 發聲者 | Tongues | 0（0／0／0） | 否 | 2 |
 
 ## 裝備與武器（`gear`，7 個）
 
@@ -108,7 +113,7 @@
 | elven-armor | 精靈鎧甲 | Elven Armor | 1（0／1／0） | 否 | 1 |
 | steel-armor | 鋼製鎧甲 | Steel Armor | 0（0／0／0） | 否 | 2 |
 
-## 建築與地景（`places`，41 個）
+## 建築與地景（`places`，42 個）
 
 | id | 中文名 | 英文名 | 事件數（第 1 期／第 2 期／第 3 期） | 核心 | 參考圖 |
 |---|---|---|---|---|---|
@@ -118,8 +123,8 @@
 | summerset-architecture | 夏暮島建築 | Summerset architecture | 6（1／3／2） | 是 | 2 |
 | coldharbour | 冷港 | Coldharbour | 1（1／0／0） | 是 | 3 |
 | nordic-ruins | 古諾德遺跡 | Nordic ruins | 2（2／0／0） | 是 | 2 |
-| skyrim-landscape | 天際地景 | Skyrim landscape | 2（2／0／0） | 是 | 2 |
-| throat-of-the-world | 世界之喉 | Throat of the World | 1（0／1／0） | 否 | 2 |
+| skyrim-landscape | 天際地景 | Skyrim landscape | 5（2／0／3） | 是 | 2 |
+| throat-of-the-world | 世界之喉 | Throat of the World | 1（0／1／0） | 否 | 3 |
 | valenwood-forest | 威木森林 | Valenwood forest | 2（0／1／1） | 否 | 2 |
 | adamantine-tower | 精金塔 | Adamantine Tower | 1（0／1／0） | 否 | 3 |
 | auridon | 奧瑞頓 | Auridon | 1（1／0／0） | 是 | 1 |
@@ -153,13 +158,14 @@
 | crystal-tower | 水晶塔 | Crystal Tower | 1（0／0／1） | 否 | 3 |
 | clockwork-city | 發條城 | Clockwork City | 1（0／0／1） | 否 | 2 |
 | solstheim | 索瑟海姆 | Solstheim | 1（0／0／1） | 否 | 2 |
+| high-hrothgar | 高吼修道院 | High Hrothgar | 1（0／0／1） | 否 | 0 |
 
 ## 生物與魔族（`creatures`，16 個）
 
 | id | 中文名 | 英文名 | 事件數（第 1 期／第 2 期／第 3 期） | 核心 | 參考圖 |
 |---|---|---|---|---|---|
 | alduin | 奧杜因 | Alduin | 3（1／2／0） | 是 | 3 |
-| dragons | 龍 | Dragons | 1（0／0／1） | 否 | 5 |
+| dragons | 龍 | Dragons | 2（0／0／2） | 否 | 5 |
 | dremora | 魔人 | Dremora | 3（0／1／2） | 否 | 3 |
 | jyggalag | 吉格拉格 | Jyggalag | 1（0／1／0） | 否 | 2 |
 | molag-bal | 莫拉格·巴爾 | Molag Bal | 0（0／0／0） | 否 | 3 |
@@ -199,16 +205,16 @@
 
 | 類別 | 條目數 | 核心 |
 |---|---|---|
-| people | 38 | 15 |
+| people | 42 | 15 |
 | races | 15 | 11 |
-| factions | 20 | 8 |
+| factions | 21 | 8 |
 | gear | 7 | 5 |
-| places | 41 | 15 |
+| places | 42 | 15 |
 | creatures | 16 | 1 |
 | objects | 15 | 7 |
-| 合計 | 152 | 62 |
+| 合計 | 158 | 62 |
 
-參考圖共 374 張（refs.md 的列數）；其中 16 張說明標「不適用」、1 張（oblivion-gate-tes4-1）暫時拿掉、2 張（bosmer-eso-1 木精靈重甲、bosmer-tes5-2 未穿衣的概念圖）改為僅作對照，這 19 張不列在條目的 refs，表格的「參考圖」欄只算條目實際使用的 355 張。
+參考圖共 385 張（refs.md 的列數）；其中 16 張說明標「不適用」、1 張（oblivion-gate-tes4-1）暫時拿掉、2 張（bosmer-eso-1 木精靈重甲、bosmer-tes5-2 未穿衣的概念圖）改為僅作對照，這 19 張不列在條目的 refs，表格的「參考圖」欄只算條目實際使用的 366 張。
 
 ## 備註
 

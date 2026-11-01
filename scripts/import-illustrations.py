@@ -1,10 +1,12 @@
 """Import the story illustrations: PNG originals -> two WebP sizes in public/illustrations/, captions -> JSON.
 
-    python -I scripts/import-illustrations.py <dir with <event-id>.png and captions.json>
+    python -I scripts/import-illustrations.py <dir with <event-id>.png and captions.json> [--merge]
 
 Writes public/illustrations/<id>.webp (1200 wide), <id>-960.webp and <id>-640.webp (quality 80, lower only when a file
 would exceed its size budget), and src/content/illustrations.json
 ([{id, width, height, caption: {en, zh-tw}}], sorted by id). The PNG originals stay where they are (not in git).
+Without --merge the folder must hold every illustration, since the JSON is rewritten from it; with --merge the folder's
+images are added to (or replace) the entries already in the JSON.
 Requires Python 3 with Pillow. Run from the repo root.
 """
 import json
@@ -23,6 +25,7 @@ BUDGET_KB = {1200: 300, 960: 200, 640: 120}
 
 def main():
     src = Path(sys.argv[1])
+    merge = '--merge' in sys.argv[2:]
     captions = json.loads((src / 'captions.json').read_text(encoding='utf-8'))
     events = {p.stem for p in (ROOT / 'src/content/events/en').glob('*.md')}
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -50,6 +53,10 @@ def main():
     missing = sorted(set(captions) - {e['id'] for e in entries})
     if missing:
         sys.exit(f'captions without an image: {missing}')
+    if merge:
+        added = {e['id'] for e in entries}
+        old = [e for e in json.loads(DATA.read_text(encoding='utf-8')) if e['id'] not in added]
+        entries = sorted(old + entries, key=lambda e: e['id'])
     DATA.write_text(json.dumps(entries, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
     print(f'{len(entries)} illustrations -> {DATA.relative_to(ROOT)}')
 

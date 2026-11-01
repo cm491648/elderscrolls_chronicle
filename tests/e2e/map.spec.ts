@@ -623,8 +623,9 @@ test.describe('drawn-map build (PUBLIC_MAP_SOURCE=drawn)', () => {
     await expect(plate.locator('image.map-basemap')).toHaveAttribute('href', /^\/maps\/drawn\/schematic\/tamriel(-\d+)?\.webp$/);
     await expect(plate.locator('.region-tag')).toHaveCount(9);
     await expect(page.locator('.map-marker.is-active')).toHaveAttribute('aria-label', '紅山');
-    // Into another province: still ours, still nothing official.
-    await page.getByRole('button', { name: '放大到天際' }).click();
+    // Into another province: still ours, still nothing official. (From the keyboard: Whiterun's marker sits on the middle
+    // of the drawn Skyrim, where a click would land.)
+    await page.getByRole('button', { name: '放大到天際' }).press('Enter');
     await expect(currentMapLayer(page)).toHaveText('天際');
     await expect(plate.locator('image.map-basemap').first()).toHaveAttribute('href', /^\/maps\/drawn\/schematic\/skyrim/);
     await page.waitForTimeout(500);
