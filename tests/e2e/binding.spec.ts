@@ -35,6 +35,20 @@ test('the header and the timeline are bound in leather; the timeline band stays 
   expect(await page.locator('.tl-band-frame').evaluate((el) => getComputedStyle(el, '::before').backgroundImage)).toContain('svg');
 });
 
+test('gold arcs rise round the header lozenge, swaying unless the reader asks for less motion (decisions/rings-2)', async ({ page }) => {
+  await openApp(page, '/zh-tw/events/battle-of-red-mountain/');
+  const layers = () => page.locator('.topbar').evaluate((el) => getComputedStyle(el).backgroundImage);
+  const live = await layers();
+  expect(live).toMatch(/header-arcs(?!-still)[^"]*\.svg/);
+  expect(live).toContain('leather'); // the arcs lie over the leather, not instead of it
+  const url = live.match(/url\("([^"]+)"\)/)![1];
+  const svg = await (await page.request.get(url)).text();
+  expect(svg).toContain('@keyframes sway');
+  expect(svg).toContain('prefers-reduced-motion');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  expect(await layers()).toContain('header-arcs-still');
+});
+
 test('map, story, search panel and popups are paper pages', async ({ page }) => {
   await openApp(page, '/en/events/battle-of-red-mountain/');
   const bgImg = (sel: string) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).backgroundImage);

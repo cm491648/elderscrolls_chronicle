@@ -158,8 +158,14 @@ kbd {
   gap: 16px;
   margin: 0 calc(-1 * var(--gutter));
   padding: 14px var(--gutter) 12px;
+  /* Gold arcs rise round the rule's lozenge (decisions/rings-2): a 1100 px drawing centred on the bottom edge, still
+     for readers who ask for less motion, slowly swaying otherwise. */
+  background: var(--orn-arcs) center bottom / 1100px 80px no-repeat, var(--leather) var(--tex-leather) 0 0 / 512px;
   /* Above the sticky timeline, so the rule's lozenge is not cut by it. */
   z-index: 11;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .topbar { background-image: var(--orn-arcs-live), var(--tex-leather); }
 }
 .brand { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; min-width: 0; }
 .topbar h1 { margin: 0; font-size: 1.2rem; letter-spacing: 0.04em; color: var(--on-leather); }

@@ -115,6 +115,7 @@
 |---|---|---|
 | `src/assets/textures/vellum.webp` | 舊紙頁（象牙色、淡纖維與淡斑） | Codex（`gpt-6.1-sol`）2026-10-24 手繪 1024×1024 無縫材質（原圖在主資料夾 `.superpowers/image-samples/ui-textures/vellum.png`，不進 git）；`scripts/make-textures.py` 修補接縫（交換象限後在中央十字淡入原圖）、縮成 512×512、webp 品質 76，約 4.4 KB |
 | `src/assets/textures/leather.webp` | 深牛血色書皮（細紋、輕微磨損） | 同上，`leather.png`；約 33 KB |
+| `src/assets/ornaments/header-arcs.svg`（約 11 KB）<br>`header-arcs-still.svg`（約 10 KB） | 頁首中央的金色弧線：六道大小相近、位置錯落的圓，只畫一段弧，中間最亮、兩端漸隱，帶柔和光暈，圍著頁首金線的菱形；前者每道弧沿自己的圓來回擺動 ±14°（14～25 秒一趟），後者靜止，給設定「減少動態效果」的讀者 | 2026-11-06 由 `scripts/make-header-arcs.mjs` 產生（自己的設計，參考《上古卷軸 VI》名稱公布預告的金色圓圈；不使用預告的畫面）。樣張與選擇見 decisions/rings-1、rings-2：使用者選只放頁首中央、緩緩擺動、亮度照樣張、不要十字光芒、位置要錯落 |
 
 - 提示詞存在 `.superpowers/image-samples/ui-textures/prompt.txt`：無縫、平均正面光、無文字符號紋章框線、1024×1024。同次產生的 `stone.png`（石材）沒有採用（使用者選樣張 B，decisions/es-feel-2）。
 - `src/assets/textures/textures.json` 記錄平均色、紙最暗 5% 與皮革最亮 5% 的顏色（紙 `#ebdbbb`、皮革 `#612e24`），`tests/unit/texture-contrast.test.ts` 用來檢查文字對比。

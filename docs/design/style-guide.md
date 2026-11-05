@@ -60,6 +60,7 @@
 | `--gilt-on-leather` | `#d2aa58` | 皮革上的金線與菱形 |
 | `--gilt-faint` | `rgb(173 135 48 / .45)` | 按鈕內圈的淡金線 |
 | `--tex-vellum`／`--tex-leather` | `url(../assets/textures/…)` | 兩張材質圖（建置時加雜湊） |
+| `--orn-arcs`／`--orn-arcs-live` | `url(../assets/ornaments/…)` | 頁首中央的金色弧線，靜止版／擺動版（`scripts/make-header-arcs.mjs`） |
 
 ### 2.2 衍生變數
 
@@ -133,7 +134,7 @@
 ## 4. 版面與裝飾原則
 
 - **頁尾**：一行淡墨小字，中英各一版（`disclaimer`）：非官方粉絲網站、與 Bethesda Softworks／ZeniMax Media 無關也未獲背書、名稱與地圖圖像的版權歸屬、官方地圖經 UESP 取得（`disclaimerOfficialMap`，總稱：各圖的出處在地圖圖說逐張標示）。
-- **頁首**：皮革書封（`.leather`），站名紙色（`--on-leather`）＋中文頁才有的英文小字副標；右側「搜尋與篩選」是皮革上的深底金框按鈕，語言切換是紙色純文字連結；和時間軸交界處是收尖金線（`.orule-bottom`）。頁首在時間軸之上一層（`z-index: 11`），菱形不會被黏在頂端的時間軸蓋住。
+- **頁首**：皮革書封（`.leather`），站名紙色（`--on-leather`）＋中文頁才有的英文小字副標；右側「搜尋與篩選」是皮革上的深底金框按鈕，語言切換是紙色純文字連結；和時間軸交界處是收尖金線（`.orule-bottom`）。金線的菱形四周升起幾道金色弧線（2026-11-06，decisions/rings-2）：1100 px 寬的圖置中貼齊頁首下緣，只露出弧的上段；弧線緩緩擺動，系統設定「減少動態效果」時改用靜止版。頁首在時間軸之上一層（`z-index: 11`），菱形不會被黏在頂端的時間軸蓋住。
 - **頁尾**（2026-10-24 起）：皮革條，上緣收尖金線（`.orule-top`），紙色小字（`--on-leather-soft`）；寬螢幕故事欄內的頁尾同樣是皮革，寬度跟欄。
 - **紋飾**（`global.css`「Ornaments」一段，decisions/es-feel-spec-2）：
   - **收尖金線**：`.orule-top`／`.orule-bottom` 在元素上緣或下緣畫一條兩端收尖的 3px 金線（`::before`，`clip-path` 菱形），中央一顆 8px 菱形，外圍一圈底色、一圈金線（`::after`）。皮革上加 `.on-leather` 換成 `--gilt-on-leather`。用在頁首下緣、「¶ 註」上緣、頁尾上緣。

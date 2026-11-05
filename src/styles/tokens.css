@@ -11,6 +11,9 @@
   --gilt-on-leather: #d2aa58;
   --tex-vellum: url('../assets/textures/vellum.webp');
   --tex-leather: url('../assets/textures/leather.webp');
+  /* gold arcs behind the middle of the header (decisions/rings-2; scripts/make-header-arcs.mjs) */
+  --orn-arcs: url('../assets/ornaments/header-arcs-still.svg');
+  --orn-arcs-live: url('../assets/ornaments/header-arcs.svg');
 
   --bg: var(--page);
   --surface: var(--paper);
