@@ -7,7 +7,7 @@ locations: [imperial-city, markarth]
 regions: [hammerfell]
 categories: [war, religion]
 people: [titus-mede-ii, ulfric-stormcloak]
-related: [great-war, tiber-septim-crowned, return-of-alduin, talos-ascends, markarth-incident]
+related: [great-war, second-treaty-of-stros-mkai, tiber-septim-crowned, return-of-alduin, talos-ascends, markarth-incident]
 games: [skyrim]
 sources:
   - title: "Lore: White-Gold Concordat"

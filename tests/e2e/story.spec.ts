@@ -1005,7 +1005,7 @@ test.describe('stories load on demand', () => {
 
 test.describe('related events', () => {
   // great-war lists these in its frontmatter; the story shows them in timeline order.
-  const related = ['tiber-septim-crowned', 'talos-ascends', 'oblivion-crisis', 'white-gold-concordat', 'return-of-alduin'];
+  const related = ['tiber-septim-crowned', 'talos-ascends', 'oblivion-crisis', 'white-gold-concordat', 'second-treaty-of-stros-mkai', 'return-of-alduin'];
 
   test('a story lists its related events in timeline order, each with its date, as real links', async ({ page }) => {
     const fm = readFileSync('src/content/events/en/great-war.md', 'utf-8').match(/^related: \[(.*)\]$/m)![1].split(', ');
@@ -1015,7 +1015,7 @@ test.describe('related events', () => {
     await expect(section.getByRole('heading', { name: '相關事件' })).toBeVisible();
     const links = section.getByRole('link');
     await expect(links).toHaveText(related.map((id) => new RegExp(eventTitle('zh-tw', id))));
-    // Each date is the one the content file gives (all five are single exact years).
+    // Each date is the one the content file gives (all six are single exact years).
     const ERA_ZH: Record<string, string> = { '1E': '第一紀元', '2E': '第二紀元', '3E': '第三紀元', '4E': '第四紀元' };
     for (const [i, id] of related.entries()) {
       const fm = readFileSync(`src/content/events/en/${id}.md`, 'utf-8');

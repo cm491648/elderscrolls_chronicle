@@ -1167,5 +1167,19 @@
       "skyrim-landscape"
     ],
     "overrides": {}
+  },
+  "second-treaty-of-stros-mkai": {
+    "era": "4E",
+    "year": 180,
+    "region": "hammerfell",
+    "phase": 3,
+    "entries": [
+      "redguards",
+      "thalmor",
+      "elven-ships"
+    ],
+    "overrides": {
+      "redguards": "tes5"
+    }
   }
 }

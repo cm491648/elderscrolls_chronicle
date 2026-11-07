@@ -531,6 +531,15 @@
     }
   },
   {
+    "id": "second-treaty-of-stros-mkai",
+    "width": 1200,
+    "height": 800,
+    "caption": {
+      "en": "From a broken wall of a ruined harbour town, Redguard warriors watch the beaten Thalmor army carry its wounded aboard ship and leave Hammerfell.",
+      "zh-tw": "紅衛人戰士站在殘破港城的斷牆上，看著戰敗的梭默軍隊抬著傷兵登船，離開落錘。"
+    }
+  },
+  {
     "id": "shade-of-naemon-and-the-shadow-wood",
     "width": 1200,
     "height": 800,

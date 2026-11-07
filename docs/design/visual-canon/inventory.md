@@ -1,6 +1,6 @@
 | objects | 15 | 7 || creatures | 16 | 1 || places | 41 | 15 || gear | 7 | 5 || factions | 20 | 8 || races | 15 | 11 || people | 38 | 15 |# 視覺設定集條目清單
 
-從 89 則事件（第 1 期 20 則、第 2 期 42 則、第 3 期第 1 批 9 則、第 2 批 8 則、第 3 批 6 則與天際人物 4 則）整理出要建的條目。事件與條目的對應見 `subjects.json`，各條目的參考圖見 `refs.md`。
+從 90 則事件（第 1 期 20 則、第 2 期 42 則、第 3 期第 1 批 9 則、第 2 批 8 則、第 3 批 6 則、天際人物 4 則與第二次斯圖爾斯·邁凱條約）整理出要建的條目。事件與條目的對應見 `subjects.json`，各條目的參考圖見 `refs.md`。
 
 - 「事件數」是用到這個條目的事件數，括號內分第 1 期／第 2 期／第 3 期。
 - 「核心」：第 1 期用到，或第 2 期、第 3 期各自有 3 則以上用到。最後的龍裔雖然只有 1 則事件，依使用者決定列為核心。
@@ -65,7 +65,7 @@
 | argonians | 阿爾貢蜥人 | Argonians | 5（0／2／3） | 是 | 3 |
 | chimer | 奇莫 | Chimer | 3（2／1／0） | 是 | 2 |
 | dunmer | 丹莫 | Dunmer | 5（0／4／1） | 是 | 3 |
-| redguards | 紅衛人 | Redguards | 6（0／4／2） | 是 | 3 |
+| redguards | 紅衛人 | Redguards | 7（0／4／3） | 是 | 3 |
 | bosmer | 木精靈 | Bosmer | 2（0／1／1） | 否 | 4 |
 | bretons | 布萊頓人 | Bretons | 4（0／1／3） | 是 | 3 |
 | dwemer | 鍛莫 | Dwemer | 2（2／0／0） | 是 | 2 |
@@ -80,7 +80,7 @@
 | id | 中文名 | 英文名 | 事件數（第 1 期／第 2 期／第 3 期） | 核心 | 參考圖 |
 |---|---|---|---|---|---|
 | imperial-legion | 帝國軍團 | Imperial Legion | 5（4／1／0） | 是 | 4 |
-| thalmor | 梭默 | Thalmor | 4（2／1／1） | 是 | 3 |
+| thalmor | 梭默 | Thalmor | 5（2／1／2） | 是 | 3 |
 | akaviri | 阿卡維爾人 | Akaviri | 2（0／2／0） | 否 | 3 |
 | alessian-order | 艾萊西亞教會 | Alessian Order | 3（1／2／0） | 是 | 6 |
 | stormcloaks | 風暴斗篷 | Stormcloaks | 1（1／0／0） | 是 | 2 |
@@ -187,7 +187,7 @@
 |---|---|---|---|---|---|
 | heart-of-lorkhan | 洛克汗之心 | Heart of Lorkhan | 2（1／1／0） | 是 | 1 |
 | dark-anchor | 黑暗錨 | Dark Anchor | 2（1／1／0） | 是 | 2 |
-| elven-ships | 精靈船 | Elven ships | 3（1／1／1） | 是 | 1 |
+| elven-ships | 精靈船 | Elven ships | 4（1／1／2） | 是 | 1 |
 | kagrenacs-tools | 卡格納克的工具 | Kagrenac's Tools | 1（1／0／0） | 是 | 3 |
 | nordic-longship | 諾德長船 | Nordic longship | 2（2／0／0） | 是 | 2 |
 | numidium | 努米迪安 | Numidium | 2（1／1／0） | 是 | 0 |

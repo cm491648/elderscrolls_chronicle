@@ -8,7 +8,7 @@ locations: [imperial-city]
 regions: [cyrodiil, hammerfell]
 categories: [war, religion]
 people: [titus-mede-ii]
-related: [oblivion-crisis, tiber-septim-crowned, white-gold-concordat, return-of-alduin, talos-ascends]
+related: [oblivion-crisis, tiber-septim-crowned, white-gold-concordat, second-treaty-of-stros-mkai, return-of-alduin, talos-ascends]
 games: [skyrim]
 sources:
   - title: "Lore: Great War"

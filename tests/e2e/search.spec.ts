@@ -40,7 +40,7 @@ test('a title match comes first; a name match says which name; a story match sho
   // 「泰伯」 is in three Tiber Septim titles and is a person (and part of a term) other stories name: the titles first, each
   // group in timeline order (Jurgen's story names him in its notes).
   await field(page).fill('泰伯');
-  const tiber = ['tiber-septim-crowned', 'tamriel-unified-by-numidium', 'talos-ascends', 'jurgen-windcaller-founds-the-way-of-the-voice', 'battle-of-sancre-tor', 'battle-of-hunding-bay', 'stros-mkai-uprising', 'failed-invasion-of-akavir', 'gortwog-founds-nova-orsinium', 'warp-in-the-west'];
+  const tiber = ['tiber-septim-crowned', 'tamriel-unified-by-numidium', 'talos-ascends', 'jurgen-windcaller-founds-the-way-of-the-voice', 'battle-of-sancre-tor', 'battle-of-hunding-bay', 'stros-mkai-uprising', 'failed-invasion-of-akavir', 'gortwog-founds-nova-orsinium', 'warp-in-the-west', 'second-treaty-of-stros-mkai'];
   await expect(results(page).locator('.hit-title')).toHaveText(tiber.map((id) => eventTitle('zh-tw', id)));
   await expect(results(page).nth(tiber.indexOf('warp-in-the-west')).locator('.hit-where')).toContainText('提到：泰伯');
 

@@ -6,7 +6,7 @@ mapLayer: hammerfell
 locations: [stros-mkai, sentinel]
 categories: [war, heroes]
 people: [cyrus, iszara, a-tor, amiel-richton, n-gasta, nahfahlaar, volag, tiber-septim]
-related: [battle-of-hunding-bay, tiber-septim-crowned, tamriel-unified-by-numidium]
+related: [battle-of-hunding-bay, tiber-septim-crowned, tamriel-unified-by-numidium, second-treaty-of-stros-mkai]
 games: [redguard]
 sources:
   - title: "Lore: Cyrus"

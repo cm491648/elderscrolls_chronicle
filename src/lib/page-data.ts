@@ -17,10 +17,12 @@ export const CHRONICLE_DATA_ID = 'chronicle-data';
 
 /**
  * The places as a page carries them. Only a drawn-map build reads the drawn positions (src/lib/map-set.ts), so an
- * official-map page leaves them out (about 1.8 KB a page).
+ * official-map page leaves them out (about 1.8 KB a page). The map reads a place's name only in the page language
+ * (`name[lang]`), so a page carries just that one (about 1.1 KB); `name` then holds a single key despite its type.
  */
-export function pagePlaces(locations: Location[], source: MapSource): Location[] {
-  return source === 'drawn' ? locations : locations.map(({ drawn: _drawn, ...place }) => place);
+export function pagePlaces(locations: Location[], source: MapSource, lang: Lang): Location[] {
+  const named = (place: Location) => ({ ...place, name: { [lang]: place.name[lang] } as Location['name'] });
+  return source === 'drawn' ? locations.map(named) : locations.map(({ drawn: _drawn, ...place }) => named(place as Location));
 }
 
 const byLang = new Map<Lang, ChronicleData>();
