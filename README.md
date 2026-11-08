@@ -2,6 +2,8 @@
 
 上古卷軸世界從黎明紀元到第四紀元的編年史：沿時間軸瀏覽重大事件，在地圖上看它們發生在哪裡，讀每一則的故事、異說與出處。中文與英文雙語，共 90 則事件。
 
+**網站：<https://cm491648.github.io/elderscrolls_chronicle/zh-tw/>**（English: <https://cm491648.github.io/elderscrolls_chronicle/en/>）
+
 *A bilingual (Traditional Chinese / English) chronicle of the Elder Scrolls world, from the Dawn Era to the Fourth Era: browse 90 major events along a timeline, see where they happened on the map, and read each story with its variant accounts and sources. English below.*
 
 > 非官方粉絲網站，與 Bethesda Softworks、ZeniMax Media 無關，也未獲其背書。The Elder Scrolls 為 ZeniMax Media Inc. 的商標；相關名稱、地圖與圖像 © Bethesda Softworks LLC／ZeniMax Media Inc. 所有。
@@ -42,6 +44,8 @@ npm run test:e2e   # 瀏覽器測試（Playwright）
 ## English
 
 An unofficial fan site: a chronicle of the Elder Scrolls world, from the Dawn Era to the Fourth Era, in Traditional Chinese and English.
+
+**Site: <https://cm491648.github.io/elderscrolls_chronicle/en/>**
 
 > Unofficial fan site, not affiliated with or endorsed by Bethesda Softworks or ZeniMax Media. The Elder Scrolls is a trademark of ZeniMax Media Inc.; related names, maps and images © Bethesda Softworks LLC / ZeniMax Media Inc.
 
