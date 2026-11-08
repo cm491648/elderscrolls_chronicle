@@ -1,0 +1,30 @@
+---
+import { getEntry } from 'astro:content';
+import { marked } from 'marked';
+import Section from '../../../layouts/Section.astro';
+import { LANGS, type Lang } from '../../../lib/types';
+import changelog from '../../../content/changelog.json';
+import { t } from '../../../i18n';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const about = (await getEntry('about', lang))!;
+const MARK = '<!-- changelog -->';
+const [before, after = ''] = (about.body ?? '').split(MARK);
+const html = (md: string) => marked.parse(md, { async: false }) as string;
+---
+<Section lang={lang} section="about" title={`${about.data.title} | ${t(lang, 'siteTitle')}`} description={t(lang, 'siteDescription')}>
+  <h1>{about.data.title}</h1>
+  <div class="about">
+    <div class="prose" set:html={html(before)} />
+    <ol class="changelog" aria-label={t(lang, 'changelog')}>
+      {changelog.map((c) => (
+        <li><time datetime={c.date}>{c.date}</time>{c[lang]}</li>
+      ))}
+    </ol>
+    <div class="prose" set:html={html(after)} />
+  </div>
+</Section>

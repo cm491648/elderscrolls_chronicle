@@ -1,0 +1,56 @@
+/* A person's portrait on the biographies index (PersonPortrait.astro): an upright rectangular picture frame in the
+   person's leather (sections.ts bindingOf) with a fine gilt line, an oval of warm parchment inside holding a plain,
+   low-contrast head-and-shoulders figure (decisions/sections-round3: square-cornered, nothing arched, so it reads as a
+   framed portrait; round4: no name plaque). Sized by the row (cover-list.css); everything
+   inside scales with it. Tokens from tokens.css. */
+.portrait {
+  container-type: inline-size;
+  min-width: 0;
+  aspect-ratio: 3 / 4;
+  color: var(--on-leather);
+  background: var(--binding) var(--tex-leather) 0 0 / 256px;
+  background-blend-mode: soft-light;
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.3), var(--shadow);
+}
+.portrait-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 11cqi;
+}
+/* The gilt line just inside the frame's edge. */
+.portrait-frame::before {
+  content: '';
+  position: absolute;
+  inset: 4.5cqi;
+  border: 1px solid var(--gilt-on-leather);
+  pointer-events: none;
+}
+.portrait-canvas,
+.portrait-image {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  border: 1px solid var(--gilt-on-leather);
+  box-shadow: 0 0 0 2px rgb(0 0 0 / 0.25);
+}
+/* Parchment a shade warmer than the page, so the oval reads as a painted canvas set in the leather. */
+.portrait-canvas {
+  overflow: hidden;
+  background: color-mix(in srgb, var(--paper) 86%, var(--binding)) var(--tex-vellum) 0 0 / 256px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgb(0 0 0 / 0.25), inset 0 0 6cqi rgb(60 40 20 / 0.28);
+}
+.portrait-figure {
+  position: absolute;
+  inset: 16% 0 0;
+  width: 100%;
+  height: 84%;
+  /* Sepia, a few shades off the parchment: a placeholder to look past, not a picture. */
+  fill: color-mix(in srgb, var(--paper) 72%, #7a5530);
+}
+.portrait-image { display: block; object-fit: cover; }

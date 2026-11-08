@@ -1,0 +1,22 @@
+---
+import { t } from '../i18n';
+import type { Lang } from '../lib/types';
+
+interface Props {
+  lang: Lang;
+  /** The id of the element whose `[data-search]` items it filters. */
+  scope: string;
+  label: string;
+}
+const { lang, scope, label } = Astro.props;
+const id = `${scope}-q`;
+---
+<form class="list-filter" role="search" data-filter-scope={scope} data-count={t(lang, 'filterCount')} data-none={t(lang, 'filterNoMatch')} hidden>
+  <label for={id}>{label}</label>
+  <input id={id} type="search" autocomplete="off" spellcheck="false" />
+  <p class="filter-status" role="status" aria-live="polite"></p>
+</form>
+<script>
+  import { bindListFilter } from '../scripts/list-filter';
+  for (const form of document.querySelectorAll<HTMLFormElement>('form[data-filter-scope]')) bindListFilter(form);
+</script>

@@ -1,0 +1,29 @@
+/* A list of book-like rows (the topics' covers, the biographies' portraits): the picture on the left, the title,
+   dates and summary on the right; the title's link stretches over the whole row. Tokens from tokens.css. */
+.cover-list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.section-main h1 + .cover-list, .section-lede + .cover-list { margin-top: 24px; }
+.cover-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.cover-row:hover { border-color: var(--gilt); }
+.cover-row:has(a:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cover-text h2 { margin: 0; font-size: 1.25rem; }
+.cover-text h2 a { color: var(--ink); text-decoration: none; }
+.cover-text h2 a::after { content: ''; position: absolute; inset: 0; }
+.cover-text h2 a:focus-visible { outline: none; }
+.cover-row:hover h2 a { color: var(--accent); text-decoration: underline; }
+.cover-text p { margin: 6px 0 0; }
+.cover-text .section-en { margin-top: 2px; }
+.cover-list + p { margin-top: 24px; }
+
+@media (max-width: 899px) {
+  .cover-row { grid-template-columns: 84px 1fr; gap: 14px; padding: 12px; }
+  .cover-text h2 { font-size: 1.1rem; }
+}

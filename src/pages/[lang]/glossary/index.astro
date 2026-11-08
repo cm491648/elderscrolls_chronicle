@@ -1,0 +1,56 @@
+---
+import Section from '../../../layouts/Section.astro';
+import ListFilter from '../../../components/ListFilter.astro';
+import { GLOSSARY_CATEGORIES, LANGS, type Lang } from '../../../lib/types';
+import { loadSections } from '../../../lib/sections-data';
+import { sortByName } from '../../../lib/sections';
+import { biographyUrl, eventUrl, topicUrl } from '../../../lib/paths';
+import { t, type UiKey } from '../../../i18n';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const { glossary } = await loadSections(lang);
+const groups = GLOSSARY_CATEGORIES.map((c) => ({ c, items: sortByName(glossary.filter((g) => g.category === c), lang) })).filter(
+  (g) => g.items.length > 0,
+);
+const sep = lang === 'en' ? ', ' : '、';
+---
+<Section lang={lang} section="glossary" title={`${t(lang, 'navGlossary')} | ${t(lang, 'siteTitle')}`} description={t(lang, 'glossaryIntro')}>
+  <h1>{t(lang, 'navGlossary')}</h1>
+  <p class="section-lede">{t(lang, 'glossaryIntro')}</p>
+  <nav aria-label={t(lang, 'glossaryCategories')}>
+    <ul class="cat-nav">
+      {groups.map((g) => <li><a href={`#cat-${g.c}`}>{t(lang, `gcat_${g.c}` as UiKey)}</a></li>)}
+    </ul>
+  </nav>
+  <ListFilter lang={lang} scope="glossary-list" label={t(lang, 'filterGlossaryLabel')} />
+  <div id="glossary-list">
+    {groups.map((g) => (
+      <section data-filter-group aria-labelledby={`cat-${g.c}`}>
+        <h2 id={`cat-${g.c}`}>{t(lang, `gcat_${g.c}` as UiKey)}</h2>
+        <dl class="term-list">
+          {g.items.map((x) => (
+            <div class="term-entry" id={x.id} data-search={`${x.name.en} ${x.name['zh-tw']}`}>
+              <dt>
+                <span lang={lang === 'en' ? 'en' : 'zh-Hant-TW'}>{x.name[lang]}</span>
+                {lang !== 'en' && <span class="name-en" lang="en">{x.name.en}</span>}
+              </dt>
+              {x.summary && <dd>{x.summary}</dd>}
+              {(x.events.length > 0 || x.topics.length > 0) && (
+                <dd class="term-links">
+                  {t(lang, 'appearsIn')}{lang === 'en' && ' '}
+                  {x.events.map((e, i) => <>{i > 0 && sep}<a href={eventUrl(lang, e.id)}>{e.title}</a></>)}
+                  {x.topics.map((tp, i) => <>{(i > 0 || x.events.length > 0) && sep}<a href={topicUrl(lang, tp.id)}>{tp.title}</a></>)}
+                </dd>
+              )}
+              {x.biography && <dd><a href={biographyUrl(lang, x.id)}>{t(lang, 'biographyPage')}</a></dd>}
+            </div>
+          ))}
+        </dl>
+      </section>
+    ))}
+  </div>
+</Section>

@@ -1,0 +1,34 @@
+---
+// The topics as a list of covers, one book a row: its cover beside its title, years, event count and summary. The
+// title's link stretches over the whole row (cover-list.css).
+import TopicCover from './TopicCover.astro';
+import { t } from '../i18n';
+import { topicUrl } from '../lib/paths';
+import type { TopicView } from '../lib/sections-data';
+import type { Lang } from '../lib/types';
+
+interface Props {
+  lang: Lang;
+  topics: TopicView[];
+}
+const { lang, topics } = Astro.props;
+// Read aloud between the meta line's parts, which only spacing separates on screen.
+const sep = lang === 'en' ? ', ' : '，';
+---
+<ol class="cover-list">
+  {topics.map((tp) => (
+    <li class="cover-row" data-topic={tp.id}>
+      <TopicCover title={tp.title} eras={tp.eras} span={tp.span} binding={tp.binding} />
+      <div class="cover-text">
+        <h2><a href={topicUrl(lang, tp.id)}>{tp.title}</a></h2>
+        {tp.titleEn && <p class="section-en">{tp.titleEn}</p>}
+        <p class="meta-line">
+          {tp.span && <span>{tp.span}<span class="sr-only">{sep}</span></span>}
+          <span>{t(lang, 'eventCount', { n: tp.events.length })}{tp.status === 'planned' && <span class="sr-only">{sep}</span>}</span>
+          {tp.status === 'planned' && <span class="tag">{t(lang, 'wip')}</span>}
+        </p>
+        <p>{tp.summary}</p>
+      </div>
+    </li>
+  ))}
+</ol>

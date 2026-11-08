@@ -32,6 +32,12 @@ export type Game = (typeof GAMES)[number];
 export const SOURCE_KINDS = ['game', 'book', 'web'] as const;
 export type SourceKind = (typeof SOURCE_KINDS)[number];
 
+/** Glossary categories (decisions/redesign-design): the glossary page groups its terms by these. */
+export const GLOSSARY_CATEGORIES = [
+  'deity', 'person', 'title', 'people-group', 'creature', 'place', 'faction', 'event', 'artifact', 'work', 'calendar', 'concept',
+] as const;
+export type GlossaryCategory = (typeof GLOSSARY_CATEGORIES)[number];
+
 export interface Source {
   title: string;
   kind: SourceKind;
@@ -87,6 +93,8 @@ export interface EventStory {
   notesHtml: string | null;
   /** The terms this story (and its notes) marks, for the tooltips. */
   terms: StoryTerm[];
+  /** The topics that hold this event. */
+  topics?: TopicLink[];
   sources: Source[];
 }
 
@@ -114,12 +122,16 @@ export interface Person {
   id: string;
   name: Record<Lang, string>;
   summary: Record<Lang, string>;
+  /** Their glossary category when they are not simply a person (a Daedric Prince); absent means `person`. */
+  category?: GlossaryCategory;
 }
 
 /** What a page needs of a person: the name its story lists, in the page language (the summaries travel with each story's terms). */
 export interface PersonName {
   id: string;
   name: string;
+  /** They have a biography: their name links there, else to their glossary entry. */
+  biography?: true;
 }
 
 export interface TermInfo {
@@ -128,9 +140,23 @@ export interface TermInfo {
   summary?: Record<Lang, string>;
 }
 
+/** A topic or a biography: `planned` shows "work in progress", `published` its text (decisions/redesign-scope). */
+export const ENTRY_STATUSES = ['planned', 'published'] as const;
+export type EntryStatus = (typeof ENTRY_STATUSES)[number];
+
+/** A link to a topic, as an event's story lists it. */
+export interface TopicLink {
+  id: string;
+  title: string;
+}
+
 /** A term as a story carries it for the tooltips: both names (the tip shows the other one too), the summary in the story's language only. */
 export interface StoryTerm {
   id: string;
   name: Record<Lang, string>;
   summary?: string;
+  /** The glossary lists it (its own terms and every person): the tooltip links there. */
+  glossary?: true;
+  /** It is a person with a biography: the tooltip links there first. */
+  biography?: true;
 }

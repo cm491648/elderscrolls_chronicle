@@ -9,13 +9,12 @@ import { EMPTY_FILTER, dimmedIds, filterCount, isFilterActive, readFilter, saveF
 import type { EventStory, Lang } from '../lib/types';
 import { loadStory, prefetchStory, seedStory } from '../lib/story-cache';
 import { chronicleData, pageStory } from '../lib/page-data';
-import { MAP_SOURCE } from '../lib/map-source';
-import { BEACON_TOKEN } from '../lib/analytics';
 import { t } from '../i18n';
 import { Timeline } from './Timeline/Timeline';
 import { MapView } from './MapView/MapView';
 import { StoryPanel } from './StoryPanel/StoryPanel';
-import { LangSwitch } from './LangSwitch/LangSwitch';
+import { SiteHeader } from './SiteHeader/SiteHeader';
+import { SiteFooter } from './SiteFooter/SiteFooter';
 import { SearchPanel, SEARCH_PANEL_ID } from './SearchFilter/SearchPanel';
 
 interface Props {
@@ -346,35 +345,18 @@ export default function ChronicleApp({ lang, initialId }: Props) {
     return () => removeEventListener('keydown', onKey);
   }, []);
 
-  const footer = (
-    <footer class="site-footer leather on-leather orule-top" ref={footRef}>
-      {t(lang, 'disclaimer')}
-      {MAP_SOURCE === 'official' && (
-        <>
-          {lang === 'en' ? ' ' : ''}
-          {t(lang, 'disclaimerOfficialMap')}
-        </>
-      )}
-      {BEACON_TOKEN && (
-        <>
-          {lang === 'en' ? ' ' : ''}
-          {t(lang, 'disclaimerAnalytics')}
-        </>
-      )}
-    </footer>
-  );
+  const footer = <SiteFooter lang={lang} footerRef={footRef} />;
+  const otherLang: Lang = lang === 'en' ? 'zh-tw' : 'en';
 
   return (
     <div class={`chronicle${selected ? ' has-story' : ''}${searchOpen ? ' search-open' : ''}`} ref={rootRef}>
-      <header class="topbar leather on-leather orule-bottom" ref={topbarRef}>
-        <div class="brand">
-          <h1>{t(lang, 'siteTitle')}</h1>
-          {t(lang, 'siteSubtitle') && (
-            <span class="brand-sub" lang="en" aria-hidden="true">
-              {t(lang, 'siteSubtitle')}
-            </span>
-          )}
-        </div>
+      <SiteHeader
+        lang={lang}
+        current="map"
+        brandHeading
+        headerRef={topbarRef}
+        langHref={selectedId ? eventUrl(otherLang, selectedId) : homeUrl(otherLang)}
+      >
         <button
           type="button"
           class="search-toggle"
@@ -391,8 +373,7 @@ export default function ChronicleApp({ lang, initialId }: Props) {
             </span>
           )}
         </button>
-        <LangSwitch lang={lang} eventId={selectedId} />
-      </header>
+      </SiteHeader>
       <p class="sr-only" aria-live="polite" data-story-announce>
         {announce}
       </p>

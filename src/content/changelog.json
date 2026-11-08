@@ -1,0 +1,37 @@
+[
+  {
+    "date": "2026-11-08",
+    "en": "Added Topics, Biographies, the Glossary and an About page.",
+    "zh-tw": "新增專題、人物、用語表與關於本站。"
+  },
+  {
+    "date": "2026-11-07",
+    "en": "Added the Second Treaty of Stros M'Kai (4E 180).",
+    "zh-tw": "新增「第二次斯圖爾斯·邁凱條約」（第四紀元 180 年）。"
+  },
+  {
+    "date": "2026-11-06",
+    "en": "Gold arcs now rise from the diamond on the header's gilt rule and sway slowly; they stay still if your device is set to reduce motion.",
+    "zh-tw": "頁首金線的菱形上方多了金色弧線，會緩緩擺動；裝置設定為減少動態效果時保持靜止。"
+  },
+  {
+    "date": "2026-11-01",
+    "en": "Added four First Era events in Skyrim: Olaf One-Eye Becomes High King (1E 420), Jurgen Windcaller Founds the Way of the Voice (c. 1E 423), Wulfharth, Shor's Tongue, Restores the Old Gods (1E 482) and Red Eagle's Rebellion (c. 1E 1030).",
+    "zh-tw": "新增四則發生在第一紀元天際的事件：「獨眼奧拉夫成為至高王」（第一紀元 420 年）、「喚風者約根開創吼聲之道」（第一紀元約 423 年）、「朔爾之舌武夫哈斯恢復古神信仰」（第一紀元 482 年）與「紅鷹起義」（第一紀元約 1030 年）。"
+  },
+  {
+    "date": "2026-10-30",
+    "en": "The timeline's regions menu now reads on its own paper, and Tamriel's name is a framed button that opens its provinces.",
+    "zh-tw": "時間軸的「地區」選單改成在羊皮紙底上閱讀，「泰姆瑞爾」的名稱也成了有框的按鈕，按下去會展開各省分。"
+  },
+  {
+    "date": "2026-10-28",
+    "en": "Started counting visits with Cloudflare Web Analytics, which uses no cookies and records no personal data.",
+    "zh-tw": "開始用 Cloudflare Web Analytics 統計瀏覽次數，不使用 cookie，也不記錄個人資料。"
+  },
+  {
+    "date": "2026-10-25",
+    "en": "The chronicle opened to the public with 85 events.",
+    "zh-tw": "網站公開上線，收錄 85 則事件。"
+  }
+]

@@ -1,0 +1,26 @@
+---
+import Base from './Base.astro';
+import { SiteHeader, type Section as SectionName } from '../components/SiteHeader/SiteHeader';
+import { SiteFooter } from '../components/SiteFooter/SiteFooter';
+import { otherLangUrl } from '../lib/paths';
+import type { Lang } from '../lib/types';
+import '../styles/sections.css';
+
+interface Props {
+  lang: Lang;
+  section: SectionName;
+  title: string;
+  description?: string;
+}
+const { lang, section, title, description } = Astro.props;
+const other: Lang = lang === 'en' ? 'zh-tw' : 'en';
+---
+<Base lang={lang} title={title} description={description}>
+  <div class="section-page">
+    <SiteHeader client:load lang={lang} current={section} langHref={otherLangUrl(Astro.url.pathname, other)} />
+    <main class="section-main" id="main">
+      <slot />
+    </main>
+    <SiteFooter lang={lang} />
+  </div>
+</Base>

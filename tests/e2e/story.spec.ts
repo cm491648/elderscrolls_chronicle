@@ -1,4 +1,5 @@
 import { readFileSync, readdirSync } from 'node:fs';
+import { gzipSync } from 'node:zlib';
 import { expect, test, type Page } from '@playwright/test';
 import { boxesOverlap } from '../../src/lib/timeline-view';
 import {
@@ -912,20 +913,25 @@ test.describe('stories load on demand', () => {
     expect(json.terms.map((t: { id: string }) => t.id).sort()).toEqual(marked.sort());
   });
 
-  test('every page, home and event pages in both languages, stays under 150 KiB', async ({ request }, info) => {
+  // A tripwire, not a download budget: every page carries every event's summary, so pages grow about 1 KB per event,
+  // which costs a reader little (gzip, and the page is fetched once; moving between events stays in the browser).
+  // What it catches is a real blow-up, such as every story embedded again (well over 100 KiB gzipped). Measured
+  // gzipped, close to what is sent; the largest page was about 36 KB at 90 events (decision 2026-11-07).
+  test('every page, home, event and section pages in both languages, stays under 100 KiB gzipped', async ({ request }, info) => {
     test.skip(info.project.name !== 'desktop', 'the same files on both projects; once is enough');
     const ids = readdirSync('src/content/events/en').map((f) => f.replace(/\.md$/, ''));
     const sizes: [string, number][] = [];
     for (const lang of ['en', 'zh-tw']) {
-      for (const path of [`/${lang}/`, ...ids.map((id) => `/${lang}/events/${id}/`)]) {
+      const sections = [`/${lang}/topics/`, `/${lang}/topics/great-war/`, `/${lang}/biographies/`, `/${lang}/biographies/tiber-septim/`, `/${lang}/glossary/`, `/${lang}/about/`];
+      for (const path of [`/${lang}/`, ...ids.map((id) => `/${lang}/events/${id}/`), ...sections]) {
         const res = await request.get(path);
         expect(res.ok(), path).toBe(true);
-        sizes.push([path, (await res.body()).byteLength]);
+        sizes.push([path, gzipSync(await res.body()).byteLength]);
       }
     }
     sizes.sort((a, b) => b[1] - a[1]);
     const largest = sizes.slice(0, 3).map(([p, n]) => `${p} ${n} B`).join(', ');
-    expect(sizes[0][1], `largest pages: ${largest}`).toBeLessThan(150 * 1024);
+    expect(sizes[0][1], `largest pages (gzipped): ${largest}`).toBeLessThan(100 * 1024);
   });
 
   test('choosing an event fetches its story once; choosing it again does not', async ({ page }) => {

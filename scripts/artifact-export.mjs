@@ -68,6 +68,14 @@ for (const extra of ['collections', 'content-assets.mjs', 'content-modules.mjs',
   await rm(path.join(outDir, extra), { recursive: true, force: true });
 }
 
+// The sections (topics, biographies, glossary, about) are left out: the export is no longer used to preview the site
+// (2026-11-01) and their ~380 pages would pass the host's file limit.
+for (const lang of ['en', 'zh-tw']) {
+  for (const seg of ['topics', 'biographies', 'glossary', 'about']) {
+    await rm(path.join(outDir, lang, seg), { recursive: true, force: true });
+  }
+}
+
 // The root page picks a language with a redirect; replace it with a plain launcher.
 await writeFile(
   path.join(outDir, 'index.html'),

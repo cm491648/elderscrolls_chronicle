@@ -16,7 +16,7 @@ import {
 
 const require = createRequire(import.meta.url);
 const readJson = <T,>(file: string): T => JSON.parse(readFileSync(file, 'utf-8'));
-const glossary = readJson<{ id: string; en: string; 'zh-tw': string; note?: string }[]>('src/content/glossary.json');
+const glossary = readJson<{ id: string; name: Record<string, string>; note?: string }[]>('src/content/glossary.json');
 /** The glossary without its translators' notes. */
 const glossaryShown = () => glossary.map(({ note: _note, ...shown }) => shown);
 
@@ -95,7 +95,9 @@ describe('font-subset', () => {
     const body = chineseFaceText(collectCodepoints('src'));
     const names = [
       ...readdirSync('src/content/events/zh-tw').map((f) => /^title:\s*(.*)$/m.exec(readFileSync(`src/content/events/zh-tw/${f}`, 'utf-8'))![1]),
-      ...glossary.map((g) => g['zh-tw']),
+      ...readdirSync('src/content/topics/zh-tw').map((f) => /^title:\s*(.*)$/m.exec(readFileSync(`src/content/topics/zh-tw/${f}`, 'utf-8'))![1]),
+      ...[...readFileSync('src/content/about/zh-tw.md', 'utf-8').matchAll(/^#{1,6}\s*(.*)$/gm)].map((m) => m[1]),
+      ...glossary.map((g) => g.name['zh-tw']),
       ...readJson<{ name: Record<string, string> }[]>('src/content/people.json').map((p) => p.name['zh-tw']),
       ...readJson<{ name: Record<string, string> }[]>('src/content/locations.json').map((p) => p.name['zh-tw']),
       readFileSync('src/i18n/zh-tw.json', 'utf-8'),

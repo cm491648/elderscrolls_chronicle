@@ -87,13 +87,19 @@ export function titleCodepoints(srcDir) {
   };
   const content = join(srcDir, 'content');
   const json = (name) => JSON.parse(readFileSync(join(content, name), 'utf-8'));
-  for (const lang of readdirSync(join(content, 'events'))) {
-    for (const f of readdirSync(join(content, 'events', lang))) {
-      const title = /^title:\s*(.*)$/m.exec(readFileSync(join(content, 'events', lang, f), 'utf-8'));
-      if (title) add(title[1]);
+  for (const kind of ['events', 'topics']) {
+    for (const lang of readdirSync(join(content, kind))) {
+      for (const f of readdirSync(join(content, kind, lang))) {
+        const title = /^title:\s*(.*)$/m.exec(readFileSync(join(content, kind, lang, f), 'utf-8'));
+        if (title) add(title[1]);
+      }
     }
   }
-  for (const g of json('glossary.json')) add(`${g.en}${g['zh-tw']}`);
+  for (const f of readdirSync(join(content, 'about'))) {
+    const text = readFileSync(join(content, 'about', f), 'utf-8');
+    for (const m of text.matchAll(/^(?:title:|#{1,6})\s*(.*)$/gm)) add(m[1]);
+  }
+  for (const g of json('glossary.json')) add(Object.values(g.name).join(''));
   for (const file of ['people.json', 'locations.json']) for (const x of json(file)) add(Object.values(x.name).join(''));
   const walk = (d) => {
     for (const entry of readdirSync(d, { withFileTypes: true })) {
@@ -114,12 +120,14 @@ export function titleCodepoints(srcDir) {
  */
 export function boldCodepoints(srcDir) {
   const used = titleCodepoints(srcDir);
-  const events = join(srcDir, 'content', 'events');
-  for (const lang of readdirSync(events)) {
-    for (const f of readdirSync(join(events, lang))) {
-      const text = readFileSync(join(events, lang, f), 'utf-8');
-      for (const m of text.matchAll(/{{[^}|]+\|([^}]+)}}|\*\*([^*]+)\*\*/g)) {
-        for (const ch of m[1] ?? m[2]) used.add(ch.codePointAt(0));
+  for (const kind of ['events', 'topics', 'biographies']) {
+    const dir = join(srcDir, 'content', kind);
+    for (const lang of readdirSync(dir)) {
+      for (const f of readdirSync(join(dir, lang))) {
+        const text = readFileSync(join(dir, lang, f), 'utf-8');
+        for (const m of text.matchAll(/{{[^}|]+\|([^}]+)}}|\*\*([^*]+)\*\*/g)) {
+          for (const ch of m[1] ?? m[2]) used.add(ch.codePointAt(0));
+        }
       }
     }
   }

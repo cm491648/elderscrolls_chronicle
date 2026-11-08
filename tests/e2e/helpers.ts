@@ -8,9 +8,9 @@ export const eventTitle = (lang: 'en' | 'zh-tw', id: string) =>
   readFileSync(`src/content/events/${lang}/${id}.md`, 'utf-8').match(/^title:\s*(.+?)\s*$/m)![1].replace(/^(['"])(.*)$/, '$2');
 /** The English name a term tooltip shows: the glossary's name wins over a person's (as in src/lib/data.ts). */
 export function termEnglishName(id: string): string {
-  const glossary = readJson<{ id: string; en: string }[]>('src/content/glossary.json');
+  const glossary = readJson<{ id: string; name: { en: string } }[]>('src/content/glossary.json');
   const people = readJson<{ id: string; name: { en: string } }[]>('src/content/people.json');
-  const name = glossary.find((g) => g.id === id)?.en ?? people.find((p) => p.id === id)?.name.en;
+  const name = glossary.find((g) => g.id === id)?.name.en ?? people.find((p) => p.id === id)?.name.en;
   if (!name) throw new Error(`no English name for term ${id}`);
   return name;
 }
@@ -24,6 +24,26 @@ export async function openApp(page: Page, path: string) {
   await page.goto(path);
   // Every island has finished hydrating once none is left in its SSR-only state.
   await expect(page.locator('astro-island[ssr]')).toHaveCount(0);
+}
+
+/**
+ * Waits until `target` has stopped moving on screen for ~300 ms. A story opened on a phone scrolls itself to its
+ * opening (smooth) and folds the map away once read past, and the target rides along with both.
+ */
+export async function waitForStill(target: Locator) {
+  let prev = '';
+  let since = 0;
+  await expect
+    .poll(async () => {
+      const cur = await target.evaluate((el) => {
+        const r = el.getBoundingClientRect();
+        return `${Math.round(scrollY)}:${Math.round(r.left)}:${Math.round(r.top)}`;
+      });
+      if (cur !== prev) since = Date.now();
+      prev = cur;
+      return Date.now() - since >= 300;
+    }, { intervals: [60], timeout: 8000 })
+    .toBe(true);
 }
 
 /** The zoom transition has ended once the timeline's markup stops changing between frames. */

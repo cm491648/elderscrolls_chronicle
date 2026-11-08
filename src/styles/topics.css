@@ -1,0 +1,47 @@
+/* The topics' text cover (TopicCover.astro): leather in the topic's binding (sections.ts bindingOf), a double gilt
+   frame, the eras, the title, a rule and the years. Sized by its row in the covers list (cover-list.css); everything
+   inside scales with it. Tokens from tokens.css. */
+.cover {
+  container-type: inline-size;
+  min-width: 0;
+  aspect-ratio: 5 / 7;
+  color: var(--on-leather);
+  background: var(--binding) var(--tex-leather) 0 0 / 256px;
+  background-blend-mode: soft-light;
+  border-radius: 2px 4px 4px 2px;
+  box-shadow: inset 5px 0 0 rgb(0 0 0 / 0.22), inset 6px 0 0 rgb(255 255 255 / 0.06), var(--shadow);
+}
+.cover-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cover-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6cqi;
+  height: calc(100% - 14cqi);
+  margin: 7cqi;
+  padding: 8cqi 7cqi;
+  text-align: center;
+  border: 1px solid var(--gilt-on-leather);
+}
+.cover-frame::before { content: ''; position: absolute; inset: 3px; border: 1px solid rgb(210 170 88 / 0.5); pointer-events: none; }
+.cover-eras { font-size: 8cqi; line-height: 1.3; letter-spacing: 0.08em; color: var(--on-leather-soft); }
+.cover-title { font-family: var(--font-title); font-size: 13cqi; font-weight: 700; line-height: 1.3; text-wrap: balance; }
+html[lang='en'] .cover-title { font-size: 12cqi; }
+.cover-orn { position: relative; width: 50%; height: 1px; background: var(--gilt-on-leather); }
+.cover-orn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5cqi;
+  height: 5cqi;
+  background: var(--binding);
+  border: 1px solid var(--gilt-on-leather);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.cover-span { font-size: 7.5cqi; line-height: 1.3; color: var(--on-leather-soft); }
+@container (max-width: 100px) {
+  .cover-eras, .cover-span { display: none; }
+}

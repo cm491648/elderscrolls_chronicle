@@ -4,7 +4,8 @@ import type { EventStory, EventSummary, Lang, PersonName } from '../../lib/types
 import { t, type UiKey } from '../../i18n';
 import { TermTooltip } from './TermTooltip';
 import { splitStory } from '../../lib/illustrations';
-import { eventUrl, withBase } from '../../lib/paths';
+import { eventUrl, topicUrl, withBase } from '../../lib/paths';
+import { personHref } from '../../lib/term-links';
 import './StoryPanel.css';
 
 interface Props {
@@ -64,7 +65,7 @@ export function StoryPanel({ event, story, failed = false, onRetry, related = []
   const articleRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   if (!event) return <p class="story-empty">{t(lang, 'selectEvent')}</p>;
-  const names = event.people.map((id) => people.find((p) => p.id === id)?.name ?? id);
+  const named: PersonName[] = event.people.map((id) => people.find((p) => p.id === id) ?? { id, name: id });
 
   // The tooltip is a sibling of the live region (it portals to <body>), so its text is never announced as a story update.
   return (
@@ -147,10 +148,24 @@ export function StoryPanel({ event, story, failed = false, onRetry, related = []
             </ul>
           </section>
         )}
-        {names.length > 0 && (
+        {story?.topics && story.topics.length > 0 && (
+          <section class="story-topics">
+            <h3>{t(lang, 'inTopics')}</h3>
+            <ul>
+              {story.topics.map((tp) => (
+                <li key={tp.id}><a href={topicUrl(lang, tp.id)}>{tp.title}</a></li>
+              ))}
+            </ul>
+          </section>
+        )}
+        {named.length > 0 && (
           <section>
             <h3>{t(lang, 'people')}</h3>
-            <ul>{names.map((n) => <li key={n}>{n}</li>)}</ul>
+            <ul>
+              {named.map((p) => (
+                <li key={p.id}><a href={personHref(p, lang)}>{p.name}</a></li>
+              ))}
+            </ul>
           </section>
         )}
         {event.games.length > 0 && (

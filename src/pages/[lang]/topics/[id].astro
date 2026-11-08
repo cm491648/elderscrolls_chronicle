@@ -1,0 +1,52 @@
+---
+import Section from '../../../layouts/Section.astro';
+import Article from '../../../components/Article.astro';
+import { LANGS, type Lang } from '../../../lib/types';
+import { loadSections } from '../../../lib/sections-data';
+import { eventUrl } from '../../../lib/paths';
+import { personHref } from '../../../lib/term-links';
+import { formatDate } from '../../../lib/format';
+import { t } from '../../../i18n';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const lang of LANGS) {
+    const { topics } = await loadSections(lang);
+    for (const tp of topics) paths.push({ params: { lang, id: tp.id } });
+  }
+  return paths;
+}
+
+const lang = Astro.params.lang as Lang;
+const { topics } = await loadSections(lang);
+const tp = topics.find((x) => x.id === Astro.params.id)!;
+---
+<Section lang={lang} section="topics" title={`${tp.title} | ${t(lang, 'siteTitle')}`} description={tp.summary}>
+  <p class="section-kicker">{t(lang, 'navTopics')}{tp.span && ` · ${tp.span}`}</p>
+  <h1>{tp.title}</h1>
+  {tp.titleEn && <p class="section-en" lang="en">{tp.titleEn}</p>}
+  <p class="section-lede">{tp.summary}</p>
+  {tp.body ? (
+    <Article body={tp.body} lang={lang} />
+  ) : (
+    <div class="wip"><strong>{t(lang, 'wip')}</strong><p>{t(lang, 'wipTopic')}</p></div>
+  )}
+  {tp.events.length > 0 && (
+    <section>
+      <h2>{t(lang, 'topicEvents')}</h2>
+      <ol class="event-list">
+        {tp.events.map((e) => (
+          <li><a href={eventUrl(lang, e.id)}>{e.title}</a><span class="date">{formatDate(e, lang)}</span></li>
+        ))}
+      </ol>
+    </section>
+  )}
+  {tp.people.length > 0 && (
+    <section>
+      <h2>{t(lang, 'topicPeople')}</h2>
+      <ul class="name-grid">
+        {tp.people.map((p) => <li><a href={personHref(p, lang)}>{p.name}</a></li>)}
+      </ul>
+    </section>
+  )}
+</Section>

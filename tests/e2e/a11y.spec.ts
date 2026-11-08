@@ -11,7 +11,11 @@ async function expectNoSeriousIssues(page: Page, what: string) {
   expect(bad).toEqual([]);
 }
 
-for (const path of ['/en/', '/zh-tw/', '/en/events/great-war/', '/zh-tw/events/great-war/']) {
+for (const path of [
+  '/en/', '/zh-tw/', '/en/events/great-war/', '/zh-tw/events/great-war/',
+  '/zh-tw/topics/', '/en/topics/', '/en/topics/great-war/', '/zh-tw/biographies/', '/en/biographies/', '/en/biographies/tiber-septim/',
+  '/zh-tw/glossary/', '/en/glossary/', '/zh-tw/about/',
+]) {
   test(`${path} has no serious accessibility problem`, async ({ page }) => {
     await openApp(page, path);
     await expectNoSeriousIssues(page, path);

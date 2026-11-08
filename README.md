@@ -1,8 +1,8 @@
 # 上古卷軸編年史 · Elder Scrolls Chronicle
 
-上古卷軸世界從黎明紀元到第四紀元的編年史：沿時間軸瀏覽重大事件，在地圖上看它們發生在哪裡，讀每一則的故事、異說與出處。中文與英文雙語，共 85 則事件。
+上古卷軸世界從黎明紀元到第四紀元的編年史：沿時間軸瀏覽重大事件，在地圖上看它們發生在哪裡，讀每一則的故事、異說與出處。中文與英文雙語，共 90 則事件。
 
-*A bilingual (Traditional Chinese / English) chronicle of the Elder Scrolls world, from the Dawn Era to the Fourth Era: browse 85 major events along a timeline, see where they happened on the map, and read each story with its variant accounts and sources. English below.*
+*A bilingual (Traditional Chinese / English) chronicle of the Elder Scrolls world, from the Dawn Era to the Fourth Era: browse 90 major events along a timeline, see where they happened on the map, and read each story with its variant accounts and sources. English below.*
 
 > 非官方粉絲網站，與 Bethesda Softworks、ZeniMax Media 無關，也未獲其背書。The Elder Scrolls 為 ZeniMax Media Inc. 的商標；相關名稱、地圖與圖像 © Bethesda Softworks LLC／ZeniMax Media Inc. 所有。
 

@@ -57,6 +57,7 @@
 ### 1.1 發布更新（維護者決定 `decisions/public-sync`）
 
 - **照舊在私人 repo 開發**（分支、確認頁、合併回 master）。
+- **每次上線前在 `src/content/changelog.json` 最前面加一筆**（日期是上線日，中英各一句），關於本站的更新紀錄就會顯示。
 - **合併回 master 就發布**，發布完再告訴維護者：在私人 repo 的主資料夾（master、沒有未提交的修改）執行
 
   ```bash

@@ -1,7 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { file, glob } from 'astro/loaders';
-import { CATEGORIES, CERTAINTIES, ERAS, GAMES, MAP_LAYERS, REVIEW_STATES, SOURCE_KINDS } from './lib/types';
+import { CATEGORIES, CERTAINTIES, ENTRY_STATUSES, ERAS, GAMES, GLOSSARY_CATEGORIES, MAP_LAYERS, REVIEW_STATES, SOURCE_KINDS } from './lib/types';
 
 const bilingual = z.object({ en: z.string(), 'zh-tw': z.string() });
 
@@ -55,18 +55,59 @@ const locations = defineCollection({
 
 const people = defineCollection({
   loader: file('src/content/people.json'),
-  schema: z.object({ name: bilingual, summary: bilingual }),
+  // `category` files a person the glossary lists (one glossary.json has no entry for) under something other than
+  // `person`, e.g. a Daedric Prince under `deity`.
+  schema: z.object({ name: bilingual, summary: bilingual, category: z.enum(GLOSSARY_CATEGORIES).optional() }),
 });
 
 const glossary = defineCollection({
   loader: file('src/content/glossary.json'),
   schema: z.object({
-    en: z.string(),
-    'zh-tw': z.string(),
+    name: bilingual,
+    category: z.enum(GLOSSARY_CATEGORIES),
     source: z.enum(['official-zh', 'university-hanhua', 'community', 'original', 'unverified']),
     note: z.string().optional(),
     summary: bilingual.optional(),
   }),
 });
 
-export const collections = { events, eventsZhTw, locations, people, glossary };
+const articleMeta = {
+  status: z.enum(ENTRY_STATUSES),
+  // Required once published (src/lib/validate.ts validateSections), like an event's.
+  sources: z.array(z.object({ title: z.string(), kind: z.enum(SOURCE_KINDS), url: z.url().optional() })).optional(),
+  certainty: z.enum(CERTAINTIES).optional(),
+  review: z.enum(REVIEW_STATES).optional(),
+};
+
+const topics = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/topics/en' }),
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    events: z.array(z.string()).default([]),
+    people: z.array(z.string()).optional(),
+    ...articleMeta,
+  }),
+});
+
+const topicsZhTw = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/topics/zh-tw' }),
+  schema: z.object({ title: z.string(), summary: z.string() }),
+});
+
+const biographies = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/biographies/en' }),
+  schema: z.object(articleMeta),
+});
+
+const biographiesZhTw = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/biographies/zh-tw' }),
+  schema: z.object({}),
+});
+
+const about = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/about' }),
+  schema: z.object({ title: z.string() }),
+});
+
+export const collections = { events, eventsZhTw, locations, people, glossary, topics, topicsZhTw, biographies, biographiesZhTw, about };

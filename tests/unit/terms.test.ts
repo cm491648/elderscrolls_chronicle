@@ -37,6 +37,10 @@ describe('renderTerms', () => {
   test('unknown ids throw', () => {
     expect(() => renderTerms('{{ghost}}', 'en', terms)).toThrow('Unknown term "ghost"');
   });
+  test('section pages render terms as plain bold text', () => {
+    const terms = new Map([['thalmor', { id: 'thalmor', name: { en: 'Thalmor', 'zh-tw': '梭默' } }]]);
+    expect(renderTerms('The {{thalmor}}.', 'en', terms, false)).toBe('The <b class="term">Thalmor</b>.');
+  });
 });
 
 describe('plainText', () => {

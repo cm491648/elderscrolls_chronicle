@@ -2,6 +2,8 @@ import type { RefObject } from 'preact';
 import { createPortal } from 'preact/compat';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import type { Lang, StoryTerm } from '../../lib/types';
+import { primaryTermHref, termLinks } from '../../lib/term-links';
+import { t } from '../../i18n';
 
 interface Props {
   terms: StoryTerm[];
@@ -83,6 +85,16 @@ export function TermTooltip({ terms, lang, container }: Props) {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') close();
     };
+    // Enter on a focused term follows its main link (the links in the tooltip are for the pointer only).
+    const onEnter = (e: KeyboardEvent) => {
+      if (e.key !== 'Enter' || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+      const el = termOf(e.target);
+      const term = el && byId.get(el.dataset.term ?? '');
+      const href = term && primaryTermHref(term, lang);
+      if (!href) return;
+      e.preventDefault();
+      location.assign(href);
+    };
     const onDown = (e: Event) => {
       if (!termOf(e.target) && !inTip(e.target)) close();
     };
@@ -92,6 +104,7 @@ export function TermTooltip({ terms, lang, container }: Props) {
     root.addEventListener('focusin', onFocusIn);
     root.addEventListener('focusout', onFocusOut);
     root.addEventListener('click', onClick);
+    root.addEventListener('keydown', onEnter);
     document.addEventListener('keydown', onKey);
     document.addEventListener('pointerdown', onDown);
     // The tooltip is position: fixed, so any scroll of the story pane or the page would strand it. A resize
@@ -107,13 +120,14 @@ export function TermTooltip({ terms, lang, container }: Props) {
       root.removeEventListener('focusin', onFocusIn);
       root.removeEventListener('focusout', onFocusOut);
       root.removeEventListener('click', onClick);
+      root.removeEventListener('keydown', onEnter);
       document.removeEventListener('keydown', onKey);
       document.removeEventListener('pointerdown', onDown);
       scroller.removeEventListener('scroll', close);
       removeEventListener('scroll', close);
       removeEventListener('resize', onResize);
     };
-  }, [container, byId]);
+  }, [container, byId, lang]);
 
   // The trigger is described by the tooltip, and marked open, only while it is open.
   useEffect(() => {
@@ -149,6 +163,7 @@ export function TermTooltip({ terms, lang, container }: Props) {
   if (!open || typeof document === 'undefined') return null;
   const other: Lang = lang === 'en' ? 'zh-tw' : 'en';
   const { term } = open;
+  const links = termLinks(term, lang);
   return createPortal(
     <div
       id={TIP_ID}
@@ -167,6 +182,12 @@ export function TermTooltip({ terms, lang, container }: Props) {
         <span lang={htmlLang(other)}>{term.name[other]}</span>
       </p>
       {term.summary && <p class="term-tip-summary">{term.summary}</p>}
+      {(links.biography || links.glossary) && (
+        <p class="term-tip-links" aria-hidden="true">
+          {links.biography && <a href={links.biography} tabIndex={-1}>{t(lang, 'biographyPage')}</a>}
+          {links.glossary && <a href={links.glossary} tabIndex={-1}>{t(lang, 'termInGlossary')}</a>}
+        </p>
+      )}
     </div>,
     document.body,
   );

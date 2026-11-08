@@ -96,7 +96,7 @@ kbd {
    replaces it while focused. */
 /* The two buttons on the leather header share one look (decisions/es-feel-review): the language switch is a link but
    framed like "search and filter" beside it. */
-.search-toggle, .lang-switch {
+.search-toggle, .nav-toggle, .lang-switch {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -110,14 +110,14 @@ kbd {
   border-radius: var(--radius);
   cursor: pointer;
 }
-.search-toggle, .map-toggle, .story-close, .story-retry, .search-retry, .tl-regions, .map-up, .map-path, .badge,
+.search-toggle, .nav-toggle, .map-toggle, .story-close, .story-retry, .search-retry, .tl-regions, .map-up, .map-path, .badge,
 .tl-expand, .lang-switch {
   outline: 1px solid var(--gilt-faint);
   outline-offset: -4px;
 }
 .map-toggle, .story-close, .story-retry, .search-retry, .tl-regions, .map-up, .map-path, .tl-expand { border-color: var(--gilt); }
 .badge { outline-color: rgb(161 40 30 / 0.35); border-color: var(--accent-2); }
-:is(.search-toggle, .lang-switch, .map-toggle, .story-close, .story-retry, .search-retry, .tl-regions, .map-up, .tl-expand):focus-visible {
+:is(.search-toggle, .nav-toggle, .lang-switch, .map-toggle, .story-close, .story-retry, .search-retry, .tl-regions, .map-up, .tl-expand):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -168,7 +168,57 @@ kbd {
   .topbar { background-image: var(--orn-arcs-live), var(--tex-leather); }
 }
 .brand { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 12px; min-width: 0; }
-.topbar h1 { margin: 0; font-size: 1.2rem; letter-spacing: 0.04em; color: var(--on-leather); }
+.site-title { margin: 0; font-size: 1.2rem; letter-spacing: 0.04em; color: var(--on-leather); }
+.site-title a { color: inherit; text-decoration: none; }
+.site-title a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.site-title a:focus-visible, .site-nav a:focus-visible, .site-footer a:focus-visible {
+  outline: 2px solid var(--on-leather);
+  outline-offset: 2px;
+}
+/* The five sections, after the name; the current one underlined in gilt. */
+.site-nav { position: relative; margin-right: auto; }
+.site-nav ul { display: flex; gap: 4px 18px; margin: 0; padding: 0; list-style: none; }
+.site-nav a {
+  display: inline-block;
+  padding: 4px 0 2px;
+  font-size: 14px;
+  color: var(--on-leather-soft);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--on-leather); }
+.site-nav a[aria-current] { color: var(--on-leather); border-bottom-color: var(--gilt-on-leather); }
+.nav-toggle { display: none; }
+.nav-toggle-icon,
+.nav-toggle-icon::before,
+.nav-toggle-icon::after { display: block; width: 14px; height: 2px; background: currentColor; }
+.nav-toggle-icon { position: relative; }
+.nav-toggle-icon::before, .nav-toggle-icon::after { content: ''; position: absolute; left: 0; }
+.nav-toggle-icon::before { top: -5px; }
+.nav-toggle-icon::after { top: 5px; }
+.topbar-tools { display: flex; align-items: center; gap: 10px; }
+.site-footer a { color: var(--on-leather); }
+/* Narrower screens: the links fold into a menu that drops over the page, so the header stays one row high. */
+@media (max-width: 1023px) {
+  .nav-toggle { display: inline-flex; }
+  .site-nav ul {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    z-index: 30;
+    flex-direction: column;
+    gap: 0;
+    min-width: 12em;
+    padding: 6px 0;
+    background: var(--leather) var(--tex-leather) 0 0 / 512px;
+    border: 1px solid var(--gilt-on-leather);
+    box-shadow: var(--shadow-pop);
+  }
+  .site-nav ul.is-open { display: flex; }
+  .site-nav li a { display: block; padding: 10px 16px; }
+  .site-nav a[aria-current] { border-bottom-color: transparent; box-shadow: inset 3px 0 0 var(--gilt-on-leather); }
+}
 .brand-sub { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-leather-soft); }
 .lang-switch:hover { background: rgb(239 226 196 / 0.14); }
 
@@ -276,11 +326,19 @@ html[lang='en'] .map-hint { font-style: italic; }
   .chronicle { --gutter: 12px; --map-h-story-min: 240px; --map-h-story-max: 480px; }
   .topbar { gap: 10px; padding: 10px var(--gutter) 10px; }
   /* Room for the title on one line beside the two framed buttons (a wrapped title would shorten the map). */
-  .topbar h1 { font-size: 1.1rem; }
-  .search-toggle, .lang-switch { padding: 0 8px; }
+  .site-title { font-size: 1.1rem; }
+  .search-toggle, .nav-toggle, .lang-switch { padding: 0 8px; }
   .brand-sub { display: none; }
   .story-pane { margin: 14px 0 20px; padding: 20px 18px 26px; }
   .story-close { top: 10px; right: 10px; }
+}
+/* Phones: the menu button is its icon alone (its name stays for screen readers). */
+@media (max-width: 599px) {
+  .topbar { gap: 6px; }
+  .site-title { font-size: 1rem; letter-spacing: 0.02em; }
+  .topbar-tools { gap: 6px; }
+  .nav-toggle { padding: 0 7px; min-width: 30px; justify-content: center; }
+  .nav-toggle-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
 
 /*

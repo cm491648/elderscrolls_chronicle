@@ -4,6 +4,7 @@ import fontsZhHref from '../styles/fonts-zh.css?url';
 import '../styles/tokens.css';
 import '../styles/global.css';
 import type { Lang } from '../lib/types';
+import { otherLangUrl } from '../lib/paths';
 import { BEACON_TOKEN, SEARCH_CONSOLE_CODE, beaconConfig } from '../lib/analytics';
 
 interface Props {
@@ -21,7 +22,6 @@ const htmlLang = lang === 'zh-tw' ? 'zh-Hant-TW' : 'en';
 // The same page in each language (every page exists in both), for hreflang alternates; x-default is the root, which
 // sends the reader to their browser's language.
 const path = Astro.url.pathname;
-const inLang = (l: Lang) => path.replace(/\/(zh-tw|en)\//, `/${l}/`);
 const root = import.meta.env.BASE_URL;
 const inSite = (p: string) => root.replace(/\/$/, '') + p;
 // Absolute where the site's address is known (the deploy build sets CHRONICLE_SITE); paths otherwise.
@@ -49,8 +49,8 @@ const fontsHref = lang === 'zh-tw' ? fontsZhHref : fontsEnHref;
     <meta property="og:locale" content={lang === 'zh-tw' ? 'zh_TW' : 'en_US'} />
     {canonical && <meta property="og:url" content={canonical} />}
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="alternate" hreflang="zh-Hant-TW" href={inLang('zh-tw')} />
-    <link rel="alternate" hreflang="en" href={inLang('en')} />
+    <link rel="alternate" hreflang="zh-Hant-TW" href={otherLangUrl(path, 'zh-tw')} />
+    <link rel="alternate" hreflang="en" href={otherLangUrl(path, 'en')} />
     <link rel="alternate" hreflang="x-default" href={root} />
     {SEARCH_CONSOLE_CODE && <meta name="google-site-verification" content={SEARCH_CONSOLE_CODE} />}
     {/* Visit counting (decisions/analytics): deferred, so it never holds up the page. */}

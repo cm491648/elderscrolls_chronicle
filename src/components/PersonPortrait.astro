@@ -1,0 +1,27 @@
+---
+// A person's portrait on the biographies index (decisions/sections-round3): an upright picture frame in their leather
+// (sections.ts bindingOf) with a gilt line and an oval of parchment holding a plain head-and-shoulders figure for now
+// (no name on it: decisions/sections-round4; the name is beside it). `image` takes the illustrated portrait when one is drawn (a later batch) and
+// fills the frame's inner area instead of the oval. Styles in portrait.css.
+interface Props {
+  /** sections.ts bindingOf. */
+  binding: string;
+  /** The illustrated portrait's URL; the portrait is decorative beside the name, so it needs no alt text. */
+  image?: string;
+}
+const { binding, image } = Astro.props;
+---
+<div class="portrait" style={`--binding: ${binding}`} aria-hidden="true">
+  <div class="portrait-frame">
+    {image ? (
+      <img class="portrait-image" src={image} alt="" loading="lazy" decoding="async" />
+    ) : (
+      <div class="portrait-canvas">
+        <svg class="portrait-figure" viewBox="0 0 100 100" preserveAspectRatio="xMidYMax meet" focusable="false">
+          <ellipse cx="50" cy="38" rx="13.5" ry="16.5" />
+          <path d="M44 50q1 8-2 13l-1 1q-27 6-30 36h78q-3-30-30-36l-1-1q-3-5-2-13z" />
+        </svg>
+      </div>
+    )}
+  </div>
+</div>

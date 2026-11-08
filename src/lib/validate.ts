@@ -1,4 +1,4 @@
-import { LANGS, type Era, type EventMeta, type Lang, type Location, type Person } from './types';
+import { LANGS, type Certainty, type EntryStatus, type Era, type EventMeta, type Lang, type Location, type Person, type ReviewState, type Source } from './types';
 import { OFFICIAL_MAPS, regionContains } from '../components/MapView/shapes';
 import { DRAWN_MAPS } from '../components/MapView/shapes-drawn';
 import { isAncestorOrSelf, regionHome } from './map-layers';
@@ -84,5 +84,65 @@ export function validateContent(input: ContentInput): string[] {
     for (const id of ids) if (!eventIds.has(id)) errors.push(`${id}: ${lang} text has no event`);
   }
 
+  return errors;
+}
+
+export interface SectionEntry {
+  id: string;
+  status: EntryStatus;
+  sources?: Source[];
+  certainty?: Certainty;
+  review?: ReviewState;
+  /** Whether each language's file has text after its frontmatter. */
+  hasBody: Record<Lang, boolean>;
+}
+
+export interface SectionsInput {
+  topics: (SectionEntry & { events: string[]; people?: string[] })[];
+  biographies: SectionEntry[];
+  /** The ids each language has a file for. */
+  translations: { topics: Record<Lang, string[]>; biographies: Record<Lang, string[]> };
+  eventIds: string[];
+  personIds: string[];
+  strict: boolean;
+}
+
+/** Topics and biographies (docs/superpowers/specs/2026-11-08-site-sections-design.md §4.2, §5.1). */
+export function validateSections(input: SectionsInput): string[] {
+  const errors: string[] = [];
+  const events = new Set(input.eventIds);
+  const people = new Set(input.personIds);
+  const entry = (where: string, e: SectionEntry) => {
+    for (const lang of LANGS) {
+      if (e.status === 'planned' && e.hasBody[lang]) errors.push(`${where}: planned but has ${lang} text`);
+      if (e.status === 'published' && !e.hasBody[lang]) errors.push(`${where}: published without ${lang} text`);
+    }
+    if (e.status !== 'published') return;
+    if (!e.sources?.length) errors.push(`${where}: published without sources`);
+    if (!e.certainty) errors.push(`${where}: published without certainty`);
+    if (!e.review) errors.push(`${where}: published without review`);
+    if (input.strict && e.review === 'unresolved') errors.push(`${where}: review is unresolved`);
+  };
+  for (const t of input.topics) {
+    entry(`topic ${t.id}`, t);
+    for (const id of t.events) if (!events.has(id)) errors.push(`topic ${t.id}: unknown event "${id}"`);
+    for (const id of t.people ?? []) if (!people.has(id)) errors.push(`topic ${t.id}: unknown person "${id}"`);
+  }
+  for (const b of input.biographies) {
+    entry(`biography ${b.id}`, b);
+    if (!people.has(b.id)) errors.push(`biography ${b.id}: not in people.json`);
+  }
+  const files = [
+    ['topic', input.topics, input.translations.topics],
+    ['biography', input.biographies, input.translations.biographies],
+  ] as const;
+  for (const [kind, list, translations] of files) {
+    const ids = new Set(list.map((x) => x.id));
+    for (const lang of LANGS) {
+      const have = new Set(translations[lang]);
+      for (const id of ids) if (!have.has(id)) errors.push(`${kind} ${id}: missing ${lang} file`);
+      for (const id of have) if (!ids.has(id)) errors.push(`${kind} ${id}: ${lang} file has no English entry`);
+    }
+  }
   return errors;
 }

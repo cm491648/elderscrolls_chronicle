@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { eraLabel, formatDate, gameName, originalTitle } from '../../src/lib/format';
+import { eraLabel, eraSpan, formatDate, formatSpan, gameName, originalTitle } from '../../src/lib/format';
 
 describe('format', () => {
   test('era labels in both languages', () => {
@@ -55,5 +55,44 @@ describe('format', () => {
     expect(originalTitle('en', 'Battle of Red Mountain', 'Battle of Red Mountain')).toBeNull();
     expect(originalTitle('zh-tw', 'Mundus', 'Mundus')).toBeNull();
     expect(originalTitle('zh-tw', '紅山之戰', undefined)).toBeNull();
+  });
+});
+
+describe('formatSpan', () => {
+  const ev = (era: any, year: number | null, yearEnd?: number) => ({ era, year, yearEnd });
+  test('one event reads like its own date', () => {
+    expect(formatSpan(ev('4E', 171, 175), ev('4E', 171, 175), 'zh-tw')).toBe('第四紀元 171–175 年');
+  });
+  test('same era: one era name, first year to last end', () => {
+    expect(formatSpan(ev('4E', 171, 175), ev('4E', 180), 'zh-tw')).toBe('第四紀元 171–180 年');
+    expect(formatSpan(ev('4E', 171, 175), ev('4E', 180), 'en')).toBe('4E 171–180');
+  });
+  test('across eras: both ends in full', () => {
+    expect(formatSpan(ev('1E', 780), ev('4E', 180), 'zh-tw')).toBe('第一紀元 780 年 – 第四紀元 180 年');
+    expect(formatSpan(ev('1E', 780), ev('4E', 180), 'en')).toBe('1E 780 – 4E 180');
+  });
+  test('an undated end shows its era only', () => {
+    expect(formatSpan(ev('merethic', null), ev('1E', 482), 'zh-tw')).toBe('神話紀元 – 第一紀元 482 年');
+    expect(formatSpan(ev('merethic', null), ev('1E', 482), 'en')).toBe('Merethic Era – 1E 482');
+  });
+  test('same era with an undated end shows the era name once', () => {
+    expect(formatSpan(ev('merethic', null), ev('merethic', null), 'zh-tw')).toBe('神話紀元');
+    expect(formatSpan(ev('merethic', null), ev('merethic', null), 'en')).toBe('Merethic Era');
+    expect(formatSpan(ev('merethic', null), ev('merethic', 100), 'en')).toBe('Merethic Era');
+  });
+});
+
+describe('eraSpan', () => {
+  test('one era: its name', () => {
+    expect(eraSpan('3E', '3E', 'en')).toBe('Third Era');
+    expect(eraSpan('3E', '3E', 'zh-tw')).toBe('第三紀元');
+  });
+  test('numbered eras: short, as a book cover has room for', () => {
+    expect(eraSpan('1E', '4E', 'en')).toBe('1E–4E');
+    expect(eraSpan('1E', '4E', 'zh-tw')).toBe('第一至第四紀元');
+  });
+  test('a named era keeps its name', () => {
+    expect(eraSpan('merethic', '1E', 'en')).toBe('Merethic Era–1E');
+    expect(eraSpan('merethic', '1E', 'zh-tw')).toBe('神話紀元至第一紀元');
   });
 });

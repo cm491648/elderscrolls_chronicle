@@ -1,0 +1,53 @@
+/* The section pages (topics, biographies, glossary, about): the leather header and footer of the map page around a
+   single reading column on paper. Tokens from tokens.css. */
+.section-page { --gutter: 24px; display: flex; flex-direction: column; min-height: 100dvh; padding: 0 var(--gutter); }
+.section-main { flex: 1; width: 100%; max-width: 46rem; margin: 0 auto; padding: 32px 0 56px; }
+.section-main h1 { margin: 0; font-family: var(--font-title); font-size: 2rem; line-height: 1.3; color: var(--ink); text-wrap: balance; }
+.section-main h2 { margin: 32px 0 10px; font-family: var(--font-title); font-size: 1.3rem; color: var(--ink); }
+.section-main h3 { margin: 20px 0 6px; font-family: var(--font-title); font-size: 1.1rem; }
+.section-main a { color: var(--accent); }
+.section-kicker { margin: 0 0 4px; font-size: 13px; letter-spacing: 0.12em; color: var(--accent-2); }
+.section-en { margin: 2px 0 0; font-family: var(--font-title); color: var(--ink-soft); }
+.section-lede { margin: 12px 0 24px; color: var(--ink-soft); max-width: var(--measure); }
+.wip { margin: 16px 0 8px; padding: 14px 18px; background: var(--surface); border: 1px dashed var(--gilt); }
+.wip strong { color: var(--accent-2); letter-spacing: 0.12em; }
+.wip p { margin: 4px 0 0; }
+.entry-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.entry { padding: 16px 20px; background: var(--surface); border: 1px solid var(--line); }
+.entry h2 { margin: 0; font-size: 1.2rem; }
+.entry p { margin: 6px 0 0; }
+.meta-line { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 4px 0 0; font-size: 14px; color: var(--ink-soft); }
+.tag { display: inline-block; padding: 0 6px; font-size: 12px; line-height: 1.6; color: var(--accent-2); border: 1px solid currentColor; border-radius: var(--radius); }
+.event-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.event-list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+.event-list .date { font-size: 14px; color: var(--ink-soft); }
+.name-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(14em, 1fr)); gap: 6px 18px; margin: 0; padding: 0; list-style: none; }
+.name-grid li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
+.name-en { font-family: var(--font-title); font-size: 0.9em; color: var(--ink-soft); }
+.list-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 0 20px; }
+.list-filter[hidden] { display: none; }
+.list-filter label { font-size: 14px; font-weight: 700; }
+.list-filter input { flex: 1 1 16em; min-height: 40px; padding: 6px 12px; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--ink-soft); border-radius: var(--radius); }
+.list-filter input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.filter-status { flex-basis: 100%; min-height: 1.4em; margin: 0; font-size: 14px; color: var(--ink-soft); }
+.cat-nav { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 16px; padding: 0; list-style: none; }
+.term-list { margin: 0; }
+.term-entry { padding: 12px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 16px; }
+.term-entry:target { background: var(--wash); outline: 2px solid var(--accent); outline-offset: 4px; }
+.term-entry dt { font-weight: 700; }
+.term-entry dt .name-en { margin-left: 8px; font-weight: 500; }
+.term-entry dd { margin: 4px 0 0; }
+.term-links { font-size: 14px; color: var(--ink-soft); }
+.prose { max-width: var(--measure); }
+.prose-notes, .prose-sources { font-size: 15px; }
+/* About: a rule between sections (each h2); none above the first one. */
+.about h2 { margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--gilt-faint); }
+.about .prose:first-child > h2:first-child { margin-top: 32px; padding-top: 0; border-top: 0; }
+.changelog { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.changelog time { margin-right: 10px; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+[data-search][hidden], [data-filter-group][hidden] { display: none; }
+@media (max-width: 899px) {
+  .section-page { --gutter: 12px; }
+  .section-main { padding: 22px 0 40px; }
+  .section-main h1 { font-size: 1.6rem; }
+}

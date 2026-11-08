@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
+import { getCollection } from 'astro:content';
 import { loadChronicle } from '../lib/data';
+import { SEGMENTS } from '../lib/paths';
 import { LANGS } from '../lib/types';
 
 /**
@@ -11,7 +13,19 @@ import { LANGS } from '../lib/types';
 export const GET: APIRoute = async ({ site }) => {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   const ids = (await loadChronicle('en')).summaries.map((e) => e.id);
-  const paths = ['/', ...ids.map((id) => `/events/${id}/`)];
+  const topics = (await getCollection('topics')).map((e) => e.id);
+  // Only people with a biography have a page; everyone else is a glossary entry.
+  const people = (await getCollection('biographies')).map((e) => e.id);
+  const paths = [
+    '/',
+    ...ids.map((id) => `/events/${id}/`),
+    `/${SEGMENTS.topics}/`,
+    ...topics.map((id) => `/${SEGMENTS.topics}/${id}/`),
+    `/${SEGMENTS.biographies}/`,
+    ...people.map((id) => `/${SEGMENTS.biographies}/${id}/`),
+    `/${SEGMENTS.glossary}/`,
+    `/${SEGMENTS.about}/`,
+  ];
   const url = (lang: string, p: string) => new URL(`${base}/${lang}${p}`, site).href;
   const entries = site
     ? paths.flatMap((p) =>

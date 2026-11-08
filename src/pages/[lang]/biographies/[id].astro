@@ -1,0 +1,57 @@
+---
+import Section from '../../../layouts/Section.astro';
+import Article from '../../../components/Article.astro';
+import { LANGS, type Lang } from '../../../lib/types';
+import { loadSections } from '../../../lib/sections-data';
+import { eventUrl, glossaryUrl, topicUrl } from '../../../lib/paths';
+import { formatDate } from '../../../lib/format';
+import { t } from '../../../i18n';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const lang of LANGS) {
+    const { people } = await loadSections(lang);
+    for (const p of people) paths.push({ params: { lang, id: p.id } });
+  }
+  return paths;
+}
+
+const lang = Astro.params.lang as Lang;
+const { people } = await loadSections(lang);
+const p = people.find((x) => x.id === Astro.params.id)!;
+---
+<Section lang={lang} section="biographies" title={`${p.name[lang]} | ${t(lang, 'siteTitle')}`} description={p.summary}>
+  <p class="section-kicker">{t(lang, 'navBiographies')}</p>
+  <h1>{p.name[lang]}</h1>
+  {lang !== 'en' && <p class="section-en" lang="en">{p.name.en}</p>}
+  <p class="section-lede">{p.summary}</p>
+  <section>
+    <h2>{t(lang, 'biography')}</h2>
+    {p.biography.body ? (
+      <Article body={p.biography.body} lang={lang} level={3} />
+    ) : (
+      <div class="wip"><strong>{t(lang, 'wip')}</strong><p>{t(lang, 'wipBiography')}</p></div>
+    )}
+  </section>
+  {p.events.length > 0 && (
+    <section>
+      <h2>{t(lang, 'lifeEvents')}</h2>
+      <ol class="event-list">
+        {p.events.map(({ event, main }) => (
+          <li>
+            <a href={eventUrl(lang, event.id)}>{event.title}</a>
+            <span class="date">{formatDate(event, lang)}</span>
+            {main && <span class="tag">{t(lang, 'mainRole')}</span>}
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+  {p.topics.length > 0 && (
+    <section>
+      <h2>{t(lang, 'relatedTopics')}</h2>
+      <ul class="name-grid">{p.topics.map((tp) => <li><a href={topicUrl(lang, tp.id)}>{tp.title}</a></li>)}</ul>
+    </section>
+  )}
+  <p><a href={glossaryUrl(lang, p.id)}>{t(lang, 'seeGlossary')}</a></p>
+</Section>

@@ -176,6 +176,8 @@ html[lang='en'] .notes-body ol > li::before { content: counter(note) '.'; }
 .term-tip-name span { font-family: var(--font-title); font-size: 13px; color: var(--ink-soft); }
 .term-tip-name span:lang(en) { font-style: italic; }
 .term-tip-summary { margin-top: 6px !important; }
+.term-tip-links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 6px 0 0 !important; font-size: 13px; }
+.term-tip-links a { color: var(--accent); }
 .term-tip-name span:lang(zh-Hant-TW) { font-family: var(--font-body); }
 
 /* While the text of a story is on its way, and when it could not be fetched (P2-1): a soft line in its place. */

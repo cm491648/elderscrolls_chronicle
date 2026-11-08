@@ -5,9 +5,9 @@ import { describe, expect, test } from 'vitest';
 import { readFileSync } from 'node:fs';
 
 type Name = { en: string; 'zh-tw': string };
-const glossary = JSON.parse(readFileSync('src/content/glossary.json', 'utf-8')) as ({ id: string } & Name)[];
+const glossary = JSON.parse(readFileSync('src/content/glossary.json', 'utf-8')) as { id: string; name: Name }[];
 const locations = JSON.parse(readFileSync('src/content/locations.json', 'utf-8')) as { id: string; name: Name }[];
-const terms = new Map(glossary.map((t) => [t.id, t]));
+const terms = new Map(glossary.map((t) => [t.id, t.name]));
 
 describe('place names', () => {
   test('every place has a glossary entry with the same English and Chinese name', () => {

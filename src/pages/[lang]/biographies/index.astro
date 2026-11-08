@@ -1,0 +1,41 @@
+---
+import Section from '../../../layouts/Section.astro';
+import PersonPortrait from '../../../components/PersonPortrait.astro';
+import { LANGS, type Lang } from '../../../lib/types';
+import { loadSections } from '../../../lib/sections-data';
+import { biographyUrl, glossaryUrl } from '../../../lib/paths';
+import { t } from '../../../i18n';
+import '../../../styles/cover-list.css';
+import '../../../styles/portrait.css';
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+// One list in the order they take the stage (sections-data.ts), laid out like the topics' covers (decisions/sections-round2).
+const { people } = await loadSections(lang);
+// Read aloud between the meta line's parts, which only spacing separates on screen.
+const sep = lang === 'en' ? ', ' : '，';
+---
+<Section lang={lang} section="biographies" title={`${t(lang, 'navBiographies')} | ${t(lang, 'siteTitle')}`} description={t(lang, 'biographiesIntro')}>
+  <h1>{t(lang, 'navBiographies')}</h1>
+  <p class="section-lede">{t(lang, 'biographiesIntro')}</p>
+  <ol class="cover-list" id="people-list">
+    {people.map((p) => (
+      <li class="cover-row" data-person={p.id}>
+        <PersonPortrait binding={p.binding} />
+        <div class="cover-text">
+          <h2><a href={biographyUrl(lang, p.id)}>{p.name[lang]}</a></h2>
+          {lang !== 'en' && <p class="section-en" lang="en">{p.name.en}</p>}
+          <p class="meta-line">
+            <span>{t(lang, 'eventCount', { n: p.events.length })}{p.biography.status === 'planned' && <span class="sr-only">{sep}</span>}</span>
+            {p.biography.status === 'planned' && <span class="tag">{t(lang, 'wip')}</span>}
+          </p>
+          <p>{p.summary}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+  <p><a href={glossaryUrl(lang)}>{t(lang, 'otherPeopleInGlossary')}</a></p>
+</Section>

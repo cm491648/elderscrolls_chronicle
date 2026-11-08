@@ -1,0 +1,28 @@
+---
+// A topic's book cover: leather in the topic's binding (sections.ts bindingOf), a gilt frame, the title,
+// its eras and its years. Text only for now; `image` takes the illustrated cover when one is drawn (a later batch).
+interface Props {
+  title: string;
+  /** `第一至第四紀元` (format.ts eraSpan); null for a topic with no events yet. */
+  eras: string | null;
+  /** `1E 780 – 4E 180`; null for a topic with no events yet. */
+  span: string | null;
+  /** sections.ts bindingOf. */
+  binding: string;
+  /** The illustrated cover's URL; the cover is decorative beside the title, so it needs no alt text. */
+  image?: string;
+}
+const { title, eras, span, binding, image } = Astro.props;
+---
+<div class="cover" style={`--binding: ${binding}`} aria-hidden="true">
+  {image ? (
+    <img class="cover-image" src={image} alt="" loading="lazy" decoding="async" />
+  ) : (
+    <div class="cover-frame">
+      {eras && <span class="cover-eras">{eras}</span>}
+      <span class="cover-title">{title}</span>
+      <span class="cover-orn"></span>
+      {span && span !== eras && <span class="cover-span">{span}</span>}
+    </div>
+  )}
+</div>

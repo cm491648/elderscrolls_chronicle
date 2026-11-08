@@ -1,0 +1,29 @@
+---
+import { t } from '../i18n';
+import type { ArticleBody } from '../lib/data';
+import type { Lang } from '../lib/types';
+
+interface Props {
+  body: ArticleBody;
+  lang: Lang;
+  /** The level of its "Notes" and "Sources" headings. */
+  level?: 2 | 3;
+}
+const { body, lang, level = 2 } = Astro.props;
+const H = `h${level}` as 'h2' | 'h3';
+---
+<div class="prose" set:html={body.html} />
+{body.notesHtml && (
+  <section class="prose-notes">
+    <H>{t(lang, 'notes')}</H>
+    <div set:html={body.notesHtml} />
+  </section>
+)}
+<section class="prose-sources">
+  <H>{t(lang, 'sources')}</H>
+  <ul>
+    {body.sources.map((s) => (
+      <li>{s.url ? <a href={s.url} target="_blank" rel="noopener noreferrer">{s.title}</a> : s.title}</li>
+    ))}
+  </ul>
+</section>

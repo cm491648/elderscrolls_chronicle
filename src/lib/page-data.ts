@@ -4,7 +4,7 @@ import type { MapSource } from './map-source';
 /**
  * The chronicle's shared data (every event's summary, the places, the people's names): the same on every page of a
  * language. Island props are serialized value by value and HTML-escaped, which nearly doubles them, so the pages carry
- * this once as plain JSON in `<script type="application/json" id="chronicle-data">` instead (the 150 KiB page budget).
+ * this once as plain JSON in `<script type="application/json" id="chronicle-data">` instead (the page-size tripwire in tests/e2e/story.spec.ts).
  * The server registers it per language before rendering; the browser reads the script once.
  */
 export interface ChronicleData {
