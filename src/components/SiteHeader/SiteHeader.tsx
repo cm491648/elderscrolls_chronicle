@@ -1,5 +1,5 @@
 import type { ComponentChildren, Ref } from 'preact';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { t, type UiKey } from '../../i18n';
 import type { Lang } from '../../lib/types';
 import { aboutUrl, biographyIndexUrl, glossaryUrl, homeUrl, topicIndexUrl } from '../../lib/paths';
@@ -48,7 +48,9 @@ export function SiteHeader({ lang, current, langHref, brandHeading = false, head
   const [open, setOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
+  // A layout effect, so the listeners are in place before the open list is painted: a plain effect runs a frame later,
+  // and an Escape pressed as soon as the list shows (a slow device, the e2e on CI) found no listener.
+  useLayoutEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return;
