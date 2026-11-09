@@ -191,6 +191,22 @@ test('a glossary anchor scrolls to its term, and the search narrows the list', a
   await expect(page.locator('#mundus')).toBeVisible();
 });
 
+test('a gilt rule between the glossary categories, none above the first one shown', async ({ page }) => {
+  await openApp(page, '/zh-tw/glossary/');
+  const rules = () =>
+    page.locator('#glossary-list > [data-filter-group]:visible').evaluateAll((els) => els.map((el) => getComputedStyle(el).borderTopWidth));
+  const all = await rules();
+  expect(all.length).toBeGreaterThan(1);
+  expect(all[0]).toBe('0px');
+  for (const w of all.slice(1)) expect(w).toBe('1px');
+  // The search hides whole categories; the first one still shown has no rule above it.
+  await page.getByRole('searchbox', { name: '搜尋用語（中文或英文）' }).fill('thalmor');
+  await expect(page.locator('#mundus')).toBeHidden();
+  const shown = await rules();
+  expect(shown[0]).toBe('0px');
+  for (const w of shown.slice(1)) expect(w).toBe('1px');
+});
+
 test('the story links its people, its topics and its terms', async ({ page }) => {
   await openApp(page, '/zh-tw/events/great-war/');
   const story = page.locator('.story');

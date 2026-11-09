@@ -38,6 +38,10 @@
 .term-entry dt .name-en { margin-left: 8px; font-weight: 500; }
 .term-entry dd { margin: 4px 0 0; }
 .term-links { font-size: 14px; color: var(--ink-soft); }
+/* Glossary: a gilt rule between categories (decisions by the owner, 2026-11-10); none above the first one shown, which
+   the search may change by hiding categories. */
+#glossary-list > [data-filter-group]:not([hidden]) ~ [data-filter-group]:not([hidden]) { margin-top: 28px; border-top: 1px solid var(--gilt-faint); }
+#glossary-list > [data-filter-group]:not([hidden]) ~ [data-filter-group]:not([hidden]) > h2 { margin-top: 28px; }
 .prose { max-width: var(--measure); }
 .prose-notes, .prose-sources { font-size: 15px; }
 /* About: a rule between sections (each h2); none above the first one. */
