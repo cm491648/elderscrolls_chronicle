@@ -20,8 +20,12 @@ export const MUNDUS_EN = eventTitle('en', 'creation-of-mundus');
 export const storyTitle = (page: Page) => page.locator('.story h2');
 export const activeMarker = (page: Page) => page.locator('.map-marker.is-active');
 
-export async function openApp(page: Page, path: string) {
-  await page.goto(path);
+/**
+ * `held`: a test that holds an image back must not wait for the load event, which would wait for that image when the
+ * page asks for it before the rest has loaded (a busy machine).
+ */
+export async function openApp(page: Page, path: string, { held = false } = {}) {
+  await page.goto(path, held ? { waitUntil: 'domcontentloaded' } : undefined);
   // Every island has finished hydrating once none is left in its SSR-only state.
   await expect(page.locator('astro-island[ssr]')).toHaveCount(0);
 }

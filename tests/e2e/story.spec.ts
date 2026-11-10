@@ -756,6 +756,25 @@ test.describe('side by side (wide screens)', () => {
     expect(Math.abs((await mapWrap(page).boundingBox())!.height - full.height)).toBeLessThan(2);
   });
 
+  test('stepping on while a key scroll still glides starts the next story at the top', async ({ page }) => {
+    await openApp(page, '/en/');
+    await revealTimelineDot(page, MUNDUS_EN);
+    await page.locator('.timeline').getByRole('button', { name: MUNDUS_EN, exact: true }).click();
+    await expect(storyTitle(page)).toBeFocused();
+    await expect(page.locator('.story-body:not(.story-loading)')).toBeVisible();
+    const box = (await page.getByRole('button', { name: 'Next event' }).boundingBox())!;
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    // PageDown glides the column down; click "Next event" before it stops (a plain click would wait a frame or two).
+    await page.keyboard.press('PageDown');
+    await page.waitForFunction(() => document.querySelector('.story-col')!.scrollTop > 20, null, { polling: 'raf' });
+    await page.mouse.down();
+    await page.mouse.up();
+    await expect(storyTitle(page)).not.toHaveText(MUNDUS_EN);
+    // The glide would have ended well within this; it must not carry the new story on down.
+    await page.waitForTimeout(800);
+    expect(await page.locator('.story-col').evaluate((el) => el.scrollTop)).toBe(0);
+  });
+
   test.describe('reduced motion', () => {
     test.use({ reducedMotion: 'reduce' });
 

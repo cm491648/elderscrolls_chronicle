@@ -230,8 +230,14 @@ export default function ChronicleApp({ lang, initialId }: Props) {
     const behavior = reducedMotion() ? 'auto' : 'smooth';
     if (wideRef.current) {
       // Side by side the page does not scroll; a new story starts at the top of its own column.
-      if (scrollReq.to === 'story') storyColRef.current?.scrollTo({ top: 0 });
-      else scrollTo({ top: 0 });
+      if (scrollReq.to === 'story') {
+        const col = storyColRef.current;
+        // A key or wheel scroll may still be gliding (PageDown, then "Next event" at once). Chrome does not stop such
+        // a glide when the column jumps: it carries on from the new position, so the new story would open part way
+        // down. A smooth scroll started in its place (to where the column is now) ends it; the jump then holds.
+        col?.scrollTo({ top: col.scrollTop, behavior: 'smooth' });
+        col?.scrollTo({ top: 0, behavior: 'instant' });
+      } else scrollTo({ top: 0 });
       return;
     }
     if (scrollReq.to === 'top') {

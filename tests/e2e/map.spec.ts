@@ -784,7 +784,7 @@ test('while a map image loads, its tiny preview fills the plate; then the image 
     await held;
     await route.continue();
   });
-  await openApp(page, '/en/events/battle-of-red-mountain/');
+  await openApp(page, '/en/events/battle-of-red-mountain/', { held: true });
   const preview = page.locator('.map-plate image.map-preview');
   await expect(preview).toHaveAttribute('href', '/maps/official/provinces/morrowind-preview.webp');
   await expect(preview).toBeVisible();
