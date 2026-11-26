@@ -25,10 +25,12 @@
   text-align: center;
   border: 1px solid var(--gilt-on-leather);
 }
-.cover-frame::before { content: ''; position: absolute; inset: 3px; border: 1px solid rgb(210 170 88 / 0.5); pointer-events: none; }
-.cover-eras { font-size: 8cqi; line-height: 1.3; letter-spacing: 0.08em; color: var(--on-leather-soft); }
-.cover-title { font-family: var(--font-title); font-size: 13cqi; font-weight: 700; line-height: 1.3; text-wrap: balance; }
-html[lang='en'] .cover-title { font-size: 12cqi; }
+.cover-frame::before { content: ''; position: absolute; inset: 3px; border: 1px solid color-mix(in oklab, var(--gilt-on-leather) 50%, transparent); pointer-events: none; }
+/* Sizes follow the cover (cqi) between rem bounds, so they also follow the reader's text size; at the list's covers
+   (84px and 120px wide) the cqi value is the one used. */
+.cover-eras { font-size: clamp(0.5rem, 8cqi, 0.875rem); line-height: 1.3; letter-spacing: 0.08em; color: var(--on-leather-soft); }
+.cover-title { font-family: var(--font-title); font-size: clamp(0.625rem, 13cqi, 1.25rem); font-weight: 700; line-height: 1.3; text-wrap: balance; }
+html[lang='en'] .cover-title { font-size: clamp(0.625rem, 12cqi, 1.25rem); }
 .cover-orn { position: relative; width: 50%; height: 1px; background: var(--gilt-on-leather); }
 .cover-orn::after {
   content: '';
@@ -41,7 +43,11 @@ html[lang='en'] .cover-title { font-size: 12cqi; }
   border: 1px solid var(--gilt-on-leather);
   transform: translate(-50%, -50%) rotate(45deg);
 }
-.cover-span { font-size: 7.5cqi; line-height: 1.3; color: var(--on-leather-soft); }
+.cover-span { font-size: clamp(0.5rem, 7.5cqi, 0.875rem); line-height: 1.3; color: var(--on-leather-soft); }
 @container (max-width: 100px) {
   .cover-eras, .cover-span { display: none; }
+}
+/* Forced colours: the leather is a picture and would stay under the system colours. */
+@media (forced-colors: active) {
+  .cover { background-image: none; }
 }

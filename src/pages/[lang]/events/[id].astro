@@ -5,6 +5,7 @@ import { LANGS, type Lang } from '../../../lib/types';
 import { CHRONICLE_DATA_ID, CHRONICLE_STORY_ID, pagePlaces, provideChronicleData, providePageStory, scriptJson } from '../../../lib/page-data';
 import { loadChronicle } from '../../../lib/data';
 import { MAP_SOURCE } from '../../../lib/map-source';
+import { mapPreload, mapPreloadScript } from '../../../lib/map-preload';
 import { t } from '../../../i18n';
 import { excerpt } from '../../../lib/excerpt';
 
@@ -27,9 +28,12 @@ const event = data.summaries.find((e) => e.id === id)!;
 const description = excerpt(data.plainStories[id], 150);
 // The event's own plate is its share picture (the 960px copy, small enough for every preview).
 const plate = data.stories[id].illustration?.srcset.find((s) => s.width === 960)?.href;
+// The map's first image, requested from the server HTML instead of after the app has loaded (lib/map-preload).
+const preload = mapPreload(event, shared.locations, lang);
 ---
 <Base lang={lang} title={`${event.title} | ${t(lang, 'siteTitle')}`} description={description} image={plate}>
   <script is:inline type="application/json" id={CHRONICLE_DATA_ID} set:html={scriptJson(shared)} />
   <script is:inline type="application/json" id={CHRONICLE_STORY_ID} set:html={scriptJson(data.stories[id])} />
   <ChronicleApp client:load lang={lang} initialId={id} />
+  {preload && <script is:inline set:html={mapPreloadScript(preload)} />}
 </Base>

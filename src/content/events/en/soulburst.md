@@ -23,6 +23,12 @@ sources:
   - title: "Lore: Planemeld"
     kind: web
     url: https://en.uesp.net/wiki/Lore:Planemeld
+  - title: Chronicles of the Five Companions 4
+    kind: book
+    url: https://en.uesp.net/wiki/Lore:Chronicles_of_the_Five_Companions_4
+  - title: "The Elder Scrolls Online: Arcane University loading screen"
+    kind: game
+    url: https://en.uesp.net/wiki/Online:Arcane_University
 certainty: disputed
 review: agreed
 ---
@@ -34,7 +40,7 @@ The five gathered in a temple in the {{imperial-city}} to perform the rite. Whil
 
 A wave of magic burst outward from the city. {{varen-aquilarios|Varen}} vanished in it. Mages near the city died or went mad, the ground split open at {{chorrol}}, {{red-mountain}} shook and storms battered the southern coasts. {{daedra}} came into the world in greater numbers than ever before, and ghosts were seen even by ordinary people.
 
-The {{elder-council}} blamed the {{mages-guild}} and drove it out of the {{imperial-city}}, giving its university to a fellowship that was in truth {{mannimarco}}'s {{worm-cult}}. {{clivia-tharn}} ruled as empress regent.
+{{mannimarco}} cast the {{mages-guild}} out of the {{imperial-city}}, and his {{worm-cult}} took over the guild's {{arcane-university}}. {{clivia-tharn}} ruled as empress regent.
 
 ## Notes
 

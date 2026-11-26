@@ -6,6 +6,7 @@ import { TermTooltip } from './TermTooltip';
 import { splitStory } from '../../lib/illustrations';
 import { eventUrl, topicUrl, withBase } from '../../lib/paths';
 import { personHref } from '../../lib/term-links';
+import { termDescriptionId } from '../../lib/terms';
 import './StoryPanel.css';
 
 interface Props {
@@ -20,10 +21,18 @@ interface Props {
   onSelect?: (id: string) => void;
   people: PersonName[];
   lang: Lang;
+  /** The story came with the page: its plate loads at once. */
+  pageStory?: boolean;
 }
 
 /** Story text with its plate after the middle paragraph (docs/design/directions.md 1.6, 2.8). */
-function StoryBody({ story, lang }: { story: EventStory; lang: Lang }) {
+/**
+ * The plate's shown width: side by side the story column is clamp(400px, 34vw, 560px) less its padding (86px);
+ * stacked, the pane is at most --measure + 58px wide, less 70px of padding and margins.
+ */
+const PLATE_SIZES = '(min-width: 56.25em) and (min-height: 35em) clamp(314px, calc(34vw - 86px), 474px), min(calc(100vw - 70px), 600px)';
+
+function StoryBody({ story, lang, eager }: { story: EventStory; lang: Lang; eager: boolean }) {
   const plate = story.illustration;
   if (!plate) return <div class="story-body" dangerouslySetInnerHTML={{ __html: story.html }} />;
   const { before, after } = splitStory(story.html);
@@ -36,10 +45,11 @@ function StoryBody({ story, lang }: { story: EventStory; lang: Lang }) {
         <img
           src={withBase(plate.src)}
           srcset={plate.srcset.map((s) => `${withBase(s.href)} ${s.width}w`).join(', ')}
-          sizes="(max-width: 899px) calc(100vw - 70px), 600px"
+          sizes={PLATE_SIZES}
           width={plate.width}
           height={plate.height}
-          loading="lazy"
+          // The page's own story is often on screen at once (a wide window): not lazy. Stories opened later are.
+          loading={eager ? undefined : 'lazy'}
           decoding="async"
           alt=""
         />
@@ -54,6 +64,8 @@ function StoryBody({ story, lang }: { story: EventStory; lang: Lang }) {
 }
 
 const NO_TERMS: EventStory['terms'] = [];
+/** The story's title: where a story takes the focus, and where "Skip to the story" goes. */
+export const STORY_TITLE_ID = 'story-title';
 
 /** Number of entries in the endnotes: list items when it is a list, otherwise paragraphs. */
 function countNotes(html: string): number {
@@ -61,7 +73,7 @@ function countNotes(html: string): number {
   return items || Math.max(1, html.match(/<p[\s>]/g)?.length ?? 0);
 }
 
-export function StoryPanel({ event, story, failed = false, onRetry, related = [], onSelect, people, lang }: Props) {
+export function StoryPanel({ event, story, failed = false, onRetry, related = [], onSelect, people, lang, pageStory = false }: Props) {
   const articleRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   if (!event) return <p class="story-empty">{t(lang, 'selectEvent')}</p>;
@@ -72,10 +84,11 @@ export function StoryPanel({ event, story, failed = false, onRetry, related = []
     <>
       <article class="story" ref={articleRef}>
         <p class="story-date">{formatDate(event, lang)}</p>
-        {/* tabindex -1: a story that opens takes the focus here (ChronicleApp). */}
-        <h2 tabindex={-1} ref={titleRef}>
+        {/* The page's main heading (the site's name is then plain text in the header). tabindex -1: a story that
+            opens takes the focus here (ChronicleApp), and the skip link lands here. */}
+        <h1 class="story-title" id={STORY_TITLE_ID} tabindex={-1} ref={titleRef}>
           {event.title}
-        </h2>
+        </h1>
         {event.titleEn && (
           <p class="story-en" lang="en">
             {event.titleEn}
@@ -89,7 +102,7 @@ export function StoryPanel({ event, story, failed = false, onRetry, related = []
         </p>
         {/* The title, date and badges come with every page; the text itself may still be on its way. */}
         {story ? (
-          <StoryBody story={story} lang={lang} />
+          <StoryBody story={story} lang={lang} eager={pageStory} />
         ) : failed ? (
           <div class="story-body story-failed">
             <p role="alert">{t(lang, 'storyLoadFailed')}</p>
@@ -107,7 +120,7 @@ export function StoryPanel({ event, story, failed = false, onRetry, related = []
           </div>
         ) : (
           <div class="story-body story-loading" aria-busy="true">
-            <p role="status">{t(lang, 'storyLoading')}</p>
+            <p>{t(lang, 'storyLoading')}</p>
           </div>
         )}
         {story?.notesHtml && (
@@ -125,7 +138,7 @@ export function StoryPanel({ event, story, failed = false, onRetry, related = []
         )}
         {related.length > 0 && (
           <section class="story-related">
-            <h3>{t(lang, 'related')}</h3>
+            <h2>{t(lang, 'related')}</h2>
             <ul>
               {related.map((r) => (
                 <li key={r.id}>
@@ -150,7 +163,7 @@ export function StoryPanel({ event, story, failed = false, onRetry, related = []
         )}
         {story?.topics && story.topics.length > 0 && (
           <section class="story-topics">
-            <h3>{t(lang, 'inTopics')}</h3>
+            <h2>{t(lang, 'inTopics')}</h2>
             <ul>
               {story.topics.map((tp) => (
                 <li key={tp.id}><a href={topicUrl(lang, tp.id)}>{tp.title}</a></li>
@@ -160,7 +173,7 @@ export function StoryPanel({ event, story, failed = false, onRetry, related = []
         )}
         {named.length > 0 && (
           <section>
-            <h3>{t(lang, 'people')}</h3>
+            <h2>{t(lang, 'people')}</h2>
             <ul>
               {named.map((p) => (
                 <li key={p.id}><a href={personHref(p, lang)}>{p.name}</a></li>
@@ -170,13 +183,13 @@ export function StoryPanel({ event, story, failed = false, onRetry, related = []
         )}
         {event.games.length > 0 && (
           <section>
-            <h3>{t(lang, 'games')}</h3>
+            <h2>{t(lang, 'games')}</h2>
             <ul>{event.games.map((g) => <li key={g}>{gameName(g, lang)}</li>)}</ul>
           </section>
         )}
         {story && (
           <section>
-            <h3>{t(lang, 'sources')}</h3>
+            <h2>{t(lang, 'sources')}</h2>
             <ul>
               {story.sources.map((s) => (
                 <li key={s.title}>
@@ -191,6 +204,18 @@ export function StoryPanel({ event, story, failed = false, onRetry, related = []
           </section>
         )}
       </article>
+      {story && story.terms.length > 0 && (
+        // What each term's tooltip says, as text its link is described by from the start (aria-describedby is read
+        // when the focus lands, so wiring it only once the tooltip opens would be too late).
+        <div hidden>
+          {story.terms.map((term) => (
+            <span key={term.id} id={termDescriptionId(term.id)} lang={lang === 'en' ? 'zh-Hant-TW' : 'en'}>
+              {term.name[lang === 'en' ? 'zh-tw' : 'en']}
+              {term.summary && <span lang={lang === 'en' ? 'en' : 'zh-Hant-TW'}>{lang === 'en' ? '. ' : '。'}{term.summary}</span>}
+            </span>
+          ))}
+        </div>
+      )}
       <TermTooltip key={event.id} terms={story?.terms ?? NO_TERMS} lang={lang} container={articleRef} />
     </>
   );

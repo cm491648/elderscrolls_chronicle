@@ -19,16 +19,25 @@
   --surface: var(--paper);
   --surface-2: #ece4d1;
   --ink: #1e1c2c;
-  --ink-soft: #575468;
+  /* --ink-soft, --accent and --accent-2 are just dark enough for 4.5:1 on the page's darkest vellum as the body
+     lays it over --page (multiply, about #d0bd96; tests/unit/texture-contrast.test.ts). */
+  --ink-soft: #4e4b5f;
   --line: #d3c8ad;
   --on-accent: #f8f6ef;
 
   /* lapis, vermilion, gilt */
-  --accent: #24508f;
-  --accent-2: #a1281e;
+  --accent: #214d8c;
+  --accent-2: #971d15;
   --gilt: #ad8730;
-  --wash: rgb(36 80 143 / 0.12);
-  --gilt-faint: rgb(173 135 48 / 0.45);
+  --wash: color-mix(in oklab, var(--accent) 12%, transparent);
+  /* The same wash, opaque: for anything that sits on a darker ground (the leather, the page's vellum), where the
+     see-through wash would darken it and sink the text on it. */
+  --wash-solid: color-mix(in srgb, var(--surface), var(--accent) 12%);
+  --gilt-faint: color-mix(in oklab, var(--gilt) 45%, transparent);
+  /* A light hover on the leather. */
+  --leather-wash: color-mix(in oklab, var(--on-leather) 14%, transparent);
+  /* Keyboard focus ring: lapis on paper; light on the leather (global.css .leather), back to lapis on paper laid on it. */
+  --focus-ring: var(--accent);
 
   /* timeline band */
   --band: var(--paper);
@@ -48,12 +57,78 @@
   --shadow-c: rgb(30 28 44 / 0.14);
   --shadow: 0 2px 10px var(--shadow-c);
   --shadow-pop: 0 12px 28px var(--shadow-c);
+  --shadow-menu: 0 6px 18px var(--shadow-c);
 
-  /* type */
-  --font-title: 'Alegreya', 'Noto Serif TC', serif;
-  --font-body: 'Alegreya Sans', 'Noto Sans TC', sans-serif;
+  /* type: the web font, then a local font sized to its metrics (the @font-face rules below) so nothing moves when the
+     web font swaps in, then the Chinese face and the generic family. */
+  --font-title: 'Alegreya', 'Alegreya Fallback', 'Alegreya Fallback Times', 'Noto Serif TC', serif;
+  --font-body: 'Alegreya Sans', 'Alegreya Sans Fallback', 'Noto Sans TC', sans-serif;
 
   /* layout */
   --radius: 2px;
   --measure: 35em;
+}
+
+/*
+ * Metric-matched fallbacks (visually-stable-font-fallbacks): the fonts load after the first paint (Base.astro), so the
+ * local font they replace is scaled to the same width (size-adjust: average advance over an English sample) and given
+ * the web font's ascent and descent. Measured from the fontsource Latin files (Alegreya 500 / 700, Alegreya Sans
+ * 400 / 700; hhea metrics, no line gap) against the Windows copies of Georgia, Times New Roman and Arial. Liberation
+ * and Croscore faces share the Times / Arial widths, Helvetica shares Arial's. Latin only: Chinese text falls through
+ * to the Noto TC faces, which are not adjusted (an x-height adjustment would shrink the Han characters).
+ */
+@font-face {
+  font-family: 'Alegreya Fallback';
+  src: local('Georgia');
+  font-weight: 400 600;
+  size-adjust: 93.07%;
+  ascent-override: 109.16%;
+  descent-override: 37.07%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Alegreya Fallback';
+  src: local('Georgia Bold'), local('Georgia-Bold');
+  font-weight: 700 900;
+  size-adjust: 80.45%;
+  ascent-override: 126.29%;
+  descent-override: 42.88%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Alegreya Fallback Times';
+  src: local('Times New Roman'), local('TimesNewRomanPSMT'), local('Liberation Serif'), local('Tinos');
+  font-weight: 400 600;
+  size-adjust: 101.7%;
+  ascent-override: 99.9%;
+  descent-override: 33.92%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Alegreya Fallback Times';
+  src: local('Times New Roman Bold'), local('TimesNewRomanPS-BoldMT'), local('Liberation Serif Bold'), local('Tinos Bold');
+  font-weight: 700 900;
+  size-adjust: 96.15%;
+  ascent-override: 105.67%;
+  descent-override: 35.88%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Alegreya Sans Fallback';
+  src: local('Arial'), local('ArialMT'), local('Helvetica'), local('Liberation Sans'), local('Arimo');
+  font-weight: 400 600;
+  size-adjust: 86.71%;
+  ascent-override: 103.79%;
+  descent-override: 34.6%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Alegreya Sans Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Helvetica Bold'), local('Helvetica-Bold'), local('Liberation Sans Bold'),
+    local('Arimo Bold');
+  font-weight: 700 900;
+  size-adjust: 82.12%;
+  ascent-override: 109.6%;
+  descent-override: 36.53%;
+  line-gap-override: 0%;
 }

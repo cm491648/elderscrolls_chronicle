@@ -21,7 +21,7 @@ const sep = lang === 'en' ? ', ' : '，';
       <TopicCover title={tp.title} eras={tp.eras} span={tp.span} binding={tp.binding} />
       <div class="cover-text">
         <h2><a href={topicUrl(lang, tp.id)}>{tp.title}</a></h2>
-        {tp.titleEn && <p class="section-en">{tp.titleEn}</p>}
+        {tp.titleEn && <p class="section-en" lang="en">{tp.titleEn}</p>}
         <p class="meta-line">
           {tp.span && <span>{tp.span}<span class="sr-only">{sep}</span></span>}
           <span>{t(lang, 'eventCount', { n: tp.events.length })}{tp.status === 'planned' && <span class="sr-only">{sep}</span>}</span>

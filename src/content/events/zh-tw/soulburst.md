@@ -9,7 +9,7 @@ title: 靈魂爆發
 
 一股魔力從城中爆發開來，{{varen-aquilarios|瓦倫}}在其中消失。城市附近的法師不是死去就是發瘋，{{chorrol}}的地面裂開，{{red-mountain}}震動，暴風雨重創南方的海岸。{{daedra}}以前所未有的數量來到世間，連一般人都看得見鬼魂。
 
-{{elder-council}}把責任推給{{mages-guild}}，將它逐出{{imperial-city}}，把公會的大學交給一個團體，那個團體其實就是{{mannimarco}}的{{worm-cult}}。{{clivia-tharn}}以皇后身分攝政。
+{{mannimarco}}把{{mages-guild}}趕出{{imperial-city}}，公會的{{arcane-university}}也被他的{{worm-cult}}佔據。{{clivia-tharn}}以皇后身分攝政。
 
 ## 註
 

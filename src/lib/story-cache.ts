@@ -54,7 +54,10 @@ export function loadStory(
   return request;
 }
 
-/** Loads a story the reader is likely to open next; a failure is ignored (opening it later retries). */
-export function prefetchStory(lang: Lang, id: string): void {
-  loadStory(lang, id).catch(() => {});
+/**
+ * Loads a story the reader is likely to open next; a failure is ignored (opening it later retries). At low priority,
+ * so it never competes with what the reader is looking at now (the open story's plate).
+ */
+export function prefetchStory(lang: Lang, id: string, fetcher: typeof fetch = (input, init) => fetch(input, { ...init, priority: 'low' })): void {
+  loadStory(lang, id, fetcher).catch(() => {});
 }

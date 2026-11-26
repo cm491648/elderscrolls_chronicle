@@ -29,7 +29,7 @@ const sep = lang === 'en' ? ', ' : '、';
   <ListFilter lang={lang} scope="glossary-list" label={t(lang, 'filterGlossaryLabel')} />
   <div id="glossary-list">
     {groups.map((g) => (
-      <section data-filter-group aria-labelledby={`cat-${g.c}`}>
+      <section data-filter-group style={`--entries: ${g.items.length}`}>
         <h2 id={`cat-${g.c}`}>{t(lang, `gcat_${g.c}` as UiKey)}</h2>
         <dl class="term-list">
           {g.items.map((x) => (

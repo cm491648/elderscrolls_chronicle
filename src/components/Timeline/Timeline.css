@@ -52,13 +52,13 @@
   align-items: center;
   gap: 4px;
   padding: 0 4px 0 10px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.2;
   color: var(--ink);
 }
 .tl-name-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tl-name.depth-1 { padding-left: 22px; font-size: 12px; color: var(--ink-soft); }
-.tl-name small { font-size: 10px; color: var(--accent-2); white-space: nowrap; }
+.tl-name.depth-1 { padding-left: 22px; font-size: 0.75rem; color: var(--ink-soft); }
+.tl-name small { font-size: 0.625rem; color: var(--accent-2); white-space: nowrap; }
 /* Tamriel's name is itself a framed button, the arrow first like a tree's: readers saw the small round arrow at the
    column's edge as decoration and never opened the provinces. */
 .tl-expand {
@@ -66,7 +66,7 @@
   align-items: center;
   gap: 4px;
   min-width: 0;
-  height: 26px;
+  min-height: 26px;
   margin-left: -5px;
   padding: 0 7px 0 5px;
   font: inherit;
@@ -76,9 +76,9 @@
   border-radius: var(--radius);
   cursor: pointer;
 }
-.tl-expand-mark { flex: none; font-size: 12px; }
-.tl-expand:hover, .tl-expand[aria-expanded='true'] { background: color-mix(in srgb, var(--surface), var(--accent) 12%); }
-.tl-expand:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.tl-expand-mark { flex: none; font-size: 0.75rem; }
+.tl-expand:hover, .tl-expand[aria-expanded='true'] { background: var(--wash-solid); }
+.tl-expand:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; }
 .tl-foot {
   grid-area: foot;
   display: flex;
@@ -95,7 +95,7 @@
   height: 36px;
   padding: 0 0 2px;
   font-family: var(--font-title);
-  font-size: 22px;
+  font-size: 1.375rem;
   line-height: 1;
   color: var(--accent);
   background: var(--surface);
@@ -103,10 +103,11 @@
   border-radius: 50%;
   cursor: pointer;
 }
-.tl-nav:hover:not(:disabled) { background: var(--wash); }
-/* Disabled: the paper stays opaque on the leather; only the arrow fades. */
-.tl-nav:disabled { color: rgb(87 84 104 / 0.4); cursor: default; }
-.tl-nav-sm { width: 30px; height: 30px; font-family: var(--font-body); font-size: 18px; }
+/* Opaque, like .tl-regions below: the button sits on the leather. */
+.tl-nav:hover:not(:disabled, [aria-disabled='true']) { background: var(--wash-solid); }
+/* At the end of the line (aria-disabled, so it keeps the focus): the paper stays opaque on the leather; only the arrow fades. */
+.tl-nav:is(:disabled, [aria-disabled='true']) { color: color-mix(in oklab, var(--ink-soft) 40%, transparent); cursor: default; }
+.tl-nav-sm { width: 30px; height: 30px; font-family: var(--font-body); font-size: 1.125rem; }
 /* The tools keep their size; in a tight foot row the hint wraps instead (a squeezed 「地區」 broke onto two lines). */
 .tl-tools { display: flex; flex: none; align-items: center; gap: 10px; margin-left: auto; }
 .tl-zoom { display: flex; gap: 6px; }
@@ -115,7 +116,7 @@
   min-height: 30px;
   padding: 0 12px;
   font: inherit;
-  font-size: 13px;
+  font-size: 0.8125rem;
   white-space: nowrap;
   color: var(--accent);
   background: var(--surface);
@@ -124,7 +125,7 @@
   cursor: pointer;
 }
 /* Opaque: the button sits on the leather, where the see-through wash would turn it dark. */
-.tl-regions:hover, .tl-regions[aria-expanded='true'] { background: color-mix(in srgb, var(--surface), var(--accent) 12%); }
+.tl-regions:hover, .tl-regions[aria-expanded='true'] { background: var(--wash-solid); }
 .tl-region-menu {
   position: absolute;
   top: calc(100% + 6px);
@@ -140,9 +141,9 @@
   background: var(--paper) var(--tex-vellum) 0 0 / 512px;
   border: 1px solid var(--gilt);
   border-radius: var(--radius);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+  box-shadow: var(--shadow-menu);
 }
-.tl-region-menu label { display: flex; align-items: center; gap: 8px; min-height: 32px; font-size: 14px; cursor: pointer; }
+.tl-region-menu label { display: flex; align-items: center; gap: 8px; min-height: 32px; font-size: 0.875rem; cursor: pointer; }
 .tl-region-menu label.depth-1 { padding-left: 18px; }
 .tl-region-menu input { width: 16px; height: 16px; accent-color: var(--accent); }
 
@@ -152,24 +153,24 @@
   align-items: center;
   gap: 2px 22px;
   margin: 0;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--on-leather-soft);
 }
 .tl-hint-hide {
   display: grid;
   place-items: center;
-  width: 24px;
-  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
   margin-left: -14px;
   padding: 0;
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--on-leather-soft);
   background: none;
   border: 0;
   border-radius: 50%;
   cursor: pointer;
 }
-.tl-hint-hide:hover { color: var(--on-leather); background: rgb(239 226 196 / 0.12); }
+.tl-hint-hide:hover { color: var(--on-leather); background: var(--leather-wash); }
 @media (hover: none) {
   .tl-hint { display: none; }
 }
@@ -189,13 +190,13 @@
 .era-sep { stroke: var(--gilt); stroke-width: 1; opacity: 0.6; }
 .tl-svg .era-name {
   font-family: var(--font-title);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   fill: var(--accent-2);
   pointer-events: none;
 }
-.tl-svg .era-mark { font-size: 9px; }
+.tl-svg .era-mark { font-size: 0.5625rem; }
 .tl-head-bg { fill: var(--band); }
 .tl-axis { stroke: var(--line); stroke-width: 1; }
 .tl-century { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 4; }
@@ -203,7 +204,7 @@
 .tl-span { cursor: pointer; }
 .tl-span-hit { fill: transparent; stroke: none; pointer-events: all; }
 .tl-span.is-selected .tl-bar { stroke: var(--gilt); stroke-width: 2; }
-.tl-span.is-dimmed:not(.is-selected) .tl-bar { opacity: 0.35; }
+.tl-span.is-dimmed:not(.is-selected) .tl-bar { fill: none; stroke: var(--ink-soft); stroke-dasharray: 3 2; }
 .tl-span:hover .tl-bar { stroke: var(--gilt); }
 /* An event in several regions: its marks joined from lane to lane while it is selected or pointed at. */
 .tl-svg .tl-link { fill: none; stroke: var(--accent-2); stroke-width: 2; stroke-linejoin: round; pointer-events: none; }
@@ -213,13 +214,17 @@
 .tl-dot, .tl-cluster { cursor: pointer; outline: none; }
 .tl-cluster { cursor: zoom-in; }
 .tl-mark, .tl-ring, .tl-cluster text { pointer-events: none; }
-.tl-dot:focus-visible .tl-hit, .tl-cluster:focus-visible .tl-hit { stroke: var(--accent); stroke-width: 2; }
+.tl-dot:focus-visible .tl-hit, .tl-cluster:focus-visible .tl-hit { stroke: var(--focus-ring); stroke-width: 2; }
 
 .tl-dot .tl-mark {
   fill: var(--accent);
   stroke: var(--band);
   stroke-width: 2;
-  transition: transform 0.15s ease, stroke 0.15s ease;
+  transition: stroke 0.15s ease;
+}
+/* The mark grows under the pointer; at once for readers who ask for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .tl-dot .tl-mark { transition: transform 0.15s ease, stroke 0.15s ease; }
 }
 .tl-dot:hover .tl-mark, .tl-dot:focus-visible .tl-mark { transform: scale(1.34); stroke: var(--gilt); }
 .tl-dot.is-selected .tl-mark { stroke: var(--gilt); stroke-width: 3; transform: none; }
@@ -228,13 +233,16 @@
 .tl-cluster .tl-mark { fill: var(--band); stroke: var(--accent); stroke-width: 1.5; }
 .tl-cluster:hover .tl-mark, .tl-cluster:focus-visible .tl-mark { fill: var(--wash); }
 .tl-cluster.is-selected .tl-mark { stroke: var(--gilt); stroke-width: 3; }
-/* Left out by a filter: faint, still there to keep the sense of time, still clickable. */
-.tl-dot.is-dimmed:not(.is-selected) .tl-mark, .tl-cluster.is-dimmed:not(.is-selected) .tl-mark { opacity: 0.35; }
-.tl-svg .tl-cluster text { font-size: 11px; font-weight: 700; fill: var(--accent); text-anchor: middle; }
+/* Left out by a filter: faint, still there to keep the sense of time, still clickable. Shown by its shape, not by
+   opacity: a hollow soft-ink ring for a dot (a dashed one for a group, a dashed outline for a span), >= 3:1 on the band. */
+.tl-dot.is-dimmed:not(.is-selected) .tl-mark { fill: var(--band); stroke: var(--ink-soft); stroke-width: 1.5; }
+.tl-cluster.is-dimmed:not(.is-selected) .tl-mark { stroke: var(--ink-soft); stroke-dasharray: 2 2; }
+.tl-svg .tl-cluster text { font-size: 0.6875rem; font-weight: 700; fill: var(--accent); text-anchor: middle; }
+.tl-svg .tl-cluster.is-dimmed:not(.is-selected) text { fill: var(--ink-soft); }
 
 /* Year (or year range) under each item; only labels with room are drawn (placeLabels), so they never overlap. */
 .tl-svg .tl-year {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
   fill: var(--ink-soft);
@@ -256,8 +264,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0 8px;
-  font-size: 12px;
-  line-height: 19px;
+  font-size: 0.75rem;
+  line-height: calc(19 / 12);
   color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--gilt);
@@ -268,13 +276,13 @@
   padding: 0 4px;
   background: var(--band);
   font-family: var(--font-title);
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 700;
-  line-height: 20px;
+  line-height: calc(20 / 15);
   color: var(--ink);
 }
 
-@media (max-width: 560px) {
+@media (max-width: 35em) {
   .timeline {
     grid-template-columns: 36px minmax(0, 1fr) 36px;
     grid-template-areas:
@@ -287,13 +295,13 @@
   .tl-foot { justify-content: center; }
   .tl-tools { margin-left: 0; }
   .tl-band { --tl-names-w: 84px; max-height: 200px; }
-  .tl-expand { height: 24px; gap: 3px; margin-left: -3px; padding: 0 4px 0 3px; }
-  .tl-expand-mark { font-size: 11px; }
+  .tl-expand { min-height: 24px; gap: 3px; margin-left: -3px; padding: 0 4px 0 3px; }
+  .tl-expand-mark { font-size: 0.6875rem; }
   .tl-name { gap: 2px; padding-right: 2px; }
-  .tl-name { padding-left: 6px; font-size: 12px; }
-  .tl-name.depth-1 { padding-left: 12px; font-size: 11px; }
+  .tl-name { padding-left: 6px; font-size: 0.75rem; }
+  .tl-name.depth-1 { padding-left: 12px; font-size: 0.6875rem; }
   .tl-name.is-temporary { flex-direction: column; align-items: flex-start; justify-content: center; gap: 0; line-height: 1.1; }
-  .tl-name small { font-size: 9px; }
+  .tl-name small { font-size: 0.5625rem; }
 }
 
 /* Zoomed in all the way: the list a same-year mark opens, under the mark. */
@@ -311,14 +319,14 @@
   background: var(--paper) var(--tex-vellum) 0 0 / 512px;
   border: 1px solid var(--gilt);
   border-radius: var(--radius);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+  box-shadow: var(--shadow-menu);
 }
 .tl-pick-option {
   display: grid;
   min-height: 36px;
   padding: 6px 10px;
   font: inherit;
-  font-size: 14px;
+  font-size: 0.875rem;
   text-align: left;
   color: var(--ink);
   background: none;
@@ -327,7 +335,28 @@
   cursor: pointer;
 }
 .tl-pick-option:hover,
-.tl-pick-option:focus-visible { background: var(--paper-deep, rgba(0, 0, 0, 0.06)); }
+.tl-pick-option:focus-visible { background: color-mix(in oklab, var(--ink) 6%, transparent); }
 .tl-pick-option[aria-pressed='true'] { font-weight: 700; color: var(--accent); }
 .tl-pick-option.is-dimmed { color: var(--ink-soft); }
-.tl-pick-option small { font-size: 12px; color: var(--ink-soft); }
+.tl-pick-option small { font-size: 0.75rem; color: var(--ink-soft); }
+
+/* Forced colours: the band's marks in system colours, the selection in Highlight, a filtered-out item a GrayText ring. */
+@media (forced-colors: active) {
+  .tl-region-menu, .tl-pick { background-image: none; }
+  .tl-nav:is(:disabled, [aria-disabled='true']) { color: GrayText; }
+  .tl-head-bg { fill: Canvas; }
+  .tl-axis, .tl-century, .era-sep { stroke: CanvasText; }
+  .tl-svg :is(.era-name, .tl-year), .tl-svg .tl-cluster text { fill: CanvasText; }
+  .tl-svg .tl-bar { fill: Canvas; stroke: CanvasText; }
+  .tl-dot .tl-mark { fill: CanvasText; stroke: Canvas; }
+  .tl-cluster .tl-mark { fill: Canvas; stroke: CanvasText; }
+  .tl-dot:hover .tl-mark, .tl-dot:focus-visible .tl-mark, .tl-span:hover .tl-bar { stroke: Highlight; }
+  .tl-dot:focus-visible .tl-hit, .tl-cluster:focus-visible .tl-hit { stroke: Highlight; }
+  .tl-cluster:is(:hover, :focus-visible) .tl-mark { fill: Canvas; stroke: Highlight; }
+  .tl-dot.is-selected .tl-mark { fill: Highlight; stroke: CanvasText; }
+  .tl-cluster.is-selected .tl-mark, .tl-span.is-selected .tl-bar, .tl-ring, .tl-svg .tl-link { stroke: Highlight; }
+  .tl-svg .tl-year.is-selected { fill: Highlight; }
+  .tl-dot.is-dimmed:not(.is-selected) .tl-mark { fill: Canvas; stroke: GrayText; }
+  .tl-cluster.is-dimmed:not(.is-selected) .tl-mark, .tl-span.is-dimmed:not(.is-selected) .tl-bar { stroke: GrayText; }
+  .tl-svg .tl-cluster.is-dimmed:not(.is-selected) text, .tl-pick-option.is-dimmed { color: GrayText; fill: GrayText; }
+}

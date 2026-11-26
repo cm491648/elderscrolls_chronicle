@@ -45,13 +45,15 @@ function arc([cx, top, r, mid, span, peak]) {
 export function headerArcs({ sway }) {
   const groups = ARCS.map(arc)
     .map(({ cx, cy, d }, i) => {
-      const style = sway ? ` style="transform-origin:${cx}px ${f(cy)}px;animation-duration:${14 + ((i * 23) % 12)}s"` : '';
+      // One swing each, 4–5 s, ending at rest: motion that starts by itself stops within 5 s (WCAG 2.2.2), so it needs
+      // no pause button, and where it stops is the still picture.
+      const style = sway ? ` style="transform-origin:${cx}px ${f(cy)}px;animation-duration:${(4 + ((i * 23) % 12) / 12).toFixed(2)}s"` : '';
       return `<g${sway ? ` class="s${i % 2 ? ' r' : ''}"` : ''}${style}>${d}</g>`;
     })
     .join('');
   const css = sway
-    ? '<style>.s{transform-box:view-box;animation:sway ease-in-out infinite alternate}.r{animation-direction:alternate-reverse}' +
-      '@keyframes sway{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}' +
+    ? '<style>.s{transform-box:view-box;animation:sway ease-in-out 1}.r{animation-direction:reverse}' +
+      '@keyframes sway{0%,100%{transform:rotate(0)}30%{transform:rotate(-6deg)}70%{transform:rotate(6deg)}}' +
       '@media (prefers-reduced-motion:reduce){.s{animation:none}}</style>'
     : '';
   return (

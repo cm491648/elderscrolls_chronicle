@@ -37,7 +37,7 @@ In {{era-second|2E}} 230, less than a year after leaving the {{psijic-order|Psij
 
 ## Notes
 
-- **The rival.** {{vanus-galerion|Galerion}}'s fellow student {{mannimarco}} had been banished from {{artaeum}} for necromancy. The new guild condemned necromancy except in rare cases under strict control, and the two remained enemies.
+- **The rival.** {{vanus-galerion|Galerion}}'s fellow student {{mannimarco}} had been banished from {{artaeum}} for necromancy. The new guild kept soul-trapping, a branch of necromancy, out of its teaching except in rare cases under strict control, and the two remained enemies.
 - **The isle.** {{artaeum}} vanished from the world soon after {{vanus-galerion|Galerion}} left.
 - **The speech.** What {{vanus-galerion|Galerion}} said before the king was not written down.
 - **The law.** The {{guild-act}} of {{era-second|2E}} 321 recognized the guild across the empire.

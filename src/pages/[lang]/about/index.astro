@@ -20,7 +20,7 @@ const html = (md: string) => marked.parse(md, { async: false }) as string;
   <h1>{about.data.title}</h1>
   <div class="about">
     <div class="prose" set:html={html(before)} />
-    <ol class="changelog" aria-label={t(lang, 'changelog')}>
+    <ol class="changelog">
       {changelog.map((c) => (
         <li><time datetime={c.date}>{c.date}</time>{c[lang]}</li>
       ))}

@@ -39,13 +39,15 @@
 | `--surface` | `var(--paper)` | 故事面板、名牌、提示框、按鈕底 |
 | `--surface-2` | `#ece4d1` | 次要面（插圖底、按鈕滑過） |
 | `--ink` | `#1e1c2c` | 內文、標題、地圖框墨線、時間軸主軸下線 |
-| `--ink-soft` | `#575468` | 說明、英文對照、頁尾、地圖區域名 |
+| `--ink-soft` | `#4e4b5f` | 說明、英文對照、頁尾、地圖區域名 |
 | `--line` | `#d3c8ad` | 面板外框、分隔細線 |
-| `--accent` 青金石 | `#24508f` | 主色：事件點、地圖標記、連結、術語底線、站名、提示框標題 |
-| `--accent-2` 朱紅 | `#a1281e` | 標題字：紀元名、故事小標（日期）、「¶ 註」、註的編號、可信度徽章、選取的地圖標記 |
+| `--accent` 青金石 | `#214d8c` | 主色：事件點、地圖標記、連結、術語底線、站名、提示框標題 |
+| `--accent-2` 朱紅 | `#971d15` | 標題字：紀元名、故事小標（日期）、「¶ 註」、註的編號、可信度徽章、選取的地圖標記 |
 | `--gilt` 金線 | `#ad8730` | **只用於線與框**：時間軸帶外框、紀元分界、選取外環、地圖與面板外框、角飾、收尖金線、按鈕外框 |
 | `--on-accent` | `#f8f6ef` | 實心朱紅底上的字（「校對未達共識」徽章） |
-| `--wash` | `rgb(36 80 143 / .12)` | 青金石淡底：術語滑過／開啟、按鈕滑過 |
+| `--wash` | `--accent` 12%（`color-mix`） | 青金石淡底：術語滑過／開啟 |
+| `--wash-solid` | `--surface` 混 12% `--accent`（不透明） | 疊在材質上的淡底：按鈕滑過、`:target` |
+| `--focus-ring` | `var(--accent)`；`.leather` 內為 `var(--on-leather)` | 鍵盤焦點框（皮革上的控制項用淺色，對比 9.9 : 1） |
 | `--band` | `var(--paper)` | 時間軸帶底色（平的紙色，不加材質：SVG 的紀元名列與標籤底用同一色） |
 | `--map-sea` | `#d5d8d3` | 地圖容器底色 |
 | `--map-land` | `#eeebe1` | 示意地圖的陸地 |
@@ -77,14 +79,16 @@
 
 ### 2.3 對比度（WCAG，實測計算）
 
-| 前景 | 在 `--paper`（面板） | 在紙材質最暗 5%（`#ebdbbb`） | 可用於 |
-|---|---|---|---|
-| `--ink` | 14.54 | 12.23 | 任何文字 |
-| `--ink-soft` | 6.37 | 5.35 | 小字 |
-| `--accent` | 6.98 | 5.87 | 小字、連結 |
-| `--accent-2` | 6.45 | 5.42 | 小字、徽章 |
-| `--gilt` | **2.91** | **2.45** | **只用於線條** |
-| `--on-accent` 在 `--accent-2` 上 | 6.84 | － | 實心徽章文字 |
+| 前景 | 在 `--paper`（面板） | 在紙材質最暗 5%（`#ebdbbb`） | 在頁面底（`--page` 正片疊底紙材質最暗處，`#d0bd96`） | 可用於 |
+|---|---|---|---|---|
+| `--ink` | 14.54 | 12.23 | 9.07 | 任何文字 |
+| `--ink-soft` | 7.33 | 6.16 | 4.57 | 小字 |
+| `--accent` | 7.30 | 6.14 | 4.55 | 小字、連結 |
+| `--accent-2` | 7.31 | 6.15 | 4.56 | 小字、徽章 |
+| `--gilt` | **2.91** | **2.45** | － | **只用於線條** |
+| `--on-accent` 在 `--accent-2` 上 | 7.76 | － | － | 實心徽章文字 |
+
+2026-11-24 依 Modern Web Guidance 檢查：頁面底是 `--page` 與紙材質「正片疊底」的結果，比材質本身暗，原本的 `--ink-soft`（3.97）、`--accent`（4.36）、`--accent-2`（4.02）在上面不到 4.5 : 1；三色在 OKLCH 只降亮度（色相、彩度不變）調到上表的值。
 
 | 前景（皮革上） | 在 `--leather` | 在皮革材質最亮 5%（`#612e24`） | 可用於 |
 |---|---|---|---|
@@ -92,7 +96,7 @@
 | `--on-leather-soft` | 7.41 | 6.34 | 小字 |
 | `--gilt-on-leather` | 5.85 | 5.00 | 線條與菱形（不當文字色） |
 
-材質的最暗／最亮 5% 顏色由 `scripts/make-textures.py` 算出、寫在 `src/assets/textures/textures.json`，`tests/unit/texture-contrast.test.ts` 檢查上表的文字色都 ≥ 4.5 : 1。
+材質的最暗／最亮 5% 顏色由 `scripts/make-textures.py` 算出、寫在 `src/assets/textures/textures.json`，`tests/unit/texture-contrast.test.ts` 檢查上表的文字色都 ≥ 4.5 : 1（含頁面底的正片疊底合成色）。
 
 規則：
 
@@ -103,12 +107,12 @@
 
 ## 3. 字型
 
-自行託管（R12-2）：`src/styles/fonts-zh.css`（中文頁）／`fonts-en.css`（英文頁，只有拉丁字型）匯入用到的字重（`@fontsource`）；正式建置時中文三個字面換成只含全站用字的子集（`scripts/font-subset.mjs`，每個字面一個 woff2），`Base.astro` 在頁面載入完成後才套用（不阻塞首次繪製，也不和程式搶連線），`font-display: swap`；開發伺服器沿用 fontsource 依 `unicode-range` 的切片。建置只發布 woff2。授權（SIL OFL 1.1）與細節見 `docs/design/assets-log.md`「字型」一節。字型堆疊寫成「英文字型, Noto 中文字型, 通用字族」：同一行的拉丁字母由英文字型負責，中文由 Noto 負責。
+自行託管（R12-2）：`src/styles/fonts-zh.css`（中文頁）／`fonts-en.css`（英文頁，只有拉丁字型）匯入用到的字重（`@fontsource`）；正式建置時中文三個字面換成只含全站用字的子集（`scripts/font-subset.mjs`，每個字面一個 woff2），`Base.astro` 在頁面載入完成後才套用（不阻塞首次繪製，也不和程式搶連線），`font-display: swap`；開發伺服器沿用 fontsource 依 `unicode-range` 的切片。建置只發布 woff2。授權（SIL OFL 1.1）與細節見 `docs/design/assets-log.md`「字型」一節。字型堆疊寫成「英文字型, Noto 中文字型, 通用字族」：同一行的拉丁字母由英文字型負責，中文由 Noto 負責。英文字型後面接著「Fallback」字面（`tokens.css` 的 `@font-face`，以 `local()` 取系統的 Georgia／Times／Arial，並用 `size-adjust`、`ascent-override` 等調成 Alegreya 的尺寸）：字型在頁面載入後才換上，先用的系統字和它一樣大，換字時版面不跳動。英文頁另外預載標題與內文的兩個拉丁字面（`scripts/head-hints.mjs`）。
 
 | 變數 | 堆疊 | 用途 | 載入字重 |
 |---|---|---|---|
-| `--font-title` | `'Alegreya', 'Noto Serif TC', serif` | 站名、事件名、小節標、紀元名、日期小標、地圖名牌與區域名、提示框名稱、「¶ 註」 | Alegreya 500、700、500 italic；Noto Serif TC 700（中文標題類一律粗體） |
-| `--font-body` | `'Alegreya Sans', 'Noto Sans TC', sans-serif` | 內文、按鈕、說明、註、提示框內文 | Alegreya Sans 400、500、700；Noto Sans TC 400、700 |
+| `--font-title` | `'Alegreya', 'Alegreya Fallback', 'Alegreya Fallback Times', 'Noto Serif TC', serif` | 站名、事件名、小節標、紀元名、日期小標、地圖名牌與區域名、提示框名稱、「¶ 註」 | Alegreya 500、700、500 italic；Noto Serif TC 700（中文標題類一律粗體） |
+| `--font-body` | `'Alegreya Sans', 'Alegreya Sans Fallback', 'Noto Sans TC', sans-serif` | 內文、按鈕、說明、註、提示框內文 | Alegreya Sans 400、500、700；Noto Sans TC 400、700 |
 
 ### 3.1 字級與行高
 

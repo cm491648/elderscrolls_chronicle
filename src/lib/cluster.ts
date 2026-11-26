@@ -4,7 +4,7 @@ export interface Cluster {
 }
 
 export function clusterPoints(points: { id: string; x: number }[], minGap: number): Cluster[] {
-  const sorted = [...points].sort((a, b) => a.x - b.x);
+  const sorted = points.toSorted((a, b) => a.x - b.x);
   const groups: { id: string; x: number }[][] = [];
   for (const p of sorted) {
     const last = groups[groups.length - 1];
@@ -65,7 +65,7 @@ export function fanOutGroups(
   max = Infinity,
 ): Cluster[] {
   const groups: { ids: string[]; x: number }[] = [];
-  for (const p of [...points].sort((a, b) => a.x - b.x)) {
+  for (const p of points.toSorted((a, b) => a.x - b.x)) {
     const last = groups[groups.length - 1];
     if (last && Math.abs(p.x - last.x) < 0.5) last.ids.push(p.id);
     else groups.push({ ids: [p.id], x: p.x });

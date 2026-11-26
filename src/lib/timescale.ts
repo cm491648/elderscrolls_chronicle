@@ -65,7 +65,7 @@ export function createTimescale(events: Placeable[]): Timescale {
     const inEra = events.filter((e) => e.era === seg.era);
     const span = seg.end - seg.start;
     if (seg.fixed) {
-      const sorted = [...inEra].sort(byOrderThenId);
+      const sorted = inEra.toSorted(byOrderThenId);
       sorted.forEach((e, i) => positions.set(e.id, seg.start + (span * (i + 1)) / (sorted.length + 1)));
     } else {
       for (const e of inEra) {
@@ -77,8 +77,8 @@ export function createTimescale(events: Placeable[]): Timescale {
     }
   }
 
-  const ordered = [...events]
-    .sort((a, b) => positions.get(a.id)! - positions.get(b.id)! || byOrderThenId(a, b))
+  const ordered = events
+    .toSorted((a, b) => positions.get(a.id)! - positions.get(b.id)! || byOrderThenId(a, b))
     .map((e) => e.id);
 
   return {

@@ -73,14 +73,19 @@ const MIN_BAR = 10;
  * row with the buttons below it, and it opens on a zoomed-in stretch around the selection instead of the whole
  * squeezed axis.
  */
-const NARROW_QUERY = '(max-width: 560px)';
+// In em, as Timeline.css (35em = 560px at the default text size): a larger text size counts as a narrower screen.
+const NARROW_QUERY = '(max-width: 35em)';
 const NARROW_ZOOM = 4;
 /** Share of the band faded out at each end; only the lanes and the events fade, never the era names. */
 const FADE = 0.03;
+/** Label sizes in px at the default 16px text size (Timeline.css sets them in rem); see `remScale`. */
 const ERA_FONT = 13;
 const CHIP_FONT = 12;
 const LABEL_FONT = 15;
 const YEAR_FONT = 11;
+/** The reader's text size against the default 16px: the labels' widths are estimated at the size they really have. */
+const remScale = () =>
+  typeof document === 'undefined' ? 1 : (parseFloat(getComputedStyle(document.documentElement).fontSize) || 16) / 16;
 const HINT_KEY = 'chronicle.tl-hint-hidden';
 const EXPANDED_KEY = 'chronicle.tl-expanded';
 const HIDDEN_KEY = 'chronicle.tl-hidden';
@@ -126,6 +131,9 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
     matchMedia(NARROW_QUERY).matches && id
       ? focusView(scale.x(id), NARROW_ZOOM, w, scale.totalWidth, MAX_ZOOM)
       : { x: 0, k: w / scale.totalWidth };
+  // 1 in the server HTML; the reader's own text size once the page is live.
+  const [rem, setRem] = useState(1);
+  useEffect(() => setRem(remScale()), []);
   const svgRef = useRef<SVGSVGElement>(null);
   const fadeId = `tl-fade-${useId()}`;
   const bandRef = useRef<HTMLDivElement>(null);
@@ -167,6 +175,8 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
   const hideHint = () => {
     setHintHidden(true);
     writeStored(HINT_KEY, '1');
+    // The × button goes away with the hint: keep the keyboard in the timeline, on the next control.
+    menuBtnRef.current?.focus();
   };
   const toggleExpanded = () => {
     setExpanded(!expanded);
@@ -395,11 +405,17 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
   });
   const focusable = items.filter((it) => it.primary).sort((a, b) => a.x - b.x);
   const stopItem = focusable[tabStopIndex(focusable, selectedId, width)];
+  // As native buttons do: Enter acts when pressed, Space when released (pressing it only stops the page scrolling).
   const activate = (fn: () => void) => (e: KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === 'Enter') {
       e.preventDefault();
       fn();
-    }
+    } else if (e.key === ' ') e.preventDefault();
+  };
+  const activateUp = (fn: () => void) => (e: KeyboardEvent) => {
+    if (e.key !== ' ') return;
+    e.preventDefault();
+    fn();
   };
   const onTimelineKey = (e: KeyboardEvent) => {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
@@ -421,10 +437,10 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
       ? joinClusterTitles(hovered.ids.map((id) => titles.get(id) ?? id), lang)
       : titles.get(hovered.ids[0]) ?? ''
     : '';
-  const chipW = Math.min(260, estimateTextWidth(chipText, CHIP_FONT) + 18);
+  const chipW = Math.min(260, estimateTextWidth(chipText, CHIP_FONT * rem) + 18);
   const holder = selectedId ? items.find((it) => it.primary && it.ids.includes(selectedId)) : undefined;
   const selTitle = selectedId ? titles.get(selectedId) ?? '' : '';
-  const selW = estimateTextWidth(selTitle, LABEL_FONT) * 1.05;
+  const selW = estimateTextWidth(selTitle, LABEL_FONT * rem) * 1.05;
   const showSel = holder && holder.x >= 0 && holder.x <= width && hovered !== holder;
   // The selected (or hovered) event's marks on every lane it is on, joined top to bottom.
   const linkId = selectedId ?? (hovered && hovered.ids.length === 1 ? hovered.ids[0] : null);
@@ -447,7 +463,7 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
     const placed = placeLabels(
       mine.map(({ it, i }) => ({
         x: labelX(it),
-        w: estimateTextWidth(years[i], YEAR_FONT) * 1.05 + 2,
+        w: estimateTextWidth(years[i], YEAR_FONT * rem) * 1.05 + 2,
         priority: it === holder ? 1 : 0,
       })),
       width,
@@ -459,8 +475,16 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
   const pickYear = pick ? years[items.findIndex((it) => it.key === pick.key)] ?? '' : '';
 
   return (
-    <nav class="timeline" ref={navRef} aria-label={t(lang, 'timeline')} onKeyDown={onTimelineKey}>
-      <button type="button" class="tl-nav tl-prev" aria-label={t(lang, 'prev')} disabled={prevId === null} onClick={() => go(-1)}>
+    // A region, not a <nav>: it holds buttons that choose a story, not links. Buttons at their limit are aria-disabled,
+    // not disabled, so the focus stays on them instead of falling back to the page.
+    <section class="timeline" ref={navRef} aria-label={t(lang, 'timeline')} onKeyDown={onTimelineKey}>
+      <button
+        type="button"
+        class="tl-nav tl-prev"
+        aria-label={t(lang, 'prev')}
+        aria-disabled={prevId === null ? 'true' : undefined}
+        onClick={() => prevId !== null && go(-1)}
+      >
         ‹
       </button>
       <div class="tl-band-frame corners">
@@ -480,7 +504,6 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
                     class="tl-expand"
                     aria-expanded={expanded}
                     aria-label={t(lang, expanded ? 'laneCollapse' : 'laneExpand', { name: laneName('tamriel', lang) })}
-                    title={t(lang, expanded ? 'laneCollapse' : 'laneExpand', { name: laneName('tamriel', lang) })}
                     onClick={toggleExpanded}
                   >
                     <span class="tl-expand-mark" aria-hidden="true">{expanded ? '▾' : '▸'}</span>
@@ -582,6 +605,7 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
                         aria-hidden={ariaHidden}
                         onClick={(e) => openCluster(it, e.currentTarget as Element)}
                         onKeyDown={(e) => activate(() => openCluster(it, e.currentTarget as Element))(e)}
+                        onKeyUp={(e) => activateUp(() => openCluster(it, e.currentTarget as Element))(e)}
                         {...hoverProps(it.key)}
                       >
                         <circle class="tl-hit" r={HIT_R} />
@@ -607,6 +631,7 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
                       aria-pressed={it.primary ? isSelected : undefined}
                       onClick={() => onSelect(id)}
                       onKeyDown={activate(() => onSelect(id))}
+                      onKeyUp={activateUp(() => onSelect(id))}
                       {...hoverProps(it.key)}
                     >
                       <circle class="tl-hit" r={HIT_R} />
@@ -626,7 +651,7 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
                   const left = Math.max(x0, 0);
                   const label = eraLabel(s.era, lang);
                   // The name follows a small lozenge (decisions/es-feel-spec-2), about 12px with its space.
-                  const fits = x1 - left >= estimateTextWidth(label, ERA_FONT) * 1.1 + 16 + 12;
+                  const fits = x1 - left >= estimateTextWidth(label, ERA_FONT * rem) * 1.1 + 16 + 12;
                   return (
                     <g key={s.era} class="era">
                       {i > 0 && <line class="era-sep" x1={x0} x2={x0} y1={0} y2={HEAD_H} />}
@@ -696,8 +721,8 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
         type="button"
         class="tl-nav tl-next"
         aria-label={t(lang, 'next')}
-        disabled={nextId === null}
-        onClick={() => go(1)}
+        aria-disabled={nextId === null ? 'true' : undefined}
+        onClick={() => nextId !== null && go(1)}
       >
         ›
       </button>
@@ -755,8 +780,8 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
               type="button"
               class="tl-nav tl-nav-sm"
               aria-label={t(lang, 'zoomOut')}
-              disabled={!limits.canZoomOut}
-              onClick={() => zoomBy(0.5, width / 2)}
+              aria-disabled={limits.canZoomOut ? undefined : 'true'}
+              onClick={() => limits.canZoomOut && zoomBy(0.5, width / 2)}
             >
               −
             </button>
@@ -764,14 +789,14 @@ export function Timeline({ events, scale, selectedId, lang, onSelect, dimmed = N
               type="button"
               class="tl-nav tl-nav-sm"
               aria-label={t(lang, 'zoomIn')}
-              disabled={!limits.canZoomIn}
-              onClick={() => zoomBy(2, width / 2)}
+              aria-disabled={limits.canZoomIn ? undefined : 'true'}
+              onClick={() => limits.canZoomIn && zoomBy(2, width / 2)}
             >
               +
             </button>
           </div>
         </div>
       </div>
-    </nav>
+    </section>
   );
 }

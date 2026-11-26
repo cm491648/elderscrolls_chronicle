@@ -29,15 +29,25 @@ function lookup(id: string, terms: Map<string, TermInfo>): TermInfo {
   return term;
 }
 
+/** Where a story's term links (a person's biography, else its glossary entry); null for a plain bold name. */
+export type TermHref = (id: string) => string | null;
+
+/** The id of the hidden text that describes a story's term (StoryPanel renders it): its tooltip's words. */
+export const termDescriptionId = (id: string) => `term-desc-${id}`;
+
 /**
- * Replaces each marker with a `<b class="term">`. In a story (`focusable`) it takes the focus so its tooltip opens
- * from the keyboard; on the section pages, which have no tooltip, it is plain bold text.
+ * Replaces each marker. In a story (`href` given) it is a real link to the term's page, described by the hidden text
+ * its tooltip shows (so a screen reader hears it when the link takes the focus); on the section pages, which have no
+ * tooltip, it is plain bold text.
  */
-export function renderTerms(md: string, lang: Lang, terms: Map<string, TermInfo>, focusable = true): string {
+export function renderTerms(md: string, lang: Lang, terms: Map<string, TermInfo>, href?: TermHref): string {
   return md.replace(TERM_PATTERN, (_, id: string, display?: string) => {
     const term = lookup(id, terms);
     const text = escapeHtml(display ?? term.name[lang]);
-    return focusable ? `<b class="term" data-term="${id}" tabindex="0">${text}</b>` : `<b class="term">${text}</b>`;
+    const to = href?.(id);
+    return to
+      ? `<a class="term" href="${escapeHtml(to)}" data-term="${id}" aria-describedby="${termDescriptionId(id)}">${text}</a>`
+      : `<b class="term">${text}</b>`;
   });
 }
 

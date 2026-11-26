@@ -9,14 +9,27 @@ interface Props {
   span: string | null;
   /** sections.ts bindingOf. */
   binding: string;
-  /** The illustrated cover's URL; the cover is decorative beside the title, so it needs no alt text. */
-  image?: string;
+  /**
+   * The illustrated cover; it is decorative beside the title, so it needs no alt text. Its width and height reserve
+   * its box before it loads (no layout shift); `srcset` offers its sizes for the cover's small width.
+   */
+  image?: { src: string; width: number; height: number; srcset?: string };
 }
 const { title, eras, span, binding, image } = Astro.props;
 ---
 <div class="cover" style={`--binding: ${binding}`} aria-hidden="true">
   {image ? (
-    <img class="cover-image" src={image} alt="" loading="lazy" decoding="async" />
+    <img
+      class="cover-image"
+      src={image.src}
+      srcset={image.srcset}
+      sizes={image.srcset ? '12rem' : undefined}
+      width={image.width}
+      height={image.height}
+      alt=""
+      loading="lazy"
+      decoding="async"
+    />
   ) : (
     <div class="cover-frame">
       {eras && <span class="cover-eras">{eras}</span>}

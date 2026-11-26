@@ -5,6 +5,7 @@ import preact from '@astrojs/preact';
 import { loadEnv } from 'vite';
 import { DEFAULT_MAP_SOURCE } from './src/lib/map-source-default.mjs';
 import { fontLicenses, fontsourcePostcss } from './scripts/font-subset.mjs';
+import { headHints } from './scripts/head-hints.mjs';
 
 // Same rule as src/lib/map-source.ts: PUBLIC_MAP_SOURCE (process env or .env files) wins over the default.
 const env = loadEnv(process.env.NODE_ENV === 'development' ? 'development' : 'production', process.cwd(), 'PUBLIC_');
@@ -40,7 +41,9 @@ const base = process.env.CHRONICLE_BASE || undefined;
 export default defineConfig({
   ...(site ? { site } : {}),
   ...(base ? { base } : {}),
-  integrations: [preact(), dropOfficialMaps, fontLicenses()],
+  // Loading hints and the Content-Security-Policy (scripts/head-hints.mjs); the artifact export (PUBLIC_PAGE_FILE=1)
+  // goes without the policy.
+  integrations: [preact(), dropOfficialMaps, fontLicenses(), headHints({ csp: env.PUBLIC_PAGE_FILE !== '1' && process.env.PUBLIC_PAGE_FILE !== '1' })],
   // Self-hosted fonts: woff2 only; on production builds the Chinese faces are cut down to the site's own characters
   // (scripts/font-subset.mjs).
   vite: {

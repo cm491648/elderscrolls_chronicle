@@ -136,5 +136,7 @@
   "filterNoMatch": "Nothing matches.",
   "inTopics": "In topics",
   "termInGlossary": "Glossary",
-  "changelog": "Changes"
+  "changelog": "Changes",
+  "skipToMain": "Skip to main content",
+  "skipToStory": "Skip to the story"
 }

@@ -17,7 +17,7 @@ export function termEnglishName(id: string): string {
 export const RED = { en: eventTitle('en', 'battle-of-red-mountain'), zh: eventTitle('zh-tw', 'battle-of-red-mountain') };
 export const MUNDUS_EN = eventTitle('en', 'creation-of-mundus');
 
-export const storyTitle = (page: Page) => page.locator('.story h2');
+export const storyTitle = (page: Page) => page.locator('.story-title');
 export const activeMarker = (page: Page) => page.locator('.map-marker.is-active');
 
 /**

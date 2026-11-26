@@ -39,19 +39,54 @@ interface Props {
   children?: ComponentChildren;
 }
 
+/** Where the five links fold into the menu (global.css uses the same width). */
+const FOLDED_QUERY = '(max-width: 63.9375em)';
+
 /**
  * The leather header on every page (decisions/redesign-design): the site's name, the five sections, the language
- * switch. Where the five links do not fit beside the rest (global.css, max-width 1023px) they fold into a menu
- * button whose list drops over the page, so the header keeps its one-row height and the map below keeps its size.
+ * switch. Where the five links do not fit beside the rest (global.css) they fold into a menu button whose list drops
+ * over the page, so the header keeps its one-row height and the map below keeps its size.
+ *
+ * The list is a native popover (popover="auto" + popovertarget): it opens before the page's script has loaded, and the
+ * browser handles Escape, a click outside, the focus and the button's expanded state. Browsers without popovers get
+ * the same behaviour from the script (`fallback`).
  */
 export function SiteHeader({ lang, current, langHref, brandHeading = false, headerRef, children }: Props) {
+  const [fallback, setFallback] = useState(false);
   const [open, setOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  // A layout effect, so the listeners are in place before the open list is painted: a plain effect runs a frame later,
-  // and an Escape pressed as soon as the list shows (a slow device, the e2e on CI) found no listener.
+  const listRef = useRef<HTMLUListElement>(null);
   useLayoutEffect(() => {
-    if (!open) return;
+    if (!('popover' in HTMLElement.prototype)) {
+      setFallback(true);
+      return;
+    }
+    const list = listRef.current!;
+    // The open list sits in the top layer, so it is placed under the header from here.
+    const onBeforeToggle = (e: Event) => {
+      if ((e as ToggleEvent).newState !== 'open') return;
+      const header = navRef.current!.closest('header')!.getBoundingClientRect();
+      const nav = navRef.current!.getBoundingClientRect();
+      list.style.setProperty('--nav-top', `${Math.round(header.bottom)}px`);
+      list.style.setProperty('--nav-left', `${Math.round(nav.left)}px`);
+    };
+    list.addEventListener('beforetoggle', onBeforeToggle);
+    // Widening the window unfolds the links: a list left open would stay in the top layer.
+    const mq = matchMedia(FOLDED_QUERY);
+    const onChange = () => {
+      if (!mq.matches && list.matches(':popover-open')) list.hidePopover();
+    };
+    mq.addEventListener('change', onChange);
+    return () => {
+      list.removeEventListener('beforetoggle', onBeforeToggle);
+      mq.removeEventListener('change', onChange);
+    };
+  }, []);
+  // Without popovers: the script opens the list and closes it on Escape or a click outside. A layout effect, so the
+  // listeners are in place before the open list is painted.
+  useLayoutEffect(() => {
+    if (!fallback || !open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return;
       setOpen(false);
@@ -66,7 +101,7 @@ export function SiteHeader({ lang, current, langHref, brandHeading = false, head
       document.removeEventListener('keydown', onKey);
       document.removeEventListener('pointerdown', onDown);
     };
-  }, [open]);
+  }, [fallback, open]);
   const Title = brandHeading ? 'h1' : 'p';
   return (
     <header class="topbar leather on-leather orule-bottom" ref={headerRef}>
@@ -85,14 +120,14 @@ export function SiteHeader({ lang, current, langHref, brandHeading = false, head
           type="button"
           class="nav-toggle"
           ref={toggleRef}
-          aria-expanded={open}
-          aria-controls="site-nav-list"
-          onClick={() => setOpen((o) => !o)}
+          {...(fallback
+            ? { 'aria-expanded': open, 'aria-controls': 'site-nav-list', onClick: () => setOpen((o) => !o) }
+            : { popovertarget: 'site-nav-list' })}
         >
           <span class="nav-toggle-icon" aria-hidden="true" />
           <span class="nav-toggle-text">{t(lang, 'menu')}</span>
         </button>
-        <ul id="site-nav-list" class={open ? 'is-open' : undefined}>
+        <ul id="site-nav-list" ref={listRef} popover={fallback ? undefined : 'auto'} class={fallback && open ? 'is-open' : undefined}>
           {SECTIONS.map((s) => (
             <li key={s}>
               <a href={sectionUrl(lang, s)} aria-current={s === current ? 'page' : undefined}>

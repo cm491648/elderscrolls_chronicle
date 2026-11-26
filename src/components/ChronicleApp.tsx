@@ -12,7 +12,7 @@ import { chronicleData, pageStory } from '../lib/page-data';
 import { t } from '../i18n';
 import { Timeline } from './Timeline/Timeline';
 import { MapView } from './MapView/MapView';
-import { StoryPanel } from './StoryPanel/StoryPanel';
+import { StoryPanel, STORY_TITLE_ID } from './StoryPanel/StoryPanel';
 import { SiteHeader } from './SiteHeader/SiteHeader';
 import { SiteFooter } from './SiteFooter/SiteFooter';
 import { SearchPanel, SEARCH_PANEL_ID } from './SearchFilter/SearchPanel';
@@ -32,7 +32,7 @@ const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').match
  * Wide screens show the map and the story side by side (global.css uses the same query). They must be tall enough
  * too: on a phone held sideways (~915×412) the story column would be cut off, so short screens stack instead.
  */
-const WIDE_QUERY = '(min-width: 900px) and (min-height: 560px)';
+const WIDE_QUERY = '(min-width: 56.25em) and (min-height: 35em)';
 
 type ScrollRequest = { to: 'story' | 'top'; n: number };
 
@@ -169,24 +169,16 @@ export default function ChronicleApp({ lang, initialId }: Props) {
   const selectRef = useRef(select);
   selectRef.current = select;
 
-  // Covering the screen, the panel keeps the page under it from scrolling and out of reach (aria-modal alone does not
-  // stop a screen reader's virtual cursor).
+  // Once the panel has closed, the focus comes back to the page: to the search button, or to the story a result opened.
+  // (Covering the screen the panel is a modal dialog, so the page under it is inert while it is open.)
   useEffect(() => {
-    const covering = searchOpen && !wide;
-    document.documentElement.classList.toggle('search-covering', covering);
-    const under = [...rootRef.current!.querySelectorAll<HTMLElement>('.topbar, .sticky-head, .story-col, .site-footer')];
-    for (const el of under) el.inert = covering;
-    // Only now, with the page no longer inert, can the focus come back to it.
-    const target = searchOpen ? null : focusAfterSearch.current;
+    if (searchOpen) return;
+    const target = focusAfterSearch.current;
     focusAfterSearch.current = null;
     if (target === 'toggle') searchToggleRef.current?.focus();
     // A chosen result: its story (also when it was the story already open, which the focus effect does not see).
-    else if (target === 'story') document.querySelector<HTMLElement>('.story h2')?.focus({ preventScroll: true });
-    return () => {
-      document.documentElement.classList.remove('search-covering');
-      for (const el of under) el.inert = false;
-    };
-  }, [searchOpen, wide, !!selected]);
+    else if (target === 'story') document.querySelector<HTMLElement>('.story-title')?.focus({ preventScroll: true });
+  }, [searchOpen]);
 
   const close = () => {
     setSelectedId(null);
@@ -269,9 +261,9 @@ export default function ChronicleApp({ lang, initialId }: Props) {
     const active = document.activeElement;
     const lost = !active || active === document.body || !active.isConnected || !!active.closest('.map-popup');
     // Already on the story's title (the search panel hands it the focus): reading the title out again would repeat it.
-    const onTitle = !!active?.matches('.story h2');
+    const onTitle = !!active?.matches('.story-title');
     if (was === null || lost || onTitle) {
-      document.querySelector<HTMLElement>('.story h2')?.focus({ preventScroll: true });
+      document.querySelector<HTMLElement>('.story-title')?.focus({ preventScroll: true });
       return;
     }
     const e = ordered.find((x) => x.id === selectedId);
@@ -290,17 +282,20 @@ export default function ChronicleApp({ lang, initialId }: Props) {
     ];
     const head = headRef.current!;
     const update = () => {
-      for (const [el, name] of parts) if (el) root.style.setProperty(name, `${Math.ceil(el.getBoundingClientRect().height)}px`);
+      // Every height is read before any is written: a write in between would make the next read lay the page out again.
+      const heights = parts.map(([el, name]) => [name, el ? Math.ceil(el.getBoundingClientRect().height) : null] as const);
+      const headH = Math.ceil(head.getBoundingClientRect().height);
+      for (const [name, h] of heights) if (h !== null) root.style.setProperty(name, `${h}px`);
       // On <html>, for scroll-padding-top: whatever the browser scrolls into view (focus, find) clears the sticky head.
-      document.documentElement.style.setProperty('--sticky-h', `${Math.ceil(head.getBoundingClientRect().height)}px`);
+      document.documentElement.style.setProperty('--sticky-h', `${headH}px`);
     };
     update();
     const observer = new ResizeObserver(update);
     for (const [el] of parts) if (el) observer.observe(el);
     observer.observe(head);
     return () => observer.disconnect();
-    // The footer moves into the story column while a story is open: observe the element that is there now.
-  }, [!!selected]);
+    // The footer moves into the story column while a story is open side by side: observe the element that is there now.
+  }, [!!selected, wide]);
 
   // Reading down folds the map; back at the top it unfolds. Only with a story open, and only when the story is long
   // enough that the page can stay scrolled past the timeline once the map is gone (otherwise the shorter page would
@@ -356,10 +351,25 @@ export default function ChronicleApp({ lang, initialId }: Props) {
 
   return (
     <div class={`chronicle${selected ? ' has-story' : ''}${searchOpen ? ' search-open' : ''}`} ref={rootRef}>
+      {selected && (
+        // Past the header, the timeline and every place on the map, straight to the story (Base.astro's link goes to
+        // <main>, which starts with the timeline).
+        <a
+          class="skip-link"
+          href={`#${STORY_TITLE_ID}`}
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById(STORY_TITLE_ID)?.focus();
+          }}
+        >
+          {t(lang, 'skipToStory')}
+        </a>
+      )}
       <SiteHeader
         lang={lang}
         current="map"
-        brandHeading
+        // An open story's title is the page's h1; without one the site's name is.
+        brandHeading={!selected}
         headerRef={topbarRef}
         langHref={selectedId ? eventUrl(otherLang, selectedId) : homeUrl(otherLang)}
       >
@@ -368,7 +378,8 @@ export default function ChronicleApp({ lang, initialId }: Props) {
           class="search-toggle"
           ref={searchToggleRef}
           aria-expanded={searchOpen}
-          aria-controls={SEARCH_PANEL_ID}
+          // The panel is only in the page while it is open.
+          aria-controls={searchOpen ? SEARCH_PANEL_ID : undefined}
           onClick={() => setSearchOpen((o) => !o)}
         >
           {t(lang, 'searchAndFilter')}
@@ -383,7 +394,7 @@ export default function ChronicleApp({ lang, initialId }: Props) {
       <p class="sr-only" aria-live="polite" data-story-announce>
         {announce}
       </p>
-      <main class="stage" ref={mainRef}>
+      <main class="stage" id="main" ref={mainRef}>
         {searchOpen && (
           <SearchPanel
             lang={lang}
@@ -427,9 +438,10 @@ export default function ChronicleApp({ lang, initialId }: Props) {
           </div>
         </div>
         {selected && (
-          // Side by side this column scrolls on its own; the footer goes with the story, at its foot.
+          // Side by side this column scrolls on its own, so the footer goes with the story, at its foot (inside <main>,
+          // so it is not the page's footer landmark there). Stacked, the page scrolls and the footer follows <main>.
           <div class="story-col" ref={storyColRef}>
-            <section class="story-pane paper corners" aria-label={selected.title}>
+            <section class="story-pane paper corners" aria-labelledby={STORY_TITLE_ID}>
               <button type="button" class="story-close" aria-label={t(lang, 'closeStory')} onClick={close}>
                 <span aria-hidden="true">×</span>
                 {t(lang, 'close')}
@@ -447,13 +459,14 @@ export default function ChronicleApp({ lang, initialId }: Props) {
                 onSelect={select}
                 people={people}
                 lang={lang}
+                pageStory={selected.id === initialId}
               />
             </section>
-            {footer}
+            {wide && footer}
           </div>
         )}
       </main>
-      {!selected && footer}
+      {!(selected && wide) && footer}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { LANGS, type Lang } from '../../lib/types';
 import { CHRONICLE_DATA_ID, scriptJson, provideChronicleData, pagePlaces } from '../../lib/page-data';
 import { loadChronicle } from '../../lib/data';
 import { MAP_SOURCE } from '../../lib/map-source';
+import { mapPreload, mapPreloadScript } from '../../lib/map-preload';
 import { t } from '../../i18n';
 
 export function getStaticPaths() {
@@ -15,8 +16,11 @@ const lang = Astro.params.lang as Lang;
 const data = await loadChronicle(lang);
 const shared = { events: data.summaries, locations: pagePlaces(data.locations, MAP_SOURCE, lang), people: data.personNames };
 provideChronicleData(lang, shared);
+// The map's first image, requested from the server HTML instead of after the app has loaded (lib/map-preload).
+const preload = mapPreload(null, shared.locations, lang);
 ---
 <Base lang={lang} title={t(lang, 'siteTitle')} description={t(lang, 'siteDescription')}>
   <script is:inline type="application/json" id={CHRONICLE_DATA_ID} set:html={scriptJson(shared)} />
   <ChronicleApp client:load lang={lang} initialId={null} />
+  {preload && <script is:inline set:html={mapPreloadScript(preload)} />}
 </Base>

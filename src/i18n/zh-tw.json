@@ -136,5 +136,7 @@
   "filterNoMatch": "沒有符合的項目。",
   "inTopics": "收錄於專題",
   "termInGlossary": "在用語表查看",
-  "changelog": "更新紀錄"
+  "changelog": "更新紀錄",
+  "skipToMain": "跳到主要內容",
+  "skipToStory": "跳到故事"
 }

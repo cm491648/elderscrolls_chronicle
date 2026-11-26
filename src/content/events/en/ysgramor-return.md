@@ -34,13 +34,13 @@ On the crossing a storm struck the fleet. {{yngol}}'s ship was lost in the storm
 
 The fleet landed on the northern coast of {{skyrim}} and camped near the ruins of {{saarthal}}, which the {{falmer}} had fortified. The {{five-hundred-companions|Companions}} stormed the ruins, killed many of the defenders, and took the city back.
 
-When {{saarthal}} was theirs, {{ysgramor}} ordered the crews to separate. Each ship's company went its own way into the land and fought the elves wherever it found them. In time they drove the {{falmer}} out of {{skyrim}}. {{ysgramor}} rebuilt {{saarthal}} and later founded {{windhelm}} where a river meets the sea. He ruled as the first king of the {{nords}}, and his descendants kept the throne for many generations.
+When {{saarthal}} was theirs, {{ysgramor}} ordered the crews to separate. Each ship's company went its own way into the land and fought the elves wherever it found them, and the elves gave ground. {{ysgramor}} rebuilt {{saarthal}} and later founded {{windhelm}} where a river meets the sea. He ruled as the first king of the {{nords}}, and his descendants kept the throne for many generations. The war with the elves did not end in his lifetime: for generations after him the {{nords}} kept fighting the {{falmer}}, pushing them out of {{skyrim}} a little at a time.
 
 ## Notes
 
 - **The storm.** {{nords|Nord}} songs say a goddess of the sky sent the storm. {{yngol}} was buried in a barrow on the coast of {{skyrim}}.
 - **Arms.** Before the attack on {{saarthal}}, a {{nords|Nord}} enchanter who hated the elves laid powerful enchantments on {{ysgramor}}'s armor and weapons.
-- **The last battle.** The war ended on the island of {{solstheim}}, where the elves broke after their leader was killed and the {{nords}} routed them.
+- **The last battle.** {{ysgramor}}'s own campaign fought its last battle on the island of {{solstheim}}, where the elves broke after their leader was killed and the {{nords}} routed them.
 - **The fate of the elves.** One tale says the defeated {{falmer}} fled underground to the {{dwemer}}, who took them in, then enslaved and blinded them.
 - **Memory.** Each year in {{windhelm}} the {{nords}} hold a feast for the dead that recalls the attack on {{saarthal}}, and the names of all five hundred are read aloud.
 - **Dates.** No year survives; the return falls late in the {{era-merethic}}.

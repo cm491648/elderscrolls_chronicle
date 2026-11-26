@@ -6,51 +6,69 @@
 .section-main h2 { margin: 32px 0 10px; font-family: var(--font-title); font-size: 1.3rem; color: var(--ink); }
 .section-main h3 { margin: 20px 0 6px; font-family: var(--font-title); font-size: 1.1rem; }
 .section-main a { color: var(--accent); }
-.section-kicker { margin: 0 0 4px; font-size: 13px; letter-spacing: 0.12em; color: var(--accent-2); }
+.section-kicker { margin: 0 0 4px; font-size: 0.8125rem; letter-spacing: 0.12em; color: var(--accent-2); }
 .section-en { margin: 2px 0 0; font-family: var(--font-title); color: var(--ink-soft); }
-.section-lede { margin: 12px 0 24px; color: var(--ink-soft); max-width: var(--measure); }
+.section-lede { margin: 12px 0 24px; color: var(--ink-soft); max-width: var(--measure); text-wrap: pretty; }
 .wip { margin: 16px 0 8px; padding: 14px 18px; background: var(--surface); border: 1px dashed var(--gilt); }
 .wip strong { color: var(--accent-2); letter-spacing: 0.12em; }
 .wip p { margin: 4px 0 0; }
 .entry-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .entry { padding: 16px 20px; background: var(--surface); border: 1px solid var(--line); }
 .entry h2 { margin: 0; font-size: 1.2rem; }
-.entry p { margin: 6px 0 0; }
-.meta-line { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 4px 0 0; font-size: 14px; color: var(--ink-soft); }
-.tag { display: inline-block; padding: 0 6px; font-size: 12px; line-height: 1.6; color: var(--accent-2); border: 1px solid currentColor; border-radius: var(--radius); }
+/* Running text keeps to the reading measure inside the wider column. */
+.entry p { max-width: var(--measure); margin: 6px 0 0; text-wrap: pretty; }
+.meta-line { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 4px 0 0; font-size: 0.875rem; color: var(--ink-soft); }
+.tag { display: inline-block; padding: 0 6px; font-size: 0.75rem; line-height: 1.6; color: var(--accent-2); border: 1px solid currentColor; border-radius: var(--radius); }
 .event-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .event-list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
-.event-list .date { font-size: 14px; color: var(--ink-soft); }
+.event-list .date { font-size: 0.875rem; color: var(--ink-soft); }
 .name-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(14em, 1fr)); gap: 6px 18px; margin: 0; padding: 0; list-style: none; }
 .name-grid li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; }
 .name-en { font-family: var(--font-title); font-size: 0.9em; color: var(--ink-soft); }
 .list-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 0 0 20px; }
 .list-filter[hidden] { display: none; }
-.list-filter label { font-size: 14px; font-weight: 700; }
+.list-filter label { font-size: 0.875rem; font-weight: 700; }
 .list-filter input { flex: 1 1 16em; min-height: 40px; padding: 6px 12px; font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--ink-soft); border-radius: var(--radius); }
-.list-filter input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.filter-status { flex-basis: 100%; min-height: 1.4em; margin: 0; font-size: 14px; color: var(--ink-soft); }
+.list-filter input:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.filter-status { flex-basis: 100%; min-height: 1.4em; margin: 0; font-size: 0.875rem; color: var(--ink-soft); }
 .cat-nav { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0 0 16px; padding: 0; list-style: none; }
 .term-list { margin: 0; }
 .term-entry { padding: 12px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 16px; }
-.term-entry:target { background: var(--wash); outline: 2px solid var(--accent); outline-offset: 4px; }
+/* Opaque: the see-through wash on the page's darker vellum would sink the soft-ink and lapis text. */
+.term-entry:target { background: var(--wash-solid); outline: 2px solid var(--accent); outline-offset: 4px; }
 .term-entry dt { font-weight: 700; }
 .term-entry dt .name-en { margin-left: 8px; font-weight: 500; }
-.term-entry dd { margin: 4px 0 0; }
-.term-links { font-size: 14px; color: var(--ink-soft); }
+.term-entry dd { max-width: var(--measure); margin: 4px 0 0; text-wrap: pretty; }
+.term-links { font-size: 0.875rem; color: var(--ink-soft); }
 /* Glossary: a gilt rule between categories (decisions by the owner, 2026-11-10); none above the first one shown, which
    the search may change by hiding categories. */
 #glossary-list > [data-filter-group]:not([hidden]) ~ [data-filter-group]:not([hidden]) { margin-top: 28px; border-top: 1px solid var(--gilt-faint); }
 #glossary-list > [data-filter-group]:not([hidden]) ~ [data-filter-group]:not([hidden]) > h2 { margin-top: 28px; }
+/*
+ * Glossary (about 600 entries in 12 categories): the categories after the first are laid out only as they come near the
+ * screen (defer-rendering-heavy-content). Until then each holds a guessed height, about 8.5rem an entry (--entries, the
+ * category's count, if the markup sets it; 50 if not) plus its heading, and once drawn its real height is remembered
+ * (auto). The entries stay in the page: anchors, find-in-page, Tab and screen readers still reach them.
+ */
+#glossary-list > [data-filter-group] ~ [data-filter-group] {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto calc(var(--entries, 50) * 8.5rem + 4.5rem);
+}
+/* That containment clips at the category's box: room inside it for a jumped-to entry's outline (offset 4px). */
+#glossary-list > [data-filter-group] { margin-inline: -8px; margin-block-end: -8px; padding: 0 8px 8px; }
+/* Scroll anchoring back on for the glossary (global.css turns it off for the map page), so a category drawn at its real
+   height above the screen does not shift what is being read. */
+html:has(#glossary-list) { overflow-anchor: auto; }
 .prose { max-width: var(--measure); }
-.prose-notes, .prose-sources { font-size: 15px; }
+.prose :is(p, li) { text-wrap: pretty; }
+.prose-notes, .prose-sources { font-size: 0.9375rem; }
 /* About: a rule between sections (each h2); none above the first one. */
 .about h2 { margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--gilt-faint); }
 .about .prose:first-child > h2:first-child { margin-top: 32px; padding-top: 0; border-top: 0; }
 .changelog { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .changelog time { margin-right: 10px; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
 [data-search][hidden], [data-filter-group][hidden] { display: none; }
-@media (max-width: 899px) {
+@media (max-width: 56.1875em) {
   .section-page { --gutter: 12px; }
   .section-main { padding: 22px 0 40px; }
   .section-main h1 { font-size: 1.6rem; }

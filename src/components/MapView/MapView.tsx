@@ -84,6 +84,9 @@ const nextFrames = (n: number) =>
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isProvince = (layer: MapLayer): layer is Province => (PROVINCES as readonly string[]).includes(layer);
 
+/** The map popup's title: the dialog's name. */
+const POPUP_TITLE_ID = 'map-popup-title';
+
 export function layerName(layer: MapLayer, lang: Lang): string {
   if (isProvince(layer)) return MAPS.tamriel.regions.find((r) => r.id === layer)!.name[lang];
   return t(lang, `layer_${layer}` as UiKey);
@@ -255,11 +258,17 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
       dots.push({ l: b.left - 3, t: b.top - 3, r: b.right + 3, b: b.bottom + 3 });
     });
     // Region tags first: only moved down out of the level path's way.
-    svg.querySelectorAll<SVGGElement>('.region-tag-anchor').forEach((g) => {
+    // All of them back in place first, then every box read, then the moves written: reading between writes would
+    // lay the map out again for each tag.
+    const regionTags = [...svg.querySelectorAll<SVGGElement>('.region-tag-anchor')].map((g) => {
       const lx = Number(g.dataset.x);
       const ly = Number(g.dataset.y);
       g.setAttribute('transform', `translate(${lx},${ly})`);
-      const b = g.getBoundingClientRect();
+      return { g, lx, ly };
+    });
+    const regionBoxes = regionTags.map(({ g }) => g.getBoundingClientRect());
+    regionTags.forEach(({ g, lx, ly }, i) => {
+      const b = regionBoxes[i];
       if (nav && nav.height > 0 && hit({ l: b.left, t: b.top, r: b.right, b: b.bottom }, { l: nav.left, t: nav.top, r: nav.right, b: nav.bottom }))
         g.setAttribute('transform', `translate(${lx},${ly + (nav.bottom + 4 - b.top) / k})`);
     });
@@ -566,14 +575,19 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
   // Size each name tag to its text once rendered, and again when the web fonts arrive.
   useLayoutEffect(() => {
     const fit = () => {
+      // Every text length is measured before any box is resized: a write in between would make the next
+      // measurement lay the map out again (once per tag).
+      const sized: [SVGRectElement, number, boolean][] = [];
       svgRef.current?.querySelectorAll<SVGGElement>('.mk-tag, .region-tag').forEach((tag) => {
         const text = tag.querySelector('text');
         const rect = tag.querySelector('rect');
         if (!text || !rect) return;
-        const width = text.getComputedTextLength() + TAG_PAD * 2;
-        rect.setAttribute('width', String(width));
-        if (tag.classList.contains('region-tag')) rect.setAttribute('x', String(-width / 2));
+        sized.push([rect, text.getComputedTextLength() + TAG_PAD * 2, tag.classList.contains('region-tag')]);
       });
+      for (const [rect, width, centred] of sized) {
+        rect.setAttribute('width', String(width));
+        if (centred) rect.setAttribute('x', String(-width / 2));
+      }
     };
     fit();
     placeTags();
@@ -599,6 +613,12 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
   // focus goes back to the region or marker that opened it (or the current level, if that one is gone).
   const popupTriggerRef = useRef<Element | null>(null);
   const popupTitleRef = useRef<HTMLHeadingElement>(null);
+  const popupRef = useRef<HTMLDialogElement>(null);
+  // A native <dialog>, shown non-modal (show(): it stays inside the map, not in the top layer).
+  useLayoutEffect(() => {
+    const d = popupRef.current;
+    if (popup && d && !d.open) d.show();
+  }, [popup]);
   const openPopup = (p: Popup) => {
     popupTriggerRef.current = document.activeElement;
     setPopup(p);
@@ -647,11 +667,17 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
     const path = pathTo(layer);
     navigate(ancestor, null, { region: path[path.indexOf(ancestor) + 1] });
   };
+  // As native buttons do: Enter acts when pressed, Space when released (pressing it only stops the page scrolling).
   const onKey = (fn: () => void) => (e: KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === 'Enter') {
       e.preventDefault();
       fn();
-    }
+    } else if (e.key === ' ') e.preventDefault();
+  };
+  const onKeyUp = (fn: () => void) => (e: KeyboardEvent) => {
+    if (e.key !== ' ') return;
+    e.preventDefault();
+    fn();
   };
 
   const path = pathTo(layer);
@@ -728,6 +754,7 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
                   'aria-label': child ? t(lang, 'mapZoomInto', { name: r.name[lang] }) : r.name[lang],
                   onClick: () => activateRegion(r),
                   onKeyDown: onKey(() => activateRegion(r)),
+                  onKeyUp: onKeyUp(() => activateRegion(r)),
                   onFocus: (e: FocusEvent) => setFocusRing((e.currentTarget as Element).matches(':focus-visible') ? r.id : null),
                   onBlur: () => setFocusRing(null),
                 };
@@ -840,11 +867,14 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
                       role="button"
                       tabindex={0}
                       aria-label={l.name[lang]}
+                      // A place of the chosen event: marked by size and colour on screen, and as current for screen readers.
+                      aria-current={active ? 'true' : undefined}
                       onClick={(e) => {
                         e.stopPropagation();
                         openLocation(l);
                       }}
                       onKeyDown={onKey(() => openLocation(l))}
+                      onKeyUp={onKeyUp(() => openLocation(l))}
                     >
                       <g class="mk">
                         <circle class="mk-hit" r={14} />
@@ -880,6 +910,7 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
                       openGroup(members, g.x, g.y, e.currentTarget as Element);
                     }}
                     onKeyDown={(e) => onKey(() => openGroup(members, g.x, g.y, e.currentTarget as Element))(e)}
+                    onKeyUp={(e) => onKeyUp(() => openGroup(members, g.x, g.y, e.currentTarget as Element))(e)}
                   >
                     <g class="mk">
                       <circle class="mk-hit" r={14} />
@@ -960,13 +991,13 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
           {announce}
         </p>
         {popup && (
-          <div class="map-popup paper corners" role="dialog" aria-label={popup.title}>
+          <dialog class="map-popup paper corners" ref={popupRef} aria-labelledby={POPUP_TITLE_ID}>
             <button type="button" class="close" aria-label={t(lang, 'close')} onClick={closePopup}>
               ×
             </button>
-            <h3 ref={popupTitleRef} tabindex={-1}>
+            <h2 class="map-popup-title" id={POPUP_TITLE_ID} ref={popupTitleRef} tabindex={-1}>
               {popup.title}
-            </h3>
+            </h2>
             {popup.events.length === 0 ? (
               <p>{t(lang, 'noEventsHere')}</p>
             ) : (
@@ -989,12 +1020,11 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
                 ))}
               </ul>
             )}
-          </div>
+          </dialog>
         )}
       </div>
       {/* Wide screens show the whole credit. Narrow screens show a one-line short form; the whole credit stays in the
-          text (visually hidden there) for screen readers and as the short form's title, and the footer keeps the
-          full copyright notice. */}
+          text (visually hidden there) for screen readers, and the footer keeps the full copyright notice. */}
       <p class="map-cap" ref={capRef}>
         <b>{layerName(layer, lang)}</b>
         {(() => {
@@ -1003,7 +1033,7 @@ export function MapView({ events, locations, selected, lang, onSelect, dimmed = 
           return (
             <span class="cap-credit">
               <span class="cap-long">{long}</span>
-              <span class="cap-short" aria-hidden="true" title={long}>
+              <span class="cap-short" aria-hidden="true">
                 {short}
               </span>
               {basemap?.sourceUrl && (

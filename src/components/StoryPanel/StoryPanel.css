@@ -3,20 +3,20 @@
 .story-date {
   margin: 0;
   font-family: var(--font-title);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--accent-2);
 }
-.story h2 { margin: 4px 0 0; font-size: 30px; line-height: 1.25; font-weight: 700; }
+.story .story-title { margin: 4px 0 0; font-size: 1.875rem; line-height: 1.25; font-weight: 700; }
 /* The title takes the focus when a story opens (a reading position, not a control): no ring. */
-.story h2:focus { outline: none; }
-html[lang='en'] .story h2 { font-size: 31px; }
+.story .story-title:focus { outline: none; }
+html[lang='en'] .story .story-title { font-size: 1.9375rem; }
 /* Translated pages only: the English source title under the event name (mockup `st-en`, direction A). */
 .story-en {
   margin: 2px 0 0;
   font-family: var(--font-title);
-  font-size: 14px;
+  font-size: 0.875rem;
   font-style: italic;
   font-weight: 500;
   line-height: 1.4;
@@ -29,14 +29,14 @@ html[lang='en'] .story h2 { font-size: 31px; }
   align-items: center;
   gap: 6px 16px;
   margin: 12px 0 16px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--ink-soft);
 }
 /* Certainty: a square vermilion-ruled tag, never a pill. */
 .badge {
   display: inline-block;
   padding: 0 8px;
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 1.7;
   letter-spacing: 0.1em;
   color: var(--accent-2);
@@ -45,9 +45,9 @@ html[lang='en'] .story h2 { font-size: 31px; }
 }
 .badge-unresolved { color: var(--on-accent); background: var(--accent-2); }
 
-.story-body { font-size: 16px; line-height: 1.85; }
-html[lang='en'] .story-body { font-size: 17px; line-height: 1.65; }
-.story-body p { margin: 0 0 0.85em; }
+.story-body { font-size: 1rem; line-height: 1.85; }
+html[lang='en'] .story-body { font-size: 1.0625rem; line-height: 1.65; }
+.story-body p { margin: 0 0 0.85em; text-wrap: pretty; }
 
 /* The plate: the same framing as the map (1px ink rule, gilt rule 4px outside), caption underneath with a
    vermilion "圖一" / "Plate I". Width and height attributes reserve the space before the lazy image arrives. */
@@ -64,25 +64,25 @@ html[lang='en'] .story-body { font-size: 17px; line-height: 1.65; }
 }
 .story-plate figcaption {
   margin-top: 12px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.65;
   color: var(--ink-soft);
 }
-html[lang='en'] .story-plate figcaption { font-size: 14px; line-height: 1.5; }
+html[lang='en'] .story-plate figcaption { font-size: 0.875rem; line-height: 1.5; }
 .story-plate figcaption b {
   margin-right: 0.8em;
   font-family: var(--font-title);
   font-weight: 700;
   color: var(--accent-2);
 }
-@media (max-width: 899px) {
+@media (max-width: 56.1875em) {
   .story-plate { margin: 1.3em 3px 1.5em; }
   .story-plate img { outline-offset: 2px; }
 }
 
 .story-note, .story-empty { color: var(--ink-soft); }
 html[lang='en'] .story-note, html[lang='en'] .story-empty { font-style: italic; }
-.story-empty { margin: 0; font-size: 15px; }
+.story-empty { margin: 0; font-size: 0.9375rem; }
 
 /* Proper nouns: ink bold with a dotted lapis underline; a lapis wash while open. */
 .term {
@@ -92,11 +92,10 @@ html[lang='en'] .story-note, html[lang='en'] .story-empty { font-style: italic; 
   text-decoration-thickness: 1.5px;
   text-underline-offset: 5px;
   border-radius: var(--radius);
-  cursor: help;
 }
 .term:hover, .term.is-open { background: var(--wash); }
 .term:focus { outline: none; }
-.term:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.term:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; }
 
 /* Endnotes: gilt rule, vermilion "¶ 註" and a soft count, chevron on the right. */
 /* The notes start under a tapered gilt rule (.orule-top, decisions/es-feel-spec-2). */
@@ -107,15 +106,15 @@ html[lang='en'] .story-note, html[lang='en'] .story-empty { font-style: italic; 
   gap: 10px;
   min-height: 36px;
   font-family: var(--font-title);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--accent-2);
   list-style: none;
   cursor: pointer;
 }
 .story-notes summary::-webkit-details-marker { display: none; }
-.notes-mark { font-size: 20px; line-height: 1; }
-.notes-count { font-family: var(--font-body); font-size: 13px; font-weight: 400; color: var(--ink-soft); }
+.notes-mark { font-size: 1.25rem; line-height: 1; }
+.notes-count { font-family: var(--font-body); font-size: 0.8125rem; font-weight: 400; color: var(--ink-soft); }
 .notes-chev {
   width: 8px;
   height: 8px;
@@ -123,14 +122,18 @@ html[lang='en'] .story-note, html[lang='en'] .story-empty { font-style: italic; 
   border-right: 1.5px solid var(--ink-soft);
   border-bottom: 1.5px solid var(--ink-soft);
   transform: rotate(45deg);
-  transition: transform 0.2s ease;
+}
+/* The chevron turns as the notes open and close; it just flips for readers who ask for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .notes-chev { transition: transform 0.2s ease; }
 }
 .story-notes:not([open]) .notes-chev { transform: rotate(-45deg); margin-bottom: 0; }
 .story-notes summary:hover .notes-chev { border-color: var(--accent-2); }
 /* The notes read at the story's own size: they are part of the account, not small print. */
-.notes-body { font-size: 16px; line-height: 1.85; }
-html[lang='en'] .notes-body { font-size: 17px; line-height: 1.65; }
+.notes-body { font-size: 1rem; line-height: 1.85; }
+html[lang='en'] .notes-body { font-size: 1.0625rem; line-height: 1.65; }
 .notes-body p { margin: 0.5em 0; }
+.notes-body :is(p, li) { text-wrap: pretty; }
 .notes-body ol { margin: 0.4em 0; padding: 0; list-style: none; counter-reset: note; }
 .notes-body ol > li { position: relative; margin: 0.7em 0; padding-left: 2.4em; counter-increment: note; }
 .notes-body ol > li::before {
@@ -144,22 +147,23 @@ html[lang='en'] .notes-body { font-size: 17px; line-height: 1.65; }
 html[lang='en'] .notes-body ol > li::before { content: counter(note) '.'; }
 .notes-body ol > li > strong:first-child, .notes-body ol > li > b:first-child:not(.term) { margin-right: 0.6em; color: var(--accent); }
 
-/* Reference sections: small vermilion rubric over a hairline. */
+/* Reference sections: small vermilion rubric (each section's h2) over a hairline. */
 .story section { margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--line); }
-.story h3 { margin: 0 0 4px; font-size: 13px; letter-spacing: 0.12em; color: var(--accent-2); }
+.story :is(section > h2, h3) { margin: 0 0 4px; font-size: 0.8125rem; letter-spacing: 0.12em; color: var(--accent-2); }
 /* Lists keep the size of what holds them: small in the reference sections, the story's own size in the notes. */
 .story ul { margin: 0; padding-left: 1.2em; }
-.story section ul { font-size: 14px; }
+.story section ul { font-size: 0.875rem; }
 /* List marks: small gilt lozenges (decisions/es-feel-spec-2). Browsers without ::marker content keep a gilt bullet. */
 .story li::marker { color: var(--gilt); content: '◆  '; font-size: 0.6em; }
-.story-related .related-date { display: inline-block; margin-left: 0.6em; color: var(--ink-soft); font-size: 13px; font-variant-numeric: tabular-nums; }
+.story-related .related-date { display: inline-block; margin-left: 0.6em; color: var(--ink-soft); font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
 
 /* Term tooltip (portalled to <body>): paper card, gilt top rule. */
 .term-tip {
   position: fixed;
   z-index: 40;
   width: max-content;
-  max-width: min(290px, calc(100vw - 16px));
+  /* Fixed, so 100% is the viewport without its scrollbar (100vw would include it). */
+  max-width: min(290px, 100% - 16px);
   padding: 12px 16px;
   color: var(--ink);
   background: var(--paper) var(--tex-vellum) 0 0 / 512px;
@@ -167,16 +171,17 @@ html[lang='en'] .notes-body ol > li::before { content: counter(note) '.'; }
   border-top: 3px solid var(--gilt);
   box-shadow: var(--shadow-pop);
   font-family: var(--font-body);
-  font-size: 13.5px;
+  font-size: 0.84375rem;
   line-height: 1.6;
 }
-.term-tip p { margin: 0; }
+/* The p adds no specificity (:where), so the summary's and links' own margins below win without !important. */
+.term-tip :where(p) { margin: 0; }
 .term-tip-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 10px; }
-.term-tip-name strong { font-family: var(--font-title); font-size: 18px; font-weight: 700; color: var(--accent); }
-.term-tip-name span { font-family: var(--font-title); font-size: 13px; color: var(--ink-soft); }
+.term-tip-name strong { font-family: var(--font-title); font-size: 1.125rem; font-weight: 700; color: var(--accent); }
+.term-tip-name span { font-family: var(--font-title); font-size: 0.8125rem; color: var(--ink-soft); }
 .term-tip-name span:lang(en) { font-style: italic; }
-.term-tip-summary { margin-top: 6px !important; }
-.term-tip-links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 6px 0 0 !important; font-size: 13px; }
+.term-tip-summary { margin-top: 6px; }
+.term-tip-links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 6px 0 0; font-size: 0.8125rem; }
 .term-tip-links a { color: var(--accent); }
 .term-tip-name span:lang(zh-Hant-TW) { font-family: var(--font-body); }
 
@@ -186,7 +191,7 @@ html[lang='en'] .story-loading p { font-style: italic; }
 .story-retry {
   min-height: 32px;
   padding: 0 14px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--accent);
   background: var(--surface);
   border: 1px solid var(--line);
@@ -194,3 +199,10 @@ html[lang='en'] .story-loading p { font-style: italic; }
   cursor: pointer;
 }
 .story-retry:hover { background: var(--wash); border-color: var(--accent); }
+
+/* Forced colours: the tooltip's vellum is a picture and would stay under the system colours; an open term, shown by a
+   wash otherwise, gets an outline. */
+@media (forced-colors: active) {
+  .term-tip { background-image: none; }
+  .term.is-open { outline: 1px solid Highlight; }
+}

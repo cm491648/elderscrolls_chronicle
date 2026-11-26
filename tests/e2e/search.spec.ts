@@ -102,14 +102,16 @@ test('on the phone the panel covers the screen and keeps Tab inside it', async (
   test.skip(isWide(page), 'narrow screens only');
   await openApp(page, '/en/');
   await openSearch(page);
-  await expect(panel(page)).toHaveAttribute('aria-modal', 'true');
+  // A modal <dialog>: the page under it is inert.
+  expect(await panel(page).evaluate((p) => p.matches(':modal'))).toBe(true);
   const box = (await panel(page).boundingBox())!;
   expect(box.width).toBeGreaterThanOrEqual(page.viewportSize()!.width - 1);
   await field(page).fill('alduin');
   await expect(results(page).first()).toBeVisible();
   for (let i = 0; i < 12; i++) {
     await page.keyboard.press('Tab');
-    expect(await panel(page).evaluate((p) => p.contains(document.activeElement))).toBe(true);
+    // Inside the panel, or past its end in the browser's own controls (a native modal does not trap the focus there).
+    expect(await panel(page).evaluate((p) => p.contains(document.activeElement) || document.activeElement === document.body)).toBe(true);
   }
 });
 
@@ -117,7 +119,7 @@ test('side by side the panel sits on the map and leaves the timeline usable', as
   test.skip(!isWide(page), 'wide screens only');
   await openApp(page, '/en/');
   await openSearch(page);
-  await expect(panel(page)).toHaveAttribute('aria-modal', 'false');
+  expect(await panel(page).evaluate((p) => (p as HTMLDialogElement).open && !p.matches(':modal'))).toBe(true);
   const p = (await panel(page).boundingBox())!;
   const map = (await page.locator('.map-wrap').boundingBox())!;
   expect(p.x).toBeGreaterThanOrEqual(map.x);
@@ -250,7 +252,7 @@ test('any ticked category matches: the rest dims, the arrows skip it, search mar
     const id = /events\/([^/]+)\//.exec(page.url())![1];
     // The story has switched before the next step.
     const zh = /^title:\s*(.*)$/m.exec(readFileSync(`src/content/events/zh-tw/${id}.md`, 'utf-8'))![1].trim();
-    await expect(page.locator('.story h2')).toHaveText(zh);
+    await expect(page.locator('.story-title')).toHaveText(zh);
     expect(keeps(id), id).toBe(true);
   }
   // Kept on this device.
@@ -272,9 +274,13 @@ test('on the phone the page under the panel is out of reach until it closes', as
   test.skip(isWide(page), 'narrow screens only');
   await openApp(page, '/en/events/great-war/');
   await openSearch(page);
-  for (const sel of ['.topbar', '.sticky-head', '.story-col']) await expect(page.locator(sel)).toHaveJSProperty('inert', true);
+  // A modal dialog: everything else is inert, so the page under it takes neither clicks nor focus.
+  expect(await panel(page).evaluate((p) => p.matches(':modal'))).toBe(true);
+  for (const sel of ['.topbar a', '.story-close']) {
+    expect(await page.locator(sel).first().evaluate((el) => { (el as HTMLElement).focus(); return document.activeElement === el; })).toBe(false);
+  }
   await page.keyboard.press('Escape');
-  for (const sel of ['.topbar', '.sticky-head', '.story-col']) await expect(page.locator(sel)).toHaveJSProperty('inert', false);
+  await expect(panel(page)).toHaveCount(0);
   await expect(toggle(page)).toBeFocused();
 });
 

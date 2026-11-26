@@ -371,6 +371,15 @@ export function frameFits(frame: Frame, v: View, W: number, H: number, insets: I
   return true;
 }
 
+/** The map area a frame asks to show (its items' box, padded, never smaller than the layer's focus limit). */
+export function frameExtent(layer: MapLayer, frame: Frame): { bw: number; bh: number } {
+  const { viewBox: [w, h], focusScale } = MAPS[layer];
+  const corners: Point[] = [...frame.points.map((p) => p.at), ...frame.boxes.flatMap((b) => [[b[0], b[1]], [b[2], b[3]]] as Point[])];
+  const [x0, y0, x1, y1] = boxOf(corners);
+  const PAD = 1.3;
+  return { bw: Math.max((x1 - x0) * PAD, w / focusScale), bh: Math.max((y1 - y0) * PAD, h / focusScale) };
+}
+
 /**
  * The view of a layer that frames `frame`, or the whole layer (filled, centred) when frame is null.
  * - It starts at the cover zoom or closer: a box smaller than 1/focusScale of the layer is grown to that, so a single
@@ -380,14 +389,10 @@ export function frameFits(frame: Frame, v: View, W: number, H: number, insets: I
  *   whole layer fitted and a little under.
  */
 export function frameView(layer: MapLayer, frame: Frame | null, W: number, H: number, insets: Insets = EDGE_INSETS): View {
-  const { viewBox: [w, h], focusScale } = MAPS[layer];
+  const { viewBox: [w, h] } = MAPS[layer];
   const cover = coverScale(W, H, w, h);
   if (!frame || frame.points.length + frame.boxes.length === 0) return { k: cover, x: (W - cover * w) / 2, y: (H - cover * h) / 2 };
-  const corners: Point[] = [...frame.points.map((p) => p.at), ...frame.boxes.flatMap((b) => [[b[0], b[1]], [b[2], b[3]]] as Point[])];
-  const [x0, y0, x1, y1] = boxOf(corners);
-  const PAD = 1.3;
-  const bw = Math.max((x1 - x0) * PAD, w / focusScale);
-  const bh = Math.max((y1 - y0) * PAD, h / focusScale);
+  const { bw, bh } = frameExtent(layer, frame);
   const meet = Math.min(W / w, H / h);
   const maxK = maxScale(layer, W, H);
   let k = Math.min(Math.max(Math.min(W / bw, H / bh), cover), maxK);

@@ -24,22 +24,27 @@ describe('splitNotes', () => {
 });
 
 describe('renderTerms', () => {
-  test('zh: the name alone, every time (the English name is in the tooltip)', () => {
-    expect(renderTerms('{{nords}}與{{nords}}', 'zh-tw', terms)).toBe(
-      '<b class="term" data-term="nords" tabindex="0">諾德人</b>與<b class="term" data-term="nords" tabindex="0">諾德人</b>',
+  const href = (id: string) => `/zh-tw/glossary/#${id}`;
+  test('zh: in a story, a link to the term, described by its tooltip text', () => {
+    expect(renderTerms('{{nords}}與{{nords}}', 'zh-tw', terms, href)).toBe(
+      '<a class="term" href="/zh-tw/glossary/#nords" data-term="nords" aria-describedby="term-desc-nords">諾德人</a>與' +
+        '<a class="term" href="/zh-tw/glossary/#nords" data-term="nords" aria-describedby="term-desc-nords">諾德人</a>',
     );
   });
-  test('en: plain bold; custom display text', () => {
-    expect(renderTerms('{{skyrim|the north}}', 'en', terms)).toBe(
-      '<b class="term" data-term="skyrim" tabindex="0">the north</b>',
+  test('en: custom display text', () => {
+    expect(renderTerms('{{skyrim|the north}}', 'en', terms, (id) => `/en/glossary/#${id}`)).toBe(
+      '<a class="term" href="/en/glossary/#skyrim" data-term="skyrim" aria-describedby="term-desc-skyrim">the north</a>',
     );
+  });
+  test('a term with nowhere to link is plain bold text', () => {
+    expect(renderTerms('{{skyrim}}', 'en', terms, () => null)).toBe('<b class="term">Skyrim</b>');
   });
   test('unknown ids throw', () => {
     expect(() => renderTerms('{{ghost}}', 'en', terms)).toThrow('Unknown term "ghost"');
   });
   test('section pages render terms as plain bold text', () => {
     const terms = new Map([['thalmor', { id: 'thalmor', name: { en: 'Thalmor', 'zh-tw': '梭默' } }]]);
-    expect(renderTerms('The {{thalmor}}.', 'en', terms, false)).toBe('The <b class="term">Thalmor</b>.');
+    expect(renderTerms('The {{thalmor}}.', 'en', terms)).toBe('The <b class="term">Thalmor</b>.');
   });
 });
 

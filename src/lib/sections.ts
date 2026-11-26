@@ -19,7 +19,7 @@ export function termEventIndex(bodies: Record<string, string>): Map<string, stri
 /** Ids in timeline order (`order`: id → position); ids the timeline does not know go last, in their given order. */
 export function sortByTimeline(ids: string[], order: Map<string, number>): string[] {
   const at = (id: string) => order.get(id) ?? Number.MAX_SAFE_INTEGER;
-  return [...ids].sort((a, b) => at(a) - at(b));
+  return ids.toSorted((a, b) => at(a) - at(b));
 }
 
 /** The events a person appears in: listed among its people (main) or only marked in its text. Input order. */
@@ -71,7 +71,7 @@ export function byLastEvent<T extends { events: string[] }>(topics: T[], order: 
   const lastAt = (t: T) =>
     t.events.reduce((max, e) => (order.has(e) ? Math.max(max, order.get(e)!) : max), -1);
   const at = (t: T) => (lastAt(t) < 0 ? Number.MAX_SAFE_INTEGER : lastAt(t));
-  return [...topics].sort((a, b) => at(a) - at(b));
+  return topics.toSorted((a, b) => at(a) - at(b));
 }
 
 /**
@@ -105,7 +105,7 @@ export function byFirstMainEvent<T extends { events: { event: { id: string }; ma
     const main = p.events.filter((e) => e.main && order.has(e.event.id));
     return main.length ? first(main) : first(p.events);
   };
-  return [...people].sort((a, b) => at(a) - at(b));
+  return people.toSorted((a, b) => at(a) - at(b));
 }
 
 /** Chinese names sort by stroke count (the order Taiwanese indexes use), English ones alphabetically. */
@@ -116,7 +116,7 @@ export function nameCollator(lang: Lang): Intl.Collator {
 /** A sorted copy, by the name in `lang`. */
 export function sortByName<T extends { name: Record<Lang, string> }>(items: T[], lang: Lang): T[] {
   const c = nameCollator(lang);
-  return [...items].sort((a, b) => c.compare(a.name[lang], b.name[lang]));
+  return items.toSorted((a, b) => c.compare(a.name[lang], b.name[lang]));
 }
 
 /** A glossary entry before its links are worked out. */

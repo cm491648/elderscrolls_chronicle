@@ -40,7 +40,7 @@ test('next button changes selection, URL and history', async ({ page }) => {
 
 test('Chinese pages show the English source title under the event name; English pages do not', async ({ page }) => {
   await openApp(page, '/zh-tw/events/battle-of-red-mountain/');
-  const sub = page.locator('.story h2 + .story-en');
+  const sub = page.locator('.story-title + .story-en');
   await expect(sub).toHaveText(RED.en);
   await expect(sub).toHaveAttribute('lang', 'en');
   await expect(sub).toHaveCSS('font-style', 'italic');
@@ -92,29 +92,35 @@ test.describe('root redirect', () => {
   });
 });
 
-test('proper nouns show a tooltip, and notes are collapsed by default', async ({ page }) => {
+test('proper nouns show a tooltip, and notes are collapsed by default', async ({ page }, info) => {
   await openApp(page, '/zh-tw/events/creation-of-mundus/');
   const term = await readStory(page);
   await term.hover();
   const tip = page.getByRole('tooltip');
   await expect(tip).toBeVisible();
   // The tip shows the term's English name, whichever term it is.
-  await expect(tip).toContainText(termEnglishName((await term.getAttribute('data-term'))!));
-  await expect(term).toHaveAttribute('aria-describedby', await tip.getAttribute('id') ?? '');
+  const id = (await term.getAttribute('data-term'))!;
+  await expect(tip).toContainText(termEnglishName(id));
+  // The term is a link to its page, described from the start by the tooltip's words (hidden text in the story).
+  await expect(term).toHaveAttribute('href', /\/zh-tw\/(glossary|biographies)\//);
+  await expect(term).toHaveAttribute('aria-describedby', `term-desc-${id}`);
+  await expect(page.locator(`#term-desc-${id}`)).toContainText(termEnglishName(id));
   await page.keyboard.press('Escape');
   await expect(tip).toHaveCount(0);
-  await expect(term).not.toHaveAttribute('aria-describedby', /.+/);
 
   await term.focus();
   await expect(tip).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(tip).toHaveCount(0);
 
-  await page.mouse.move(0, 0);
-  await term.click();
-  await expect(tip).toBeVisible();
-  await page.locator('.story h2').click();
-  await expect(tip).toHaveCount(0);
+  // On a touch screen the first tap shows the tooltip (a mouse click follows the link, as links do).
+  if (info.project.name === 'mobile') {
+    await term.tap();
+    await expect(tip).toBeVisible();
+    await expect(page).toHaveURL(/\/events\/creation-of-mundus\/$/);
+    await page.locator('.story-title').tap();
+    await expect(tip).toHaveCount(0);
+  }
 
   // The notes are open with every story, at the story's own type size; the reader can still fold them.
   const notes = page.locator('.story-notes');
@@ -264,7 +270,8 @@ test('the story plate sits after the middle paragraph, framed, captioned, sized 
   const fig = page.locator('.story-body figure.story-plate');
   await expect(fig).toHaveCount(1);
   const img = fig.locator('img');
-  await expect(img).toHaveAttribute('loading', 'lazy');
+  // The page's own story is often on screen at once: its plate is not lazy (one opened later is, below).
+  await expect(img).not.toHaveAttribute('loading');
   await expect(img).toHaveAttribute('width', String(data.width));
   await expect(img).toHaveAttribute('height', String(data.height));
   await expect(img).toHaveAttribute(
@@ -295,6 +302,12 @@ test('the story plate sits after the middle paragraph, framed, captioned, sized 
   await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
   const loaded = (await img.boundingBox())!;
   expect(Math.abs(loaded.height - box.height)).toBeLessThan(1);
+
+  // A story opened later (here the next one) brings its plate lazily.
+  await page.getByRole('button', { name: '下一則' }).click();
+  await expect(storyTitle(page)).not.toHaveText(eventTitle('zh-tw', id));
+  const next = page.locator('.story-body figure.story-plate img');
+  if ((await next.count()) > 0) await expect(next).toHaveAttribute('loading', 'lazy');
 
   // English pages: same plate, English caption, "Plate I".
   await openApp(page, `/en/events/${id}/`);
@@ -802,7 +815,8 @@ for (const c of [
     const cap = page.locator('.map-cap');
     await expect(cap.locator('.cap-short')).toBeVisible();
     await expect(cap.locator('.cap-short')).toHaveText(c.short);
-    await expect(cap.locator('.cap-short')).toHaveAttribute('title', new RegExp(c.full.slice(0, 12)));
+    // No title tooltip (Modern Web Guidance: html): the whole credit is in the text for screen readers.
+    await expect(cap.locator('.cap-short')).not.toHaveAttribute('title');
     if (c.link) await expect(cap.getByRole('link', { name: /^UESP/ })).toBeVisible();
     // One line, not wrapped: the caption is no taller than one line of its text.
     const lineHeight = await cap.evaluate((el) => parseFloat(getComputedStyle(el).lineHeight) || parseFloat(getComputedStyle(el).fontSize) * 1.9);

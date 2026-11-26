@@ -18,7 +18,8 @@ test('ornaments: the tapered gilt rule under the header, corners on the story, f
     page.locator(sel).first().evaluate((el, [w, p]) => getComputedStyle(el, w).getPropertyValue(p), [which, prop] as const);
   expect(await pseudo('.topbar', '::before', 'clip-path')).toContain('polygon');
   expect(await pseudo('.topbar', '::after', 'transform')).not.toBe('none'); // the lozenge is a turned square
-  expect(await pseudo('.story-pane', '::before', 'background-image')).toContain('svg');
+  // The corner is an SVG mask filled with the gilt colour (or the SVG itself where masks are not supported).
+  expect((await pseudo('.story-pane', '::before', 'mask-image')) + (await pseudo('.story-pane', '::before', 'background-image'))).toContain('svg');
   const btn = await page.locator('.story-close').evaluate((el) => getComputedStyle(el).outlineStyle);
   expect(btn).toBe('solid'); // the faint inner rule
 });
@@ -30,9 +31,10 @@ test('the header and the timeline are bound in leather; the timeline band stays 
   expect(await bgImg('.tl-wrap')).toContain('leather');
   const band = await page.locator('.tl-band').evaluate((el) => getComputedStyle(el).backgroundColor);
   expect(band).toBe('rgb(244, 239, 226)'); // --paper: flat, so the era row's SVG backing matches it
-  const title = await page.locator('.topbar h1').evaluate((el) => getComputedStyle(el).color);
+  const title = await page.locator('.topbar .site-title').evaluate((el) => getComputedStyle(el).color);
   expect(title).toBe('rgb(239, 226, 196)'); // --on-leather
-  expect(await page.locator('.tl-band-frame').evaluate((el) => getComputedStyle(el, '::before').backgroundImage)).toContain('svg');
+  // Its corner: an SVG mask filled with the gilt colour (or the SVG itself where masks are not supported).
+  expect(await page.locator('.tl-band-frame').evaluate((el) => getComputedStyle(el, '::before').maskImage + getComputedStyle(el, '::before').backgroundImage)).toContain('svg');
 });
 
 test('gold arcs rise round the header lozenge, swaying unless the reader asks for less motion (decisions/rings-2)', async ({ page }) => {
@@ -81,8 +83,8 @@ test.describe('a phone-width header', () => {
   test.use({ viewport: { width: 390, height: 844 } });
   test('stays one line with both framed buttons, so the map below keeps its height', async ({ page }) => {
     await openApp(page, '/en/events/death-of-torygg/');
-    const h1 = (await page.locator('.topbar h1').boundingBox())!;
-    const lineHeight = await page.locator('.topbar h1').evaluate((el) => parseFloat(getComputedStyle(el).lineHeight));
+    const h1 = (await page.locator('.topbar .site-title').boundingBox())!;
+    const lineHeight = await page.locator('.topbar .site-title').evaluate((el) => parseFloat(getComputedStyle(el).lineHeight));
     expect(h1.height).toBeLessThan(lineHeight * 1.5); // the site title did not wrap
     expect((await page.locator('.topbar').boundingBox())!.height).toBeLessThanOrEqual(56);
   });

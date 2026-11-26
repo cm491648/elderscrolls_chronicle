@@ -11,11 +11,11 @@ interface Props {
 const { lang, scope, label } = Astro.props;
 const id = `${scope}-q`;
 ---
-<form class="list-filter" role="search" data-filter-scope={scope} data-count={t(lang, 'filterCount')} data-none={t(lang, 'filterNoMatch')} hidden>
+<search class="list-filter-search"><form class="list-filter" data-filter-scope={scope} data-count={t(lang, 'filterCount')} data-none={t(lang, 'filterNoMatch')} hidden>
   <label for={id}>{label}</label>
   <input id={id} type="search" autocomplete="off" spellcheck="false" />
-  <p class="filter-status" role="status" aria-live="polite"></p>
-</form>
+  <p class="filter-status" role="status"></p>
+</form></search>
 <script>
   import { bindListFilter } from '../scripts/list-filter';
   for (const form of document.querySelectorAll<HTMLFormElement>('form[data-filter-scope]')) bindListFilter(form);

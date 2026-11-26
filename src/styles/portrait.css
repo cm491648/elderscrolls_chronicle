@@ -54,3 +54,7 @@
   fill: color-mix(in srgb, var(--paper) 72%, #7a5530);
 }
 .portrait-image { display: block; object-fit: cover; }
+/* Forced colours: the leather and the vellum are pictures and would stay under the system colours. */
+@media (forced-colors: active) {
+  .portrait, .portrait-canvas { background-image: none; }
+}

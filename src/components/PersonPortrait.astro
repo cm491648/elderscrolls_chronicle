@@ -6,15 +6,28 @@
 interface Props {
   /** sections.ts bindingOf. */
   binding: string;
-  /** The illustrated portrait's URL; the portrait is decorative beside the name, so it needs no alt text. */
-  image?: string;
+  /**
+   * The illustrated portrait; it is decorative beside the name, so it needs no alt text. Its width and height reserve
+   * its box before it loads (no layout shift); `srcset` offers its sizes for the frame's small width.
+   */
+  image?: { src: string; width: number; height: number; srcset?: string };
 }
 const { binding, image } = Astro.props;
 ---
 <div class="portrait" style={`--binding: ${binding}`} aria-hidden="true">
   <div class="portrait-frame">
     {image ? (
-      <img class="portrait-image" src={image} alt="" loading="lazy" decoding="async" />
+      <img
+        class="portrait-image"
+        src={image.src}
+        srcset={image.srcset}
+        sizes={image.srcset ? '10rem' : undefined}
+        width={image.width}
+        height={image.height}
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
     ) : (
       <div class="portrait-canvas">
         <svg class="portrait-figure" viewBox="0 0 100 100" preserveAspectRatio="xMidYMax meet" focusable="false">

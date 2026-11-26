@@ -848,7 +848,7 @@ test.describe('markers too close to tap apart (390 px wide)', () => {
     // The focus went on to the first of them.
     await expect(single(names[0])).toBeFocused();
     await single(names[0]).locator('.mk-hit').click();
-    await expect(page.locator('.map-popup h3')).toHaveText(names[0]);
+    await expect(page.locator('.map-popup-title')).toHaveText(names[0]);
   });
 });
 

@@ -6,6 +6,7 @@ import { originalTitle } from './format';
 import { illustrationFor, type IllustrationEntry } from './illustrations';
 import illustrationData from '../content/illustrations.json';
 import { plainText, renderTerms, splitNotes, termIds } from './terms';
+import { primaryTermHref } from './term-links';
 import { byLastEvent, eventTopics } from './sections';
 import type { EventMeta, EventStory, EventSummary, Lang, Location, Person, PersonName, Source, TermInfo, TopicLink } from './types';
 
@@ -44,8 +45,8 @@ export interface ArticleBody {
 /** A published topic's or biography's text, laid out like a story but without tooltips (section pages). */
 export function renderArticle(md: string, lang: Lang, terms: Map<string, TermInfo>, sources: Source[]): ArticleBody {
   const { story, notes } = splitNotes(md);
-  const html = marked.parse(renderTerms(story, lang, terms, false), { async: false }) as string;
-  const notesHtml = notes === null ? null : (marked.parse(renderTerms(notes, lang, terms, false), { async: false }) as string);
+  const html = marked.parse(renderTerms(story, lang, terms), { async: false }) as string;
+  const notesHtml = notes === null ? null : (marked.parse(renderTerms(notes, lang, terms), { async: false }) as string);
   return { html, notesHtml, sources };
 }
 
@@ -143,9 +144,12 @@ async function build(lang: Lang): Promise<ChronicleData> {
     const meta = metas.find((m) => m.id === id)!;
     const text = texts.get(id)!;
     const { story, notes } = splitNotes(text.body ?? '');
-    const html = marked.parse(renderTerms(story, lang, termMap), { async: false }) as string;
+    // Each term links to its page: a person's biography, else its glossary entry (every term has one).
+    const termHref = (t: string) =>
+      primaryTermHref({ id: t, ...(glossaryIds.has(t) ? { glossary: true as const } : {}), ...(biographyIds.has(t) ? { biography: true as const } : {}) }, lang);
+    const html = marked.parse(renderTerms(story, lang, termMap, termHref), { async: false }) as string;
     const notesHtml =
-      notes === null ? null : (marked.parse(renderTerms(notes, lang, termMap), { async: false }) as string);
+      notes === null ? null : (marked.parse(renderTerms(notes, lang, termMap, termHref), { async: false }) as string);
     plainStories[id] = plainText(story, lang, termMap);
     const title = text.data.title;
     const plate = plates.get(id);

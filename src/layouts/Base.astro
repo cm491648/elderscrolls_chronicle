@@ -5,6 +5,7 @@ import '../styles/tokens.css';
 import '../styles/global.css';
 import type { Lang } from '../lib/types';
 import { otherLangUrl } from '../lib/paths';
+import { t } from '../i18n';
 import { BEACON_TOKEN, SEARCH_CONSOLE_CODE, beaconConfig } from '../lib/analytics';
 
 interface Props {
@@ -53,10 +54,6 @@ const fontsHref = lang === 'zh-tw' ? fontsZhHref : fontsEnHref;
     <link rel="alternate" hreflang="en" href={otherLangUrl(path, 'en')} />
     <link rel="alternate" hreflang="x-default" href={root} />
     {SEARCH_CONSOLE_CODE && <meta name="google-site-verification" content={SEARCH_CONSOLE_CODE} />}
-    {/* Visit counting (decisions/analytics): deferred, so it never holds up the page. */}
-    {BEACON_TOKEN && (
-      <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={beaconConfig(BEACON_TOKEN)}></script>
-    )}
     {/*
       Fonts (fonts-zh.css / fonts-en.css) never block the first paint, and their slices are only requested once the page has loaded,
       so the dozens of small font files never queue ahead of the scripts, styles and map image the page needs first.
@@ -71,6 +68,22 @@ const fontsHref = lang === 'zh-tw' ? fontsZhHref : fontsEnHref;
     <noscript><link rel="stylesheet" href={fontsHref} /></noscript>
   </head>
   <body>
+    {/* Past the header and its links, to the page's own content (every page has a <main id="main">). */}
+    <a class="skip-link" href="#main">{t(lang, 'skipToMain')}</a>
     <slot />
+    {/*
+      Pages the reader is about to open (a link held under the pointer or the finger) are fetched ahead, so they open
+      at once: this is a static site, so a fetched page is the page. Links the map page opens in place are left out.
+    */}
+    <script is:inline type="speculationrules" set:html={JSON.stringify({
+      prefetch: [{
+        where: { and: [{ href_matches: inSite('/*') }, { not: { selector_matches: '.story-related a, .search-results a' } }] },
+        eagerness: 'moderate',
+      }],
+    })} />
+    {/* Visit counting (decisions/analytics): last, at low priority and deferred, so it never holds up the page. */}
+    {BEACON_TOKEN && (
+      <script is:inline defer fetchpriority="low" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={beaconConfig(BEACON_TOKEN)}></script>
+    )}
   </body>
 </html>

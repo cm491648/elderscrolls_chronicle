@@ -10,7 +10,7 @@ async function nav(page: Page, name: string) {
   const toggle = region.locator('.nav-toggle');
   if (await toggle.isVisible()) {
     await toggle.click();
-    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(region.locator('#site-nav-list')).toBeVisible();
   }
   return region;
 }
@@ -210,7 +210,8 @@ test('a gilt rule between the glossary categories, none above the first one show
 test('the story links its people, its topics and its terms', async ({ page }) => {
   await openApp(page, '/zh-tw/events/great-war/');
   const story = page.locator('.story');
-  await expect(story.getByRole('link', { name: '提圖斯·邁德二世' })).toHaveAttribute('href', /\/zh-tw\/biographies\/titus-mede-ii\/$/);
+  // The people list (the story's terms are links to the same pages too).
+  await expect(story.locator('section a:not(.term)').filter({ hasText: /^提圖斯·邁德二世$/ })).toHaveAttribute('href', /\/zh-tw\/biographies\/titus-mede-ii\/$/);
   await expect(story.locator('.story-topics a').first()).toHaveAttribute('href', /\/zh-tw\/topics\/great-war\/$/);
   const term = story.locator('.term[data-term="thalmor"]').first();
   // On a narrow screen the page scrolls the story to its opening by itself and folds the map once it is read past; the
@@ -231,8 +232,12 @@ test('a person with no biography links to the glossary, one with a biography to 
   const name = (id: string) => people.find((p) => p.id === id)!.name['zh-tw'];
   await openApp(page, '/zh-tw/events/battle-of-red-mountain/');
   const story = page.locator('.story');
-  await expect(story.getByRole('link', { name: name('kagrenac'), exact: true })).toHaveAttribute('href', /\/zh-tw\/glossary\/#kagrenac$/);
-  await expect(story.getByRole('link', { name: name('nerevar'), exact: true })).toHaveAttribute('href', /\/zh-tw\/biographies\/nerevar\/$/);
+  // The people list; the story's own terms link the same way.
+  const listed = (id: string) => story.locator('section a:not(.term)').filter({ hasText: new RegExp(`^${name(id)}$`) });
+  await expect(listed('kagrenac')).toHaveAttribute('href', /\/zh-tw\/glossary\/#kagrenac$/);
+  await expect(listed('nerevar')).toHaveAttribute('href', /\/zh-tw\/biographies\/nerevar\/$/);
+  await expect(story.locator('.term[data-term="kagrenac"]').first()).toHaveAttribute('href', /\/zh-tw\/glossary\/#kagrenac$/);
+  await expect(story.locator('.term[data-term="nerevar"]').first()).toHaveAttribute('href', /\/zh-tw\/biographies\/nerevar\/$/);
   await openApp(page, '/zh-tw/glossary/#kagrenac');
   await expect(page.locator('#kagrenac')).toBeInViewport();
   await expect(page.locator('#kagrenac').getByRole('link', { name: '傳記' })).toHaveCount(0);

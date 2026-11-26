@@ -3,10 +3,19 @@
 /* Its frame on the leather header is shared with the language switch (global.css). */
 .search-toggle { margin-left: auto; }
 /* On the leather header (decisions/es-feel-spec-2). */
-.search-toggle[aria-expanded='true'] { background: rgb(239 226 196 / 0.14); }
-.search-toggle:hover { background: rgb(239 226 196 / 0.14); }
+.search-toggle[aria-expanded='true'] { background: var(--leather-wash); }
+.search-toggle:hover { background: var(--leather-wash); }
 
+/* A native <dialog> (SearchPanel.tsx): the browser's own dialog box (centred, fit-content, capped, Canvas) is undone and
+   the rules here place it, in the page's grid side by side, over the whole screen when covering it (.is-cover). */
 .search-panel {
+  position: relative; /* not the dialog's absolute; also holds the .corners */
+  inset: auto;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -17,6 +26,7 @@
   outline-offset: 4px;
   box-shadow: var(--shadow-pop);
 }
+.search-panel:not([open]) { display: none; }
 .search-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .search-head h2 { margin: 0; font-size: 1.05rem; }
 .search-close {
@@ -25,26 +35,30 @@
   gap: 4px;
   min-height: 28px;
   padding: 0 4px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--ink-soft);
   background: none;
   border: 0;
   cursor: pointer;
 }
 .search-close:hover { color: var(--accent); }
+/* The field and its label (a small vermilion rubric, like the filters' legend). */
+.search-form { display: flex; flex-direction: column; gap: 4px; }
+.search-label { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.12em; color: var(--accent-2); }
+.filter-form { display: block; }
 .search-field {
   width: 100%;
   min-height: 36px;
   padding: 4px 10px;
   font: inherit;
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--ink);
   background: var(--bg);
   border: 1px solid var(--ink-soft);
   border-radius: var(--radius);
 }
-.search-field:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-.search-note { margin: 0; font-size: 14px; color: var(--ink-soft); }
+.search-field:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; }
+.search-note { margin: 0; font-size: 0.875rem; color: var(--ink-soft); }
 .search-note p { margin: 0 0 6px; }
 .search-retry {
   min-height: 28px;
@@ -67,32 +81,32 @@
 }
 .search-results a:hover .hit-title { text-decoration: underline; }
 .hit-title { color: var(--accent); font-weight: 500; }
-.hit-date { font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.hit-where { grid-column: 1 / -1; font-size: 13px; color: var(--ink-soft); }
+.hit-date { font-size: 0.8125rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hit-where { grid-column: 1 / -1; font-size: 0.8125rem; color: var(--ink-soft); }
 /* Left out by the filter: still a result, its title in the plain ink and a small note (no opacity, so it stays legible). */
 .search-results .is-filtered .hit-title { color: var(--ink-soft); font-weight: 400; }
-.hit-filtered { grid-column: 1 / -1; justify-self: start; font-size: 12px; color: var(--ink-soft); border: 1px solid var(--line); padding: 0 4px; }
+.hit-filtered { grid-column: 1 / -1; justify-self: start; font-size: 0.75rem; color: var(--ink-soft); border: 1px solid var(--line); padding: 0 4px; }
 /* Not bold: a match can be any character, and bold sans holds only names and labels (scripts/font-subset.mjs). */
 .hit-where mark { color: var(--ink); background: var(--wash); }
 
 .search-count {
   min-width: 18px;
   padding: 0 4px;
-  font-size: 12px;
+  font-size: 0.75rem;
   text-align: center;
   color: var(--on-accent);
   background: var(--accent);
   font-variant-numeric: tabular-nums;
 }
 .filter-group { margin: 4px 0 0; padding: 8px 0 0; border: 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 4px 14px; }
-.filter-group legend { padding: 0; font-size: 13px; font-weight: 700; color: var(--accent-2); letter-spacing: 0.12em; }
-.filter-check { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; font-size: 14px; cursor: pointer; }
+.filter-group legend { padding: 0; font-size: 0.8125rem; font-weight: 700; color: var(--accent-2); letter-spacing: 0.12em; }
+.filter-check { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; font-size: 0.875rem; cursor: pointer; }
 .filter-check input { width: 16px; height: 16px; accent-color: var(--accent); }
-.filter-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 14px; font-variant-numeric: tabular-nums; }
+.filter-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
 .filter-clear { min-height: 28px; padding: 0 4px; color: var(--accent); background: none; border: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 
 /* Side by side: over the map's top left corner, never taller than the map; the map stays usable around it. */
-@media (min-width: 900px) and (min-height: 560px) {
+@media (min-width: 56.25em) and (min-height: 35em) {
   .search-panel {
     grid-column: 1;
     grid-row: 2;
@@ -109,7 +123,7 @@
   }
   /* The results keep room for a few hits; the filters never shrink under them. */
   .search-panel .search-results { flex: 1 1 auto; min-height: 8rem; }
-  .search-panel .filter-group, .search-panel .filter-foot { flex: none; }
+  .search-panel :is(.filter-form, .filter-group, .filter-foot) { flex: none; }
 }
 
 /* Narrow screens: the panel covers the screen and scrolls on its own. */
@@ -125,7 +139,12 @@
     max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
 }
 .search-panel.is-cover .search-results { overflow-y: visible; }
-html.search-covering { overflow: hidden; }
 /* While the panel sits on the map's top left, the map's "events here" popup opens on the right instead. */
 .search-open .map-popup { left: auto; right: 10px; z-index: 6; }
 /* (On a cramped map, a story open beside it, the two can still meet: the popup then sits on top, readable.) */
+
+/* Forced colours: a match keeps the system's own highlight; a result the filter leaves out is GrayText. */
+@media (forced-colors: active) {
+  .hit-where mark { color: MarkText; background: Mark; }
+  .search-results .is-filtered .hit-title { color: GrayText; }
+}

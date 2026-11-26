@@ -2,7 +2,7 @@ import type { RefObject } from 'preact';
 import { createPortal } from 'preact/compat';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import type { Lang, StoryTerm } from '../../lib/types';
-import { primaryTermHref, termLinks } from '../../lib/term-links';
+import { termLinks } from '../../lib/term-links';
 import { t } from '../../i18n';
 
 interface Props {
@@ -20,14 +20,19 @@ const HIDE_DELAY = 200;
 interface Open {
   el: HTMLElement;
   term: StoryTerm;
+  /** Opened by the pointer (hover, tap) or by the keyboard's focus. Only a pointer's tooltip offers its links: from
+   * the keyboard the term itself is the link, and its words are already its description (StoryPanel). */
+  via: 'pointer' | 'focus';
 }
 
 const htmlLang = (l: Lang) => (l === 'en' ? 'en' : 'zh-Hant-TW');
 
 /**
- * A tooltip for `.term` elements inside `container`: shows on hover, focus and tap; hides on leave, blur,
+ * A tooltip for the `.term` links inside `container`: shows on hover, focus and tap; hides on leave, blur,
  * Esc, an outside tap, or when the story scrolls (a resize only re-places it). It is portalled to <body>,
  * outside the story's live region, and the pointer may move into it without it closing.
+ * A mouse click and Enter follow the term's link as links do; on a touch screen the first tap shows the tooltip
+ * (decisions: tap to open on phones) and a second tap on the same term follows the link.
  */
 export function TermTooltip({ terms, lang, container }: Props) {
   const [open, setOpen] = useState<Open | null>(null);
@@ -60,43 +65,50 @@ export function TermTooltip({ terms, lang, container }: Props) {
     // Side by side the story's own column scrolls; on narrow screens the page does (listened to below).
     const scroller = root.closest('.story-col') ?? root;
     const inTip = (target: EventTarget | null) => target instanceof Node && !!tipRef.current?.contains(target);
-    const show = (el: HTMLElement | null) => {
+    const show = (el: HTMLElement | null, via: Open['via']) => {
       const term = el && byId.get(el.dataset.term ?? '');
       if (!el || !term) return;
       cancelHide();
-      // Re-entering the same term keeps the same object, so the tooltip does not re-layout or flicker.
-      setOpen((cur) => (cur && cur.el === el ? cur : { el, term }));
+      // Re-entering the same term keeps the same object, so the tooltip does not re-layout or flicker; a pointer
+      // reaching a term the keyboard opened adds the links.
+      setOpen((cur) => (cur && cur.el === el && (cur.via === via || cur.via === 'pointer') ? cur : { el, term, via }));
     };
+    /** The kind of pointer that pressed last (a tap's click follows its pointerdown). */
+    let pointerType = 'mouse';
+    /** The term the last tap opened: a second tap on it follows its link. */
+    let tapped: HTMLElement | null = null;
 
-    const onOver = (e: MouseEvent) => show(termOf(e.target));
+    const onOver = (e: MouseEvent) => show(termOf(e.target), 'pointer');
     const onOut = (e: MouseEvent) => {
       const from = termOf(e.target);
       if (!from || termOf(e.relatedTarget) === from || inTip(e.relatedTarget)) return;
       scheduleHide(from);
     };
-    const onFocusIn = (e: FocusEvent) => show(termOf(e.target));
+    const onFocusIn = (e: FocusEvent) => show(termOf(e.target), 'focus');
     const onFocusOut = (e: FocusEvent) => {
       const from = termOf(e.target);
       if (!from || tipRef.current?.matches(':hover')) return;
       cancelHide();
       setOpen((cur) => (cur && cur.el === from ? null : cur));
     };
-    const onClick = (e: MouseEvent) => show(termOf(e.target));
+    const onClick = (e: MouseEvent) => {
+      const el = termOf(e.target);
+      if (!el) return;
+      if (pointerType === 'mouse' || e.detail === 0 || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+      // A tap: the first one shows the tooltip, a second one on the same term follows the link.
+      if (tapped === el) return;
+      e.preventDefault();
+      tapped = el;
+      show(el, 'pointer');
+    };
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') close();
     };
-    // Enter on a focused term follows its main link (the links in the tooltip are for the pointer only).
-    const onEnter = (e: KeyboardEvent) => {
-      if (e.key !== 'Enter' || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+    const onDown = (e: PointerEvent) => {
+      pointerType = e.pointerType || 'mouse';
       const el = termOf(e.target);
-      const term = el && byId.get(el.dataset.term ?? '');
-      const href = term && primaryTermHref(term, lang);
-      if (!href) return;
-      e.preventDefault();
-      location.assign(href);
-    };
-    const onDown = (e: Event) => {
-      if (!termOf(e.target) && !inTip(e.target)) close();
+      if (el !== tapped && !inTip(e.target)) tapped = null;
+      if (!el && !inTip(e.target)) close();
     };
 
     root.addEventListener('mouseover', onOver);
@@ -104,7 +116,6 @@ export function TermTooltip({ terms, lang, container }: Props) {
     root.addEventListener('focusin', onFocusIn);
     root.addEventListener('focusout', onFocusOut);
     root.addEventListener('click', onClick);
-    root.addEventListener('keydown', onEnter);
     document.addEventListener('keydown', onKey);
     document.addEventListener('pointerdown', onDown);
     // The tooltip is position: fixed, so any scroll of the story pane or the page would strand it. A resize
@@ -120,24 +131,19 @@ export function TermTooltip({ terms, lang, container }: Props) {
       root.removeEventListener('focusin', onFocusIn);
       root.removeEventListener('focusout', onFocusOut);
       root.removeEventListener('click', onClick);
-      root.removeEventListener('keydown', onEnter);
       document.removeEventListener('keydown', onKey);
       document.removeEventListener('pointerdown', onDown);
       scroller.removeEventListener('scroll', close);
       removeEventListener('scroll', close);
       removeEventListener('resize', onResize);
     };
-  }, [container, byId, lang]);
+  }, [container, byId]);
 
-  // The trigger is described by the tooltip, and marked open, only while it is open.
+  // The trigger is marked open while its tooltip shows (its description is wired from the start, StoryPanel).
   useEffect(() => {
     if (!open) return;
-    open.el.setAttribute('aria-describedby', TIP_ID);
     open.el.classList.add('is-open');
-    return () => {
-      open.el.removeAttribute('aria-describedby');
-      open.el.classList.remove('is-open');
-    };
+    return () => open.el.classList.remove('is-open');
   }, [open]);
 
   useLayoutEffect(() => {
@@ -162,8 +168,8 @@ export function TermTooltip({ terms, lang, container }: Props) {
 
   if (!open || typeof document === 'undefined') return null;
   const other: Lang = lang === 'en' ? 'zh-tw' : 'en';
-  const { term } = open;
-  const links = termLinks(term, lang);
+  const { term, via } = open;
+  const links = via === 'pointer' ? termLinks(term, lang) : { biography: null, glossary: null };
   return createPortal(
     <div
       id={TIP_ID}
@@ -183,9 +189,9 @@ export function TermTooltip({ terms, lang, container }: Props) {
       </p>
       {term.summary && <p class="term-tip-summary">{term.summary}</p>}
       {(links.biography || links.glossary) && (
-        <p class="term-tip-links" aria-hidden="true">
-          {links.biography && <a href={links.biography} tabIndex={-1}>{t(lang, 'biographyPage')}</a>}
-          {links.glossary && <a href={links.glossary} tabIndex={-1}>{t(lang, 'termInGlossary')}</a>}
+        <p class="term-tip-links">
+          {links.biography && <a href={links.biography}>{t(lang, 'biographyPage')}</a>}
+          {links.glossary && <a href={links.glossary}>{t(lang, 'termInGlossary')}</a>}
         </p>
       )}
     </div>,

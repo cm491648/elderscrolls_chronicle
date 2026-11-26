@@ -17,8 +17,21 @@ const ratio = (a: string, b: string) => {
   return (x + 0.05) / (y + 0.05);
 };
 
+// The page itself (body, the sticky head) lays the vellum over --page with background-blend-mode: multiply, which is
+// darker than either: each channel is page × vellum / 255 (about #d0bd96 at the vellum's darkest).
+const multiply = (a: string, b: string) =>
+  '#' +
+  [1, 3, 5]
+    .map((i) => Math.round((parseInt(a.slice(i, i + 2), 16) * parseInt(b.slice(i, i + 2), 16)) / 255))
+    .map((v) => v.toString(16).padStart(2, '0'))
+    .join('');
+
 test.each(['ink', 'ink-soft', 'accent', 'accent-2'])('--%s stays readable on the darkest of the paper', (name) => {
   expect(ratio(token(name), tex.vellum.dark)).toBeGreaterThanOrEqual(4.5);
+});
+
+test.each(['ink', 'ink-soft', 'accent', 'accent-2'])('--%s stays readable on the darkest of the page (vellum × --page)', (name) => {
+  expect(ratio(token(name), multiply(token('page'), tex.vellum.dark))).toBeGreaterThanOrEqual(4.5);
 });
 
 test.each(['on-leather', 'on-leather-soft'])('--%s stays readable on the lightest of the leather', (name) => {

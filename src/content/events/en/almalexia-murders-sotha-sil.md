@@ -26,6 +26,12 @@ sources:
     url: https://en.uesp.net/wiki/Lore:Tribunal_Temple
   - title: "The Elder Scrolls III: Morrowind — Tribunal main quest"
     kind: game
+  - title: "Tribunal: Trueflame"
+    kind: game
+    url: https://en.uesp.net/wiki/Tribunal:Trueflame
+  - title: "Tribunal: Hopesfire"
+    kind: game
+    url: https://en.uesp.net/wiki/Tribunal:Hopesfire
 certainty: canon
 review: agreed
 ---
@@ -33,9 +39,9 @@ Since {{dagoth-ur}} woke in 882 of the {{era-second}}, the {{tribunal}} had been
 
 In 427 the {{nerevarine}} came to {{mournhold}}, her city. The hero took on tasks for her {{tribunal-temple|Temple}}, and at her request recovered {{barilzars-mazed-band}}, an old enchanted ring. Not long after, strange mechanical creatures burst into one of the city's plazas and attacked the people there. The hero destroyed them.
 
-{{almalexia}} now gave the hero work of her own. On her orders the hero woke an old {{dwemer}} machine beneath the city, and ash storms swept over {{mournhold}}, a punishment for subjects she judged weak in faith. She openly accepted the stranger as the {{nerevarine}} and had the hero recover {{trueflame}}, the broken sword of her dead husband {{nerevar}}. Once it was made whole, she kept it. Then she declared that {{sotha-sil}} had gone mad and sent the machines against her city. She sent the hero into the {{clockwork-city}} to kill him.
+{{almalexia}} now gave the hero work of her own. On her orders the hero woke an old {{dwemer}} machine beneath the city, and ash storms swept over {{mournhold}}, a punishment for subjects she judged weak in faith. She openly accepted the stranger as the {{nerevarine}} and had the hero recover {{trueflame}}, the broken sword of her dead husband {{nerevar}}, and forge it anew. Then she declared that {{sotha-sil}} had gone mad and sent the machines against her city. She sent the hero into the {{clockwork-city}} to kill him.
 
-The hero fought past the city's {{fabricants}} and reached the dome at its heart. {{sotha-sil}} was already dead. {{almalexia}} appeared and told what she had done. She had used the ring to reach the city and murder him, and she had loosed his creatures on {{mournhold}} herself. The hero was meant to die here and be mourned as a martyr slain by a mad god, while she ruled the {{dunmer}} alone, one god over one faith, answering to neither king nor Empire. She attacked with {{trueflame}} in her hand. Her strength had failed with her divinity, and the hero killed her, took up {{trueflame}} and used the ring to leave.
+The hero fought past the city's {{fabricants}} and reached the dome at its heart. {{sotha-sil}} was already dead. {{almalexia}} appeared and told what she had done. She had used the ring to reach the city and murder him, and she had loosed his creatures on {{mournhold}} herself. The hero was meant to die here and be mourned as a martyr slain by a mad god, while she ruled the {{dunmer}} alone, one god over one faith, answering to neither king nor Empire. She attacked with her own blade, the twin of {{trueflame}}. Her strength had failed with her divinity, and the hero killed her and used the ring to leave.
 
 {{azura}} spoke to the hero afterward. The death of {{almalexia}}, she said, was a blessing for {{morrowind}}, though its people could not yet see it; the Lady of Mercy would have betrayed them as she had betrayed everyone she loved. The skies over {{mournhold}} cleared. Of the three living gods, only {{vivec}} remained.
 

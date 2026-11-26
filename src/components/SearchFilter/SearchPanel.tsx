@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { loadSearchIndex, searchEvents, type SearchEntry } from '../../lib/search';
 import { formatDate } from '../../lib/format';
 import { eventUrl } from '../../lib/paths';
@@ -33,13 +33,16 @@ type IndexState = { status: 'loading' } | { status: 'failed' } | { status: 'read
 /**
  * The search panel (docs/design/search-filter.md): a search field whose results list as links while typing. The
  * index is fetched the first time the panel opens. Arrow keys inside belong to the panel (data-own-arrows).
+ *
+ * A native <dialog>: covering the screen (narrow) it is modal (showModal: the page under it is inert and out of reach,
+ * Tab stays inside, Escape closes it); side by side it sits on the map and leaves the page usable (show).
  */
 export function SearchPanel({ lang, events, wide, onClose, onSelect, filter, onFilterChange, matching, dimmed }: Props) {
   const [query, setQuery] = useState('');
   const [state, setState] = useState<IndexState>({ status: 'loading' });
   const [attempt, setAttempt] = useState(0);
   const [announce, setAnnounce] = useState('');
-  const rootRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -54,9 +57,15 @@ export function SearchPanel({ lang, events, wide, onClose, onSelect, filter, onF
     };
   }, [lang, attempt]);
 
-  useEffect(() => {
+  // A dialog cannot switch between modal and not while open: crossing the width where the page goes side by side
+  // closes and opens it again the other way.
+  useLayoutEffect(() => {
+    const dialog = rootRef.current!;
+    if (dialog.open) dialog.close();
+    if (wide) dialog.show();
+    else dialog.showModal();
     inputRef.current?.focus();
-  }, []);
+  }, [wide]);
 
   const byId = useMemo(() => new Map(events.map((e) => [e.id, e])), [events]);
   const hits = useMemo(
@@ -76,27 +85,29 @@ export function SearchPanel({ lang, events, wide, onClose, onSelect, filter, onF
     return () => clearTimeout(timer);
   }, [searching, hits, lang]);
 
-  const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      onClose(true);
+  // A changed filter is read out too: how many events it now keeps (the line under the checkboxes says the same).
+  const filterSaid = useRef(false);
+  useEffect(() => {
+    if (!filterSaid.current) {
+      filterSaid.current = true;
       return;
     }
-    // Covering the screen, the panel keeps Tab inside itself.
-    if (e.key !== 'Tab' || wide) return;
-    const focusable = [...rootRef.current!.querySelectorAll<HTMLElement>('input, button, a[href]')].filter(
-      (el) => !el.hidden && !(el as HTMLButtonElement).disabled,
-    );
-    if (focusable.length === 0) return;
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (e.shiftKey && (document.activeElement === first || document.activeElement === rootRef.current)) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
-    }
+    setAnnounce('');
+    const message = !isFilterActive(filter)
+      ? ''
+      : matching === 0
+        ? t(lang, 'filterNone')
+        : t(lang, 'filterMatching', { n: matching, total: events.length });
+    if (!message) return;
+    const timer = setTimeout(() => setAnnounce(message), ANNOUNCE_DELAY);
+    return () => clearTimeout(timer);
+  }, [filter, matching]);
+
+  // Escape closes the panel either way (a modal dialog would close itself, but the page owns the panel's state).
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key !== 'Escape') return;
+    e.preventDefault();
+    onClose(true);
   };
 
   const choose = (e: MouseEvent, id: string) => {
@@ -109,17 +120,17 @@ export function SearchPanel({ lang, events, wide, onClose, onSelect, filter, onF
   };
 
   return (
-    <div
+    <dialog
       id={SEARCH_PANEL_ID}
       ref={rootRef}
       class={`search-panel paper corners${wide ? '' : ' is-cover'}`}
-      role="dialog"
-      aria-modal={wide ? 'false' : 'true'}
       aria-labelledby="search-panel-title"
-      // A click on the panel's background keeps the focus in the panel (so Tab stays trapped on narrow screens).
-      tabIndex={-1}
       data-own-arrows
       onKeyDown={onKeyDown}
+      onCancel={(e) => {
+        e.preventDefault();
+        onClose(true);
+      }}
     >
       <div class="search-head">
         <h2 id="search-panel-title">{t(lang, 'searchPanel')}</h2>
@@ -128,7 +139,8 @@ export function SearchPanel({ lang, events, wide, onClose, onSelect, filter, onF
           {t(lang, 'close')}
         </button>
       </div>
-      <label class="sr-only" for="search-field">
+      <search class="search-form">
+      <label class="search-label" for="search-field">
         {t(lang, 'searchLabel')}
       </label>
       <input
@@ -142,6 +154,7 @@ export function SearchPanel({ lang, events, wide, onClose, onSelect, filter, onF
         value={query}
         onInput={(e) => setQuery((e.target as HTMLInputElement).value)}
       />
+      </search>
       <p class="sr-only" aria-live="polite">
         {announce}
       </p>
@@ -193,6 +206,7 @@ export function SearchPanel({ lang, events, wide, onClose, onSelect, filter, onF
         </ul>
       )}
       {/* Filters (decisions/p3-retag, p3-filter-review): the seven categories; any ticked one matches. */}
+      <search class="filter-form">
       <fieldset class="filter-group">
         <legend>{t(lang, 'filterCategories')}</legend>
         {FILTER_CATEGORIES.map((c: Category) => {
@@ -211,6 +225,7 @@ export function SearchPanel({ lang, events, wide, onClose, onSelect, filter, onF
           );
         })}
       </fieldset>
+      </search>
       {isFilterActive(filter) && (
         <div class="filter-foot">
           <span>{matching === 0 ? t(lang, 'filterNone') : t(lang, 'filterMatching', { n: matching, total: events.length })}</span>
@@ -226,6 +241,6 @@ export function SearchPanel({ lang, events, wide, onClose, onSelect, filter, onF
           </button>
         </div>
       )}
-    </div>
+    </dialog>
   );
 }
